@@ -18,7 +18,8 @@ class MainApp extends StatelessWidget {
           create: (context) => AuthBloc(),
         ),
       ],
-      child: const MaterialApp(home: WelcomeScreen()),
+      child: MaterialApp(
+          theme: ThemeData(fontFamily: 'cabin'), home: const WelcomeScreen()),
     );
   }
 }
