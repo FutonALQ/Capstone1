@@ -1,7 +1,7 @@
-
-import 'package:capstone_1/services/test6.dart';
-
+import 'package:capstone_1/blocs/auth_bloc/auth_bloc.dart';
+import 'package:capstone_1/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   runApp(const MainApp());
@@ -12,8 +12,13 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-      home:Home()
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => AuthBloc(),
+        ),
+      ],
+      child: const MaterialApp(home: WelcomeScreen()),
     );
   }
 }
