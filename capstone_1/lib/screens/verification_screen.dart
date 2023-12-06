@@ -29,7 +29,7 @@ class VerificationScreen extends StatelessWidget {
               "Verification",
               style: TextStyle(
                   fontSize: 35,
-                  color: Colors.blueGrey,
+                  color: Color(0xff8ECAE6),
                   fontWeight: FontWeight.bold),
             ),
             const SizedBox(
@@ -41,6 +41,7 @@ class VerificationScreen extends StatelessWidget {
               isPassword: false,
               controller: otpController,
               icon: Icons.password_rounded,
+              isAge: false,
             ),
             const SizedBox(
               height: 100,
@@ -48,8 +49,6 @@ class VerificationScreen extends StatelessWidget {
             BlocListener<AuthBloc, AuthStates>(
               listener: (context, state) {
                 if (state is LoadingOtpState) {
-                  print("otp");
-
                   showDialog(
                       context: context,
                       builder: (context) =>
@@ -78,7 +77,7 @@ class VerificationScreen extends StatelessWidget {
                   height: 50,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Colors.blueGrey),
+                      color: const Color(0xff8ECAE6)),
                   child: const Center(
                     child: Text(
                       "Send",

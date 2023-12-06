@@ -27,11 +27,11 @@ class WelcomeScreen extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.only(top: 100.0, left: 20.0),
                 child: Text(
-                  "Discover best \ntrips to visit",
+                  "Start your next \nadventure, where \nnew friends meet",
                   style: TextStyle(
-                      fontSize: 45,
+                      fontSize: 35,
                       fontWeight: FontWeight.w700,
-                      height: 1.3,
+                      height: 1.1,
                       color: Color.fromARGB(255, 50, 50, 50)),
                 ),
               ),

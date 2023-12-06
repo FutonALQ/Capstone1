@@ -20,6 +20,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final nameController = TextEditingController();
+  final phoneController = TextEditingController();
+  final ageController = TextEditingController();
   final genderList = [
     "Female",
     "Male",
@@ -35,34 +37,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(
-                height: 50,
+                height: 40,
               ),
               const Text(
-                "Let's Sign up",
+                "Sign up",
                 style: TextStyle(
-                    fontSize: 35,
-                    color: Colors.blueGrey,
-                    fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                height: 60,
-              ),
-              AddTextField(
-                label: 'Email Adress',
-                hint: 'your email',
-                isPassword: false,
-                controller: emailController,
-                icon: Icons.email,
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              AddTextField(
-                label: 'Password',
-                hint: 'your password',
-                isPassword: true,
-                controller: passwordController,
-                icon: Icons.password,
+                    fontSize: 40,
+                    color: Color(0xff8ECAE6),
+                    fontWeight: FontWeight.w700),
               ),
               const SizedBox(
                 height: 30,
@@ -73,6 +55,51 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 isPassword: false,
                 controller: nameController,
                 icon: Icons.person,
+                isAge: false,
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              AddTextField(
+                label: 'Email Adress',
+                hint: 'your email',
+                isPassword: false,
+                controller: emailController,
+                icon: Icons.email,
+                isAge: false,
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              AddTextField(
+                label: 'Password',
+                hint: 'your password',
+                isPassword: true,
+                controller: passwordController,
+                icon: Icons.password,
+                isAge: false,
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              AddTextField(
+                label: 'Phone',
+                hint: 'your phone number',
+                isPassword: false,
+                controller: phoneController,
+                icon: Icons.phone,
+                isAge: true,
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              AddTextField(
+                label: 'Age',
+                hint: 'your age',
+                isPassword: false,
+                controller: ageController,
+                icon: Icons.numbers,
+                isAge: true,
               ),
               const SizedBox(
                 height: 30,
@@ -84,7 +111,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     children: [
                       const Text(
                         "Select City:",
-                        style: TextStyle(fontSize: 16, color: Colors.blueGrey),
+                        style:
+                            TextStyle(fontSize: 16, color: Color(0xff219EBC)),
                       ),
                       const SizedBox(
                         height: 8,
@@ -108,18 +136,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               value: value,
                               child: Text(
                                 value,
-                                style: const TextStyle(fontSize: 16),
+                                style: const TextStyle(fontSize: 14),
                               ),
                             );
                           }).toList(),
                           icon: const Icon(Icons.arrow_drop_down,
-                              color: Colors.blue),
+                              color: Color(0xff219EBC)),
                           iconSize: 36,
                           elevation: 16,
                           style: const TextStyle(color: Colors.black),
                           underline: Container(
                             height: 2,
-                            color: Colors.blue,
+                            color: const Color(0xff219EBC),
                           ),
                         ),
                       ),
@@ -128,7 +156,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                       const Text(
                         "Select Gender:",
-                        style: TextStyle(fontSize: 16, color: Colors.blueGrey),
+                        style:
+                            TextStyle(fontSize: 16, color: Color(0xff219EBC)),
                       ),
                       const SizedBox(
                         height: 8,
@@ -143,7 +172,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         itemBuilder: (item) => RadioButtonBuilder(
                           item,
                         ),
-                        fillColor: Colors.blueGrey,
+                        fillColor: const Color(0xff8ECAE6),
                       ),
                     ]),
               ),
@@ -178,6 +207,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           emailController.text,
                           passwordController.text,
                           nameController.text,
+                          phoneController.text,
+                          ageController.text,
+                          selectedCity,
+                          gender,
                         ));
                   },
                   child: Container(
@@ -185,7 +218,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     height: 50,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Colors.grey),
+                        color: const Color(0xff8ECAE6)),
                     child: const Center(
                       child: Text(
                         "Sign up",
@@ -217,7 +250,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       "  Sign in",
                       style: TextStyle(
                           fontSize: 15,
-                          color: Colors.blueGrey,
+                          color: Color(0xff219EBC),
                           fontWeight: FontWeight.bold),
                     ),
                   )

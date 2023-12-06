@@ -21,7 +21,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthStates> {
             await supabase.auth
                 .signUp(email: event.email, password: event.password);
 
-            user = UserModel(name: event.name, email: event.email);
+            user = UserModel(
+                name: event.name,
+                email: event.email,
+                phone: event.phone,
+                age: event.age,
+                gender: event.gender,
+                imageUrl:
+                    "https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-foreigners-avatar-child-face.png",
+                city: event.city);
 
             emit(SuccessSignUpState());
           } else {
@@ -30,9 +38,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthStates> {
         } else {
           emit(ErrorSignUpState("Please enter all fields"));
         }
-      } catch (error) {
-        print(error.toString());
-        emit(ErrorSignUpState("error!"));
+      } catch (authException) {
+        if (authException is AuthException) {
+          print("AuthException: ${authException.message}");
+          emit(ErrorSignUpState(authException.message));
+        } else {
+          // Handle other exceptions
+          print("Unexpected error: $authException");
+          emit(ErrorSignUpState("Unexpected error occurred"));
+        }
       }
     });
 
@@ -50,13 +64,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthStates> {
           addUser({
             "name": user!.name,
             "email": user!.email,
-            "user_uuid": authResponse.user!.id
+            "user_uuid": authResponse.user!.id,
+            "gender": user!.gender,
+            "phone": user!.phone,
+            "city": user!.city,
+            "image_url": user!.imageUrl,
+            "age": user!.age,
           });
           emit(SuccessOtpState());
         } else {
           emit(ErrorOtpState("Please enter otp"));
         }
       } catch (e) {
+        print(e);
         emit(ErrorOtpState("Error !!"));
       }
     });

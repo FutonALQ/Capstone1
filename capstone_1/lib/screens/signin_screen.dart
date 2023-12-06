@@ -20,6 +20,17 @@ class SigninScreen extends StatelessWidget {
     TextEditingController passwordController = TextEditingController();
 
     return Scaffold(
+      // appBar: AppBar(
+      //   automaticallyImplyLeading: false,
+      //   title: const Text(
+      //     "Sign in",
+      //     style: TextStyle(
+      //       fontSize: 30,
+      //     ),
+      //   ),
+      //   backgroundColor: Colors.transparent,
+      //   elevation: 0,
+      // ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -28,14 +39,17 @@ class SigninScreen extends StatelessWidget {
             height: 50,
           ),
           const Text(
-            "Let's Sign in",
+            "Sign in",
             style: TextStyle(
-                fontSize: 35, color: Colors.blue, fontWeight: FontWeight.bold),
+                fontSize: 35,
+                color: Color(0xff219EBC),
+                fontWeight: FontWeight.w700),
           ),
           const SizedBox(
-            height: 60,
+            height: 40,
           ),
           AddTextField(
+            isAge: false,
             label: 'Email',
             hint: 'Enter your email',
             isPassword: false,
@@ -48,6 +62,7 @@ class SigninScreen extends StatelessWidget {
           AddTextField(
             label: 'Password',
             hint: 'Enter Password',
+            isAge: false,
             isPassword: true,
             controller: passwordController,
             icon: Icons.password_rounded,
@@ -87,7 +102,7 @@ class SigninScreen extends StatelessWidget {
                 height: 50,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: Colors.blueGrey),
+                    color: const Color(0xff8ECAE6)),
                 child: const Center(
                   child: Text(
                     "Sign in",
@@ -119,7 +134,7 @@ class SigninScreen extends StatelessWidget {
                   "  Sign up",
                   style: TextStyle(
                       fontSize: 15,
-                      color: Colors.blueGrey,
+                      color: Color(0xff219EBC),
                       fontWeight: FontWeight.bold),
                 ),
               )

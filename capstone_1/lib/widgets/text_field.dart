@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class AddTextField extends StatelessWidget {
   const AddTextField({
@@ -8,10 +9,12 @@ class AddTextField extends StatelessWidget {
     required this.isPassword,
     required this.controller,
     required this.icon,
+    required this.isAge,
   });
   final String label;
   final String hint;
   final bool isPassword;
+  final bool isAge;
   final IconData icon;
   final TextEditingController controller;
   @override
@@ -22,6 +25,8 @@ class AddTextField extends StatelessWidget {
       child: TextField(
         controller: controller,
         obscureText: isPassword,
+        keyboardType: isAge ? TextInputType.number : TextInputType.text,
+        inputFormatters: isAge ? [FilteringTextInputFormatter.digitsOnly] : [],
         decoration: InputDecoration(
           floatingLabelBehavior: FloatingLabelBehavior.always,
           label: Text(
@@ -32,7 +37,7 @@ class AddTextField extends StatelessWidget {
           hintText: hint,
           hintStyle: const TextStyle(
               color: Color.fromARGB(255, 198, 198, 198), fontSize: 14),
-          suffixIconColor: Colors.blueGrey,
+          suffixIconColor: const Color.fromARGB(143, 255, 184, 3),
           suffixIcon: Icon(icon),
           filled: true,
           fillColor: Colors.white,
