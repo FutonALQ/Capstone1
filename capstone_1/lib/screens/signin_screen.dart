@@ -3,7 +3,7 @@
 import 'package:capstone_1/blocs/auth_bloc/auth_bloc.dart';
 import 'package:capstone_1/blocs/auth_bloc/auth_events.dart';
 import 'package:capstone_1/blocs/auth_bloc/auth_states.dart';
-import 'package:capstone_1/screens/home_screen.dart';
+import 'package:capstone_1/screens/nav_bar.dart';
 import 'package:capstone_1/screens/signup_screen.dart';
 import 'package:capstone_1/widgets/text_field.dart';
 import 'package:flutter/material.dart';
@@ -86,7 +86,8 @@ class SigninScreen extends StatelessWidget {
                 Navigator.pop(context);
                 Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(builder: (context) => const HomeScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => const AppNavigationBar()),
                     (route) => false);
               }
             },

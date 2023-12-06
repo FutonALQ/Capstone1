@@ -3,7 +3,7 @@
 import 'package:capstone_1/blocs/auth_bloc/auth_bloc.dart';
 import 'package:capstone_1/blocs/auth_bloc/auth_events.dart';
 import 'package:capstone_1/blocs/auth_bloc/auth_states.dart';
-import 'package:capstone_1/screens/home_screen.dart';
+import 'package:capstone_1/screens/nav_bar.dart';
 import 'package:capstone_1/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -62,7 +62,7 @@ class VerificationScreen extends StatelessWidget {
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const HomeScreen()),
+                          builder: (context) => const AppNavigationBar()),
                       (route) => false);
                 }
               },
