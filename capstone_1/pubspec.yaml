@@ -20,6 +20,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
   fonts:
     - family: cabin
       fonts:
@@ -32,3 +33,6 @@ flutter:
           weight: 700
   assets:
   - lib/assets/
+
+ 
+
