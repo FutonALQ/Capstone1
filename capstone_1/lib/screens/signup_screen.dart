@@ -1,6 +1,7 @@
 import 'package:capstone_1/blocs/auth_bloc/auth_bloc.dart';
 import 'package:capstone_1/blocs/auth_bloc/auth_events.dart';
 import 'package:capstone_1/blocs/auth_bloc/auth_states.dart';
+import 'package:capstone_1/screens/signin_screen.dart';
 import 'package:capstone_1/screens/verification_screen.dart';
 import 'package:capstone_1/widgets/text_field.dart';
 import 'package:flutter/material.dart';
@@ -101,7 +102,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               selectedCity = newValue!;
                             });
                           },
-                          items: <String>['Riyadh', 'Jeddah', 'Abha']
+                          items: <String>['Riyadh', 'Jeddah', 'Dammam']
                               .map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
@@ -157,12 +158,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         context: context,
                         builder: (context) =>
                             const Center(child: CircularProgressIndicator()));
-
                   } else if (state is ErrorSignUpState) {
                     Navigator.pop(context);
                     ScaffoldMessenger.of(context)
                         .showSnackBar(SnackBar(content: Text(state.message)));
-                        
                   } else if (state is SuccessSignUpState) {
                     Navigator.pop(context);
                     Navigator.push(
@@ -198,6 +197,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                 ),
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("Joined us before?"),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SigninScreen(),
+                          ));
+                    },
+                    child: const Text(
+                      "  Sign in",
+                      style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.blueGrey,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  )
+                ],
               )
             ],
           ),

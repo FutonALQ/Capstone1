@@ -52,11 +52,14 @@ class VerificationScreen extends StatelessWidget {
 
                   showDialog(
                       context: context,
-                      builder: (context) => const CircularProgressIndicator());
+                      builder: (context) =>
+                          const Center(child: CircularProgressIndicator()));
                 } else if (state is ErrorOtpState) {
+                  Navigator.pop(context);
                   ScaffoldMessenger.of(context)
                       .showSnackBar(SnackBar(content: Text(state.message)));
-                } else if (state is SuccessSignUpState) {
+                } else if (state is SuccessOtpState) {
+                  Navigator.pop(context);
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
