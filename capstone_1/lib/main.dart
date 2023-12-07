@@ -1,6 +1,6 @@
 import 'package:capstone_1/blocs/auth_bloc/auth_bloc.dart';
 import 'package:capstone_1/blocs/search_bloc/search_bloc.dart';
-import 'package:capstone_1/screens/nav_bar.dart';
+import 'package:capstone_1/screens/welcome_screen.dart';
 import 'package:capstone_1/services/supabase_service.dart';
 import 'package:capstone_1/themes/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +28,7 @@ class MainApp extends StatelessWidget {
       ],
       child: MaterialApp(
         theme: appThemme['light'],
-        home: const AppNavigationBar(),
+        home: const WelcomeScreen(),
       ),
     );
   }
