@@ -1,4 +1,5 @@
 import 'package:capstone_1/globals/global_user.dart';
+import 'package:capstone_1/screens/profile_screen.dart';
 import 'package:capstone_1/screens/tripdeatail_screen.dart';
 import 'package:capstone_1/widgets/container.dart';
 import 'package:flutter/material.dart';
@@ -63,12 +64,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   )
                 ],
               ),
-              ClipOval(
-                child: Image.network(
-                  currentUser!.imageUrl!,
-                  height: 60,
-                  width: 60,
-                  fit: BoxFit.cover,
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const UserProfile()));
+                },
+                child: ClipOval(
+                  child: Image.network(
+                    currentUser!.imageUrl!,
+                    height: 60,
+                    width: 60,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               )
             ],
@@ -77,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 30,
           ),
           const Text(
-            'Discover Places ',
+            'Discover Trips ',
             style: TextStyle(
               color: Color.fromARGB(208, 2, 48, 71),
               fontSize: 20,
