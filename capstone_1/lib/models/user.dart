@@ -1,9 +1,9 @@
 class UserModel {
-  String? id;
+  int? id;
   String? name;
   String? email;
-  String? phone;
-  String? age;
+  int? phone;
+  int? age;
   String? city;
   String? password;
   String? user_uuid;

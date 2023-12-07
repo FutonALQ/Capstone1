@@ -20,17 +20,26 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
   fonts:
-    - family: cabin
+    - family: DMSans
       fonts:
-        - asset: lib/assets/Cabin_Condensed/CabinCondensed-Regular.ttf
-        - asset: lib/assets/Cabin_Condensed/CabinCondensed-Medium.ttf
+        - asset: lib/assets/DMSans/DMSans-Regular.ttf
+        - asset: lib/assets/DMSans/DMSans-Medium.ttf
           weight: 500
-        - asset: lib/assets/Cabin_Condensed/CabinCondensed-SemiBold.ttf
+        - asset: lib/assets/DMSans/DMSans-SemiBold.ttf
           weight: 600
-        - asset: lib/assets/Cabin_Condensed/CabinCondensed-Bold.ttf
+        - asset: lib/assets/DMSans/DMSans-Bold.ttf
           weight: 700
+  # fonts:
+  #   - family: cabin
+  #     fonts:
+  #       - asset: lib/assets/Cabin_Condensed/CabinCondensed-Regular.ttf
+  #       - asset: lib/assets/Cabin_Condensed/CabinCondensed-Medium.ttf
+  #         weight: 500
+  #       - asset: lib/assets/Cabin_Condensed/CabinCondensed-SemiBold.ttf
+  #         weight: 600
+  #       - asset: lib/assets/Cabin_Condensed/CabinCondensed-Bold.ttf
+  #         weight: 700
   assets:
   - lib/assets/
 

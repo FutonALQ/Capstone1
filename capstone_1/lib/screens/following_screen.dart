@@ -2,19 +2,21 @@ import 'package:capstone_1/screens/tripdeatail_screen.dart';
 import 'package:flutter/material.dart';
 
 class TripListScreen extends StatelessWidget {
+  const TripListScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey,
       appBar: AppBar(
         backgroundColor: Colors.grey,
-        title: Text('Followers'),
+        title: const Text('Followers'),
       ),
       body: ListView(
         children: [
           TripContainer(
             userName: 'User 1',
-            imageUrl: 'lib/assets/images/testtrip.jpg',
+            imageUrl: 'lib/assets/testtrip.jpg',
             onTap: () {
               Navigator.push(
                 context,
@@ -27,17 +29,17 @@ class TripListScreen extends StatelessWidget {
                           tripLocation: 'Riyadh',
                           tripDate: '4/1/2024',
                           tripGovernor: 'user',
-                          tripImageUrl: 'lib/assets/images/testtrip.jpg',
+                          tripImageUrl: 'lib/assets/testtrip.jpg',
                         )),
               );
             },
           ),
-          SizedBox(
+          const SizedBox(
             height: 1,
           ),
           TripContainer(
             userName: 'User 2',
-            imageUrl: 'lib/assets/images/testtrip.jpg',
+            imageUrl: 'lib/assets/testtrip.jpg',
             onTap: () {
               Navigator.push(
                 context,
@@ -50,17 +52,17 @@ class TripListScreen extends StatelessWidget {
                           tripLocation: 'Riyadh',
                           tripDate: '4/1/2024',
                           tripGovernor: 'user',
-                          tripImageUrl: 'lib/assets/images/testtrip.jpg',
+                          tripImageUrl: 'lib/assets/testtrip.jpg',
                         )),
               );
             },
           ),
-          SizedBox(
+          const SizedBox(
             height: 1,
           ),
           TripContainer(
             userName: 'User 2',
-            imageUrl: 'lib/assets/images/testtrip.jpg',
+            imageUrl: 'lib/assets/testtrip.jpg',
             onTap: () {
               Navigator.push(
                 context,
@@ -73,14 +75,14 @@ class TripListScreen extends StatelessWidget {
                           tripLocation: 'Riyadh',
                           tripDate: '4/1/2024',
                           tripGovernor: 'user',
-                          tripImageUrl: 'lib/assets/images/testtrip.jpg',
+                          tripImageUrl: 'lib/assets/testtrip.jpg',
                         )),
               );
             },
           ),
           TripContainer(
             userName: 'User 2',
-            imageUrl: 'lib/assets/images/testtrip.jpg',
+            imageUrl: 'lib/assets/testtrip.jpg',
             onTap: () {
               Navigator.push(
                 context,
@@ -93,14 +95,14 @@ class TripListScreen extends StatelessWidget {
                           tripLocation: 'Riyadh',
                           tripDate: '4/1/2024',
                           tripGovernor: 'user',
-                          tripImageUrl: 'lib/assets/images/testtrip.jpg',
+                          tripImageUrl: 'lib/assets/testtrip.jpg',
                         )),
               );
             },
           ),
           TripContainer(
             userName: 'User 2',
-            imageUrl: 'lib/assets/images/testtrip.jpg',
+            imageUrl: 'lib/assets/testtrip.jpg',
             onTap: () {
               Navigator.push(
                 context,
@@ -113,7 +115,7 @@ class TripListScreen extends StatelessWidget {
                           tripLocation: 'Riyadh',
                           tripDate: '4/1/2024',
                           tripGovernor: 'user',
-                          tripImageUrl: 'lib/assets/images/testtrip.jpg',
+                          tripImageUrl: 'lib/assets/testtrip.jpg',
                         )),
               );
             },
@@ -129,7 +131,8 @@ class TripContainer extends StatelessWidget {
   final String imageUrl;
   final VoidCallback onTap;
 
-  TripContainer({
+  const TripContainer({
+    super.key,
     required this.userName,
     required this.imageUrl,
     required this.onTap,
@@ -140,7 +143,7 @@ class TripContainer extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.all(8),
+        margin: const EdgeInsets.all(8),
         height: 200,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
@@ -150,7 +153,7 @@ class TripContainer extends StatelessWidget {
           ),
         ),
         child: Container(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             gradient: LinearGradient(
@@ -166,7 +169,7 @@ class TripContainer extends StatelessWidget {
             alignment: Alignment.bottomLeft,
             child: Text(
               'Published by: $userName',
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 18,
                 fontWeight: FontWeight.bold,

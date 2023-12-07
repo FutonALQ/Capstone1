@@ -22,7 +22,7 @@ class MainApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-          theme: ThemeData(fontFamily: 'cabin'), home: const WelcomeScreen()),
+          theme: ThemeData(fontFamily: 'DMSans'), home: const WelcomeScreen()),
     );
   }
 }

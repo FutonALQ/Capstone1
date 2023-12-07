@@ -1,8 +1,7 @@
-
 import 'package:capstone_1/screens/following_screen.dart';
+import 'package:capstone_1/screens/home_screen.dart';
 import 'package:capstone_1/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
-
 
 class AppNavigationBar extends StatefulWidget {
   const AppNavigationBar({super.key});
@@ -12,7 +11,7 @@ class AppNavigationBar extends StatefulWidget {
 }
 
 class _AppNavigationBarState extends State<AppNavigationBar> {
-  List screensList = [UserProfile(), TripListScreen()];
+  List screensList = [const HomeScreen(), TripListScreen(), UserProfile()];
 
   int selected = 0;
   @override
@@ -32,9 +31,9 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
             });
           },
           items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: ""),
-            BottomNavigationBarItem(icon: Icon(Icons.people), label: ""),
             BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
+            BottomNavigationBarItem(icon: Icon(Icons.people), label: ""),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: ""),
           ]),
     );
   }
