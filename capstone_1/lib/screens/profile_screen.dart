@@ -2,7 +2,6 @@ import 'package:capstone_1/screens/form_screen.dart';
 import 'package:capstone_1/widgets/container_widget.dart';
 import 'package:flutter/material.dart';
 
-
 class UserProfile extends StatefulWidget {
   @override
   _UserProfileState createState() => _UserProfileState();
