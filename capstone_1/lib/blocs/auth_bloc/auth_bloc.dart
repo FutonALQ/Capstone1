@@ -24,8 +24,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthStates> {
             user = UserModel(
                 name: event.name,
                 email: event.email,
-                phone: event.phone,
-                age: event.age,
+                phone: int.tryParse(event.phone),
+                age: int.tryParse(event.age),
                 gender: event.gender,
                 imageUrl:
                     "https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-foreigners-avatar-child-face.png",

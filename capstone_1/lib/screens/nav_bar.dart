@@ -12,12 +12,16 @@ class AppNavigationBar extends StatefulWidget {
 }
 
 class _AppNavigationBarState extends State<AppNavigationBar> {
+
   List screensList = [
     UserProfile(),
     SearchScreen(),
     TripListScreen(),
     const HomeScreen(),
   ];
+
+  // List screensList = [const HomeScreen(), TripListScreen(), UserProfile()];
+
 
   int selected = 1;
   @override
@@ -37,10 +41,14 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
             });
           },
           items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: ""),
-            BottomNavigationBarItem(icon: Icon(Icons.search), label: ""),
-            BottomNavigationBarItem(icon: Icon(Icons.people), label: ""),
+
+            // BottomNavigationBarItem(icon: Icon(Icons.person), label: ""),
+            // BottomNavigationBarItem(icon: Icon(Icons.search), label: ""),
+            // BottomNavigationBarItem(icon: Icon(Icons.people), label: ""),
+
             BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
+            BottomNavigationBarItem(icon: Icon(Icons.people), label: ""),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: ""),
           ]),
     );
   }

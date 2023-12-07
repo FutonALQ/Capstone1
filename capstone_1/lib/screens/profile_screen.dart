@@ -3,6 +3,8 @@ import 'package:capstone_1/widgets/container_widget.dart';
 import 'package:flutter/material.dart';
 
 class UserProfile extends StatefulWidget {
+  const UserProfile({super.key});
+
   @override
   _UserProfileState createState() => _UserProfileState();
 }
@@ -14,7 +16,7 @@ class _UserProfileState extends State<UserProfile> {
       backgroundColor: Colors.grey,
       appBar: AppBar(
         backgroundColor: Colors.grey,
-        title: Text('User Profile'),
+        title: const Text('User Profile'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -22,25 +24,25 @@ class _UserProfileState extends State<UserProfile> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              CircleAvatar(
+              const CircleAvatar(
                 radius: 60,
-                backgroundImage: AssetImage('lib/assets/images/testtrip.jpg'),
+                backgroundImage: AssetImage("lib/assets/testtrip.jpg"),
               ),
-              SizedBox(height: 16),
-              Text(
+              const SizedBox(height: 16),
+              const Text(
                 'User Name',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 8),
-              Text('Phone: 0500320941'),
-              Text('Email: user@name.com'),
-              Text('City: riyadh'),
-              Text('Age: 25'),
-              SizedBox(height: 16),
-              Row(
+              const SizedBox(height: 8),
+              const Text('Phone: 0500320941'),
+              const Text('Email: user@name.com'),
+              const Text('City: riyadh'),
+              const Text('Age: 25'),
+              const SizedBox(height: 16),
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Column(
@@ -58,7 +60,7 @@ class _UserProfileState extends State<UserProfile> {
                 ],
               ),
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text(
+                const Text(
                   "My Trips",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
@@ -68,22 +70,22 @@ class _UserProfileState extends State<UserProfile> {
                     _navigateToTripsPage('My Trips');
                   },
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 buildTripContainer(
                   title: 'By You',
                   onTap: () {
                     _navigateToTripsPage('My Trips');
                   },
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 buildTripContainer(
                   title: 'By You',
                   onTap: () {
                     _navigateToTripsPage('My Trips');
                   },
                 ),
-                SizedBox(height: 16),
-                Text(
+                const SizedBox(height: 16),
+                const Text(
                   "Joining Trips",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
@@ -97,7 +99,7 @@ class _UserProfileState extends State<UserProfile> {
                   _navigateToTripsPage('Joining Trips');
                 },
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               buildTripContainer(
                 title: 'By You',
                 iconData: Icons.remove_circle_outline,
@@ -105,7 +107,7 @@ class _UserProfileState extends State<UserProfile> {
                   _navigateToTripsPage('My Trips');
                 },
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               buildTripContainer(
                 title: 'By You',
                 iconData: Icons.remove_circle_outline,
@@ -113,7 +115,7 @@ class _UserProfileState extends State<UserProfile> {
                   _navigateToTripsPage('My Trips');
                 },
               ),
-              SizedBox(height: 9),
+              const SizedBox(height: 9),
               Align(
                 alignment: Alignment.bottomRight,
                 child: FloatingActionButton(
@@ -126,7 +128,7 @@ class _UserProfileState extends State<UserProfile> {
                       ),
                     );
                   },
-                  child: Icon(Icons.add),
+                  child: const Icon(Icons.add),
                 ),
               ),
             ],
@@ -149,7 +151,7 @@ class _UserProfileState extends State<UserProfile> {
 class TripsPage extends StatelessWidget {
   final String pageTitle;
 
-  TripsPage({required this.pageTitle});
+  const TripsPage({super.key, required this.pageTitle});
 
   @override
   Widget build(BuildContext context) {

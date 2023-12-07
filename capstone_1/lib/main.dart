@@ -28,9 +28,13 @@ class MainApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+
         theme: appThemme['light'],
         home: const AppNavigationBar(),
       ),
+
+        
+
     );
   }
 }

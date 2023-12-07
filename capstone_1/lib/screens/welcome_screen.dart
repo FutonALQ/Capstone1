@@ -1,5 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:capstone_1/globals/global_user.dart';
+import 'package:capstone_1/screens/nav_bar.dart';
 import 'package:capstone_1/screens/signup_screen.dart';
+import 'package:capstone_1/services/supabase_request.dart';
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({
@@ -39,14 +45,35 @@ class WelcomeScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 530.0),
                 child: Center(
                   child: InkWell(
-                    onTap: () {
-                      print(MediaQuery.of(context).size.height);
-                      print(MediaQuery.of(context).size.width);
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const SignUpScreen()),
-                          (route) => false);
+                    onTap: () async {
+                      final supabaseClint = Supabase.instance.client;
+
+                      await Future.delayed(const Duration(seconds: 1),
+                          () async {
+                        final token =
+                            supabaseClint.auth.currentSession?.accessToken;
+                        final isExp =
+                            supabaseClint.auth.currentSession?.isExpired;
+                        if (token != null) {
+                          if (isExp!) {
+                            await supabaseClint.auth.setSession(supabaseClint
+                                .auth.currentSession!.refreshToken!);
+                          }
+                          currentUser = await getUser();
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const AppNavigationBar()),
+                              (route) => false);
+                        } else {
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SignUpScreen()),
+                              (route) => false);
+                        }
+                      });
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.8,
