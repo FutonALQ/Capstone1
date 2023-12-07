@@ -1,6 +1,5 @@
 import 'package:capstone_1/blocs/search_bloc/search_bloc.dart';
 import 'package:capstone_1/blocs/search_bloc/search_event.dart';
-import 'package:capstone_1/services/supabase_request.dart';
 import 'package:capstone_1/widgets/search_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
