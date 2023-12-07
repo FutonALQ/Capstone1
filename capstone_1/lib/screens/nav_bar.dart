@@ -2,6 +2,7 @@ import 'package:capstone_1/screens/following_screen.dart';
 import 'package:capstone_1/screens/home_screen.dart';
 import 'package:capstone_1/screens/profile_screen.dart';
 import 'package:capstone_1/screens/search_screen.dart';
+import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
 
 class AppNavigationBar extends StatefulWidget {
@@ -22,8 +23,8 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
   List screensList = [
     const HomeScreen(),
     const TripListScreen(),
-    const UserProfile(),
     SearchScreen(),
+    const UserProfile(),
   ];
 
   int selected = 0;
@@ -31,28 +32,35 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: screensList[selected],
-      bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.grey,
-          showSelectedLabels: true,
-          showUnselectedLabels: false,
-          selectedItemColor: Colors.grey,
-          unselectedItemColor: const Color.fromARGB(92, 0, 0, 0),
-          currentIndex: selected,
-          onTap: (value) {
-            setState(() {
-              selected = value;
-            });
-          },
-          items: const [
-            // BottomNavigationBarItem(icon: Icon(Icons.person), label: ""),
-            // BottomNavigationBarItem(icon: Icon(Icons.search), label: ""),
-            // BottomNavigationBarItem(icon: Icon(Icons.people), label: ""),
-
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
-            BottomNavigationBarItem(icon: Icon(Icons.people), label: ""),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: ""),
-            BottomNavigationBarItem(icon: Icon(Icons.search), label: ""),
-          ]),
+      bottomNavigationBar: FlashyTabBar(
+        selectedIndex: selected,
+        showElevation: true,
+        onItemSelected: (index) => setState(() {
+          selected = index;
+        }),
+        items: [
+          FlashyTabBarItem(
+            activeColor: const Color(0xff219EBC),
+            icon: const Icon(Icons.home),
+            title: const Text('Home'),
+          ),
+          FlashyTabBarItem(
+            activeColor: const Color(0xff219EBC),
+            icon: const Icon(Icons.people),
+            title: const Text('Trips'),
+          ),
+          FlashyTabBarItem(
+            activeColor: const Color(0xff219EBC),
+            icon: const Icon(Icons.search),
+            title: const Text('Search'),
+          ),
+          FlashyTabBarItem(
+            activeColor: const Color(0xff219EBC),
+            icon: const Icon(Icons.person),
+            title: const Text('Profile'),
+          ),
+        ],
+      ),
     );
   }
 }
