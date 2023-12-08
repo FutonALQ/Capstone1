@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 Map appThemme = {
   'light': ThemeData(
-    fontFamily: 'cabin',
-    scaffoldBackgroundColor: Colors.grey[400],
+    fontFamily: 'DMSans',
+    scaffoldBackgroundColor: Colors.white,
   ),
-  'darl': ThemeData(
-    fontFamily: 'cabin',
+  'dark': ThemeData(
+    fontFamily: 'DMSans',
     scaffoldBackgroundColor: Colors.grey[900],
   ),
 };
