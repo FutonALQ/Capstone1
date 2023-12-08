@@ -26,7 +26,7 @@ class FollowingTripGridView extends StatelessWidget {
             return tripsList.isNotEmpty
                 ? SizedBox(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.6,
+                    height: MediaQuery.of(context).size.height * 0.7,
                     child: GridView.builder(
                         padding: const EdgeInsets.only(bottom: 50),
                         shrinkWrap: true,
