@@ -1,7 +1,7 @@
 import 'package:capstone_1/blocs/search_bloc/search_bloc.dart';
 import 'package:capstone_1/blocs/search_bloc/search_event.dart';
-import 'package:capstone_1/services/supabase_request.dart';
 import 'package:capstone_1/widgets/search_text_field.dart';
+import 'package:capstone_1/widgets/users_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,34 +18,33 @@ class SearchScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // SizedBox(height: MediaQuery.sizeOf(context).height * 0.05),
+              SizedBox(height: MediaQuery.sizeOf(context).height * 0.01),
               SearchTextField(
                 controller: searchController,
                 onChange: (query) {
-                  context.read<SearchBloc>().add(
-                        SearchRequestEvent(query: query),
-                      );
+                  context
+                      .read<SearchBloc>()
+                      .add(SearchRequestEvent(query: query));
                 },
-                onCancel: () {},
+                onCancel: () {
+                  context.read<SearchBloc>().add(ClearSearchEvent());
+                },
               ),
 
+              SizedBox(height: MediaQuery.sizeOf(context).height * 0.02),
               // Center(child: CircularProgressIndicator()),
               ListView.separated(
                 shrinkWrap: true,
                 itemCount: 5,
                 itemBuilder: (context, i) {
-                  return InkWell(
+                  return UsersCard(
                     onTap: () {},
-                    child: ListTile(
-                      // leading: Image.asset('name'),
-                      leading: Container(
-                        height: 40,
-                        width: 40,
-                        color: Colors.amber,
-                      ),
-                      title: const Text('Abdullah'),
-                      subtitle: const Text('0548219705'),
-                    ),
+                    src:
+                        'https://www.newarab.com/sites/default/files/styles/image_1440x810/public/2022-10/GettyImages-1243553139.jpg',
+                    name: 'Abdullah',
+                    phone: '0544539726',
+                    chatOnPressed: () {},
+                    followOnOressed: () {},
                   );
                 },
                 separatorBuilder: (context, i) {
@@ -54,13 +53,14 @@ class SearchScreen extends StatelessWidget {
                 },
               ),
 
+              /* Testing Button */
               // ElevatedButton(
               //   onPressed: () async {
               //     List userList = await getUsers();
               //     print(
               //         '============================\n$userList\n=============================');
               //   },
-              //   child: Text('TEST'),
+              //   child: CircularProgressIndicator(strokeAlign: 0.01),
               // ),
             ],
           ),
