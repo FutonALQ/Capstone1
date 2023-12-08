@@ -1,3 +1,4 @@
+import 'package:capstone_1/globals/global_user.dart';
 import 'package:capstone_1/models/trip.dart';
 import 'package:capstone_1/screens/tripdeatail_screen.dart';
 import 'package:capstone_1/services/supabase_request.dart';
@@ -13,7 +14,7 @@ class FollowingTripGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: getTrips(),
+        future: getFollowingTrips(id: currentUser!.user_uuid),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<Trip> tripsList = snapshot.data!;

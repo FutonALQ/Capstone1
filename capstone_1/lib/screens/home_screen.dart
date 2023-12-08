@@ -2,6 +2,7 @@ import 'package:capstone_1/globals/global_user.dart';
 import 'package:capstone_1/screens/profile_screen.dart';
 import 'package:capstone_1/widgets/trip_grid_view.dart';
 import 'package:flutter/material.dart';
+import 'package:icons_plus/icons_plus.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,13 +13,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int selectedChipIndex = 0;
-  final List<String> category = ["All", "sport", "art", "Education", "fun"];
+  final List<String> category = ["All", "sport", "art", "education", "hangout"];
   final List<IconData> icons = [
     Icons.clear_all_sharp,
-    Icons.sports_baseball_outlined,
-    Icons.art_track,
-    Icons.cast_for_education,
-    Icons.bike_scooter
+    Icons.sports_baseball,
+    FontAwesome.paintbrush,
+    FontAwesome.book,
+    FontAwesome.mug_saucer,
   ];
   String selectedCategory = "All";
   @override
@@ -108,7 +109,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   final chipIndex = index ~/ 2;
                   return ChoiceChip(
                     showCheckmark: false,
-                    avatar: Icon(icons[chipIndex]),
+                    avatar: Icon(icons[chipIndex],
+                        color: const Color.fromARGB(77, 0, 0, 0)),
                     shape: RoundedRectangleBorder(
                       side:
                           const BorderSide(width: 1, color: Color(0xFFE7E7EF)),
