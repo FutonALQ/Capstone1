@@ -21,15 +21,15 @@ Future<UserModel> getUser() async {
   return user;
 }
 
-Future<List<Trip>> getTrips({int? id}) async {
+Future<List<Trip>> getTrips({int? Userid}) async {
   List data = [];
   List<Trip> tripsList = [];
   try {
-    if (id != null) {
+    if (Userid != null) {
       data = await Supabase.instance.client
           .from('trips')
           .select('*, a_trip!inner()')
-          .eq('a_trip.trip_id', id);
+          .eq('a_trip.joint_id', Userid);
       print(data);
     } else {
       data = await Supabase.instance.client.from('trips').select('*');
@@ -42,4 +42,27 @@ Future<List<Trip>> getTrips({int? id}) async {
     print(e.toString());
   }
   return tripsList;
+}
+
+Future<List<Trip>> getFollowingTrips({String? id}) async {
+  final supabase = Supabase.instance.client;
+  List<Trip> tripsList = [];
+  List<Trip> followingTripsList = [];
+  try {
+    final followingList =
+        await supabase.from('following').select('*').eq('user_uuid', id);
+
+    tripsList = await getTrips();
+
+    for (var trip in tripsList) {
+      for (var following in followingList) {
+        if (following['follows_uuid'] == trip.tripCreator) {
+          followingTripsList.add(trip);
+        }
+      }
+    }
+  } catch (e) {
+    print(e.toString());
+  }
+  return followingTripsList;
 }

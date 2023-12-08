@@ -1,5 +1,6 @@
-import 'package:capstone_1/widgets/trip_grid_view.dart';
+import 'package:capstone_1/widgets/following_trip_countener.dart';
 import 'package:flutter/material.dart';
+import 'package:icons_plus/icons_plus.dart';
 
 class TripListScreen extends StatefulWidget {
   const TripListScreen({super.key});
@@ -9,18 +10,25 @@ class TripListScreen extends StatefulWidget {
 }
 
 class _TripListScreenState extends State<TripListScreen> {
+  int selectedChipIndex = 0;
+  String selectedCategory = "All";
   @override
   Widget build(BuildContext context) {
-    int selectedChipIndex = 0;
-    final List<String> category = ["All", "sport", "art", "Education", "fun"];
+    final List<String> category = [
+      "All",
+      "sport",
+      "art",
+      "education",
+      "hangout"
+    ];
     final List<IconData> icons = [
       Icons.clear_all_sharp,
-      Icons.sports_baseball_outlined,
-      Icons.art_track,
-      Icons.cast_for_education,
-      Icons.bike_scooter
+      Icons.sports_baseball,
+      FontAwesome.paintbrush,
+      FontAwesome.book,
+      FontAwesome.mug_saucer,
     ];
-    String selectedCategory = "All";
+
     return Scaffold(
         body: Padding(
       padding: const EdgeInsets.only(top: 30.0, left: 24, right: 24),
@@ -49,7 +57,8 @@ class _TripListScreenState extends State<TripListScreen> {
                   final chipIndex = index ~/ 2;
                   return ChoiceChip(
                     showCheckmark: false,
-                    avatar: Icon(icons[chipIndex]),
+                    avatar: Icon(icons[chipIndex],
+                        color: const Color.fromARGB(77, 0, 0, 0)),
                     shape: RoundedRectangleBorder(
                       side:
                           const BorderSide(width: 1, color: Color(0xFFE7E7EF)),
@@ -80,7 +89,7 @@ class _TripListScreenState extends State<TripListScreen> {
           const SizedBox(
             height: 10,
           ),
-          TripGridView(selectedCategory: selectedCategory)
+          FollowingTripGridView(selectedCategory: selectedCategory)
         ],
       ),
     ));
