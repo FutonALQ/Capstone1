@@ -1,11 +1,12 @@
-import 'package:capstone_1/globals/global_user.dart';
+import 'package:capstone_1/models/trip.dart';
 import 'package:flutter/material.dart';
 
 class TripCountener extends StatelessWidget {
   const TripCountener({
     super.key,
+    required this.trip,
   });
-
+  final Trip trip;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,12 +34,12 @@ class TripCountener extends StatelessWidget {
         ],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           ClipOval(
             child: Image.network(
-              "https://images.pexels.com/photos/1371360/pexels-photo-1371360.jpeg?cs=srgb&dl=pexels-te-lensfix-1371360.jpg&fm=jpg",
+              trip.image!,
               height: 150,
               width: 150,
               fit: BoxFit.cover,
@@ -48,7 +49,7 @@ class TripCountener extends StatelessWidget {
             height: 8,
           ),
           Text(
-            currentUser!.name ?? "-",
+            "${trip.title}",
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(
@@ -60,7 +61,23 @@ class TripCountener extends StatelessWidget {
             height: 4,
           ),
           Text(
-            currentUser!.phone.toString(),
+            trip.date!,
+            style: const TextStyle(
+              color: Color(0xFF637663),
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          Text(
+            trip.time!,
+            style: const TextStyle(
+              color: Color(0xFF637663),
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          Text(
+            trip.location!,
             style: const TextStyle(
               color: Color(0xFF637663),
               fontSize: 12,

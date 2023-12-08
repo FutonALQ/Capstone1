@@ -1,33 +1,19 @@
+import 'package:capstone_1/models/trip.dart';
 import 'package:flutter/material.dart';
 
 class TripDetailsScreen extends StatelessWidget {
-  final String userName;
-  final String tripTitle;
-  final String tripDescription;
-  final String tripBudget;
-  final String tripLocation;
-  final String tripDate;
-  final String tripGovernor;
-  final String tripImageUrl;
-
-  TripDetailsScreen({
-    required this.userName,
-    required this.tripTitle,
-    required this.tripDescription,
-    required this.tripBudget,
-    required this.tripLocation,
-    required this.tripDate,
-    required this.tripGovernor,
-    required this.tripImageUrl,
+  const TripDetailsScreen({
+    super.key,
+    required this.trip,
   });
-
+  final Trip trip;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.green[50],
       appBar: AppBar(
         backgroundColor: Colors.green[50],
-        title: Text('Trip Details'),
+        title: const Text('Trip Details'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -47,42 +33,43 @@ class TripDetailsScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
                     image: DecorationImage(
-                      image: AssetImage(tripImageUrl),
+                      image: AssetImage(trip.image!),
                       fit: BoxFit.cover,
                     ),
                   ),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Text(
-                  'Trip Title: $tripTitle',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  'Trip Title: ${trip.title}',
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Text(
-                  'Description: $tripDescription',
-                  style: TextStyle(fontSize: 16),
+                  'Description: ${trip.description}',
+                  style: const TextStyle(fontSize: 16),
                 ),
-                SizedBox(height: 8),
-                Text('Budget: $tripBudget'),
-                SizedBox(height: 8),
-                Text('Location: $tripLocation'),
-                SizedBox(height: 8),
-                Text('Date: $tripDate'),
-                SizedBox(height: 8),
-                Text('Governor: $tripGovernor'),
-                SizedBox(height: 16),
-                Text('Published by: $userName',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-                SizedBox(
+                const SizedBox(height: 8),
+                Text('Budget: ${trip.cost}'),
+                const SizedBox(height: 8),
+                Text('Location: ${trip.location}'),
+                const SizedBox(height: 8),
+                Text('Date: ${trip.date}'),
+                const SizedBox(height: 8),
+                // Text('Governor: $tripGovernor'),
+                const SizedBox(height: 16),
+                Text('Published by: ${trip.tripCreator}',
+                    style: const TextStyle(fontWeight: FontWeight.bold)),
+                const SizedBox(
                   height: 15,
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.green[50],
-                    minimumSize: Size(double.infinity, 30),
+                    backgroundColor: Colors.green[50],
+                    minimumSize: const Size(double.infinity, 30),
                   ),
                   onPressed: () {},
-                  child: Text("Join"),
+                  child: const Text("Join"),
                 ),
               ],
             ),
