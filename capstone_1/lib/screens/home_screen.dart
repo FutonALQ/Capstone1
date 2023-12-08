@@ -1,7 +1,6 @@
 import 'package:capstone_1/globals/global_user.dart';
 import 'package:capstone_1/screens/profile_screen.dart';
-import 'package:capstone_1/screens/tripdeatail_screen.dart';
-import 'package:capstone_1/widgets/container.dart';
+import 'package:capstone_1/widgets/trip_grid_view.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,14 +12,15 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int selectedChipIndex = 0;
-  final List<String> category = ["All", "sport", "art", "swimming", ""];
+  final List<String> category = ["All", "sport", "art", "Education", "fun"];
   final List<IconData> icons = [
     Icons.clear_all_sharp,
     Icons.sports_baseball_outlined,
-    Icons.sports_baseball,
-    Icons.architecture,
-    Icons.architecture
+    Icons.art_track,
+    Icons.cast_for_education,
+    Icons.bike_scooter
   ];
+  String selectedCategory = "All";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -126,6 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     onSelected: (selected) {
                       setState(() {
                         selectedChipIndex = selected ? chipIndex : -1;
+                        selectedCategory = category[chipIndex];
                       });
                     },
                   );
@@ -138,44 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             height: 10,
           ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.6,
-            child: GridView.builder(
-                padding: const EdgeInsets.only(bottom: 50),
-                shrinkWrap: true,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 10.0,
-                  mainAxisSpacing: 10.0,
-                  childAspectRatio: 170 / 272,
-                ),
-                itemCount: 7,
-                itemBuilder: (BuildContext context, int index) {
-                  return InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => TripDetailsScreen(
-                                    userName: '',
-                                    tripTitle: '',
-                                    tripDescription: '',
-                                    tripBudget: '',
-                                    tripLocation: '',
-                                    tripDate: '',
-                                    tripGovernor: '',
-                                    tripImageUrl: '',
-                                  )));
-                    },
-                    child: const Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 4.0, vertical: 4),
-                      child: TripCountener(),
-                    ),
-                  );
-                }),
-          ),
+          TripGridView(selectedCategory: selectedCategory)
         ],
       ),
     ));

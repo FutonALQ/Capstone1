@@ -1,183 +1,88 @@
-import 'package:capstone_1/screens/tripdeatail_screen.dart';
+import 'package:capstone_1/widgets/trip_grid_view.dart';
 import 'package:flutter/material.dart';
 
-class TripListScreen extends StatelessWidget {
+class TripListScreen extends StatefulWidget {
   const TripListScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey,
-      appBar: AppBar(
-        backgroundColor: Colors.grey,
-        title: const Text('Followers'),
-      ),
-      body: ListView(
-        children: [
-          TripContainer(
-            userName: 'User 1',
-            imageUrl: 'lib/assets/testtrip.jpg',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => TripDetailsScreen(
-                          userName: 'User 1',
-                          tripTitle: 'Title',
-                          tripDescription: 'Descrpitoin',
-                          tripBudget: '100',
-                          tripLocation: 'Riyadh',
-                          tripDate: '4/1/2024',
-                          tripGovernor: 'user',
-                          tripImageUrl: 'lib/assets/testtrip.jpg',
-                        )),
-              );
-            },
-          ),
-          const SizedBox(
-            height: 1,
-          ),
-          TripContainer(
-            userName: 'User 2',
-            imageUrl: 'lib/assets/testtrip.jpg',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => TripDetailsScreen(
-                          userName: 'User 2',
-                          tripTitle: 'Title',
-                          tripDescription: 'Descrpitoin',
-                          tripBudget: '100',
-                          tripLocation: 'Riyadh',
-                          tripDate: '4/1/2024',
-                          tripGovernor: 'user',
-                          tripImageUrl: 'lib/assets/testtrip.jpg',
-                        )),
-              );
-            },
-          ),
-          const SizedBox(
-            height: 1,
-          ),
-          TripContainer(
-            userName: 'User 2',
-            imageUrl: 'lib/assets/testtrip.jpg',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => TripDetailsScreen(
-                          userName: 'User 2',
-                          tripTitle: 'Title',
-                          tripDescription: 'Descrpitoin',
-                          tripBudget: '100',
-                          tripLocation: 'Riyadh',
-                          tripDate: '4/1/2024',
-                          tripGovernor: 'user',
-                          tripImageUrl: 'lib/assets/testtrip.jpg',
-                        )),
-              );
-            },
-          ),
-          TripContainer(
-            userName: 'User 2',
-            imageUrl: 'lib/assets/testtrip.jpg',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => TripDetailsScreen(
-                          userName: 'User 2',
-                          tripTitle: 'Title',
-                          tripDescription: 'Descrpitoin',
-                          tripBudget: '100',
-                          tripLocation: 'Riyadh',
-                          tripDate: '4/1/2024',
-                          tripGovernor: 'user',
-                          tripImageUrl: 'lib/assets/testtrip.jpg',
-                        )),
-              );
-            },
-          ),
-          TripContainer(
-            userName: 'User 2',
-            imageUrl: 'lib/assets/testtrip.jpg',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => TripDetailsScreen(
-                          userName: 'User 3',
-                          tripTitle: 'Title',
-                          tripDescription: 'Descrpitoin',
-                          tripBudget: '100',
-                          tripLocation: 'Riyadh',
-                          tripDate: '4/1/2024',
-                          tripGovernor: 'user',
-                          tripImageUrl: 'lib/assets/testtrip.jpg',
-                        )),
-              );
-            },
-          ),
-        ],
-      ),
-    );
-  }
+  State<TripListScreen> createState() => _TripListScreenState();
 }
 
-class TripContainer extends StatelessWidget {
-  final String userName;
-  final String imageUrl;
-  final VoidCallback onTap;
-
-  const TripContainer({
-    super.key,
-    required this.userName,
-    required this.imageUrl,
-    required this.onTap,
-  });
-
+class _TripListScreenState extends State<TripListScreen> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        margin: const EdgeInsets.all(8),
-        height: 200,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          image: DecorationImage(
-            image: AssetImage(imageUrl),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            gradient: LinearGradient(
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter,
-              colors: [
-                Colors.black.withOpacity(0.8),
-                Colors.transparent,
-              ],
+    int selectedChipIndex = 0;
+    final List<String> category = ["All", "sport", "art", "Education", "fun"];
+    final List<IconData> icons = [
+      Icons.clear_all_sharp,
+      Icons.sports_baseball_outlined,
+      Icons.art_track,
+      Icons.cast_for_education,
+      Icons.bike_scooter
+    ];
+    String selectedCategory = "All";
+    return Scaffold(
+        body: Padding(
+      padding: const EdgeInsets.only(top: 30.0, left: 24, right: 24),
+      child: ListView(
+        children: [
+          const Text(
+            'Discover Followers Trips ',
+            style: TextStyle(
+              color: Color.fromARGB(208, 2, 48, 71),
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
             ),
           ),
-          child: Align(
-            alignment: Alignment.bottomLeft,
-            child: Text(
-              'Published by: $userName',
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+          const SizedBox(
+            height: 20,
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: 50,
+            child: ListView.builder(
+              // shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: category.length * 2 - 1,
+              itemBuilder: (context, index) {
+                if (index.isEven) {
+                  final chipIndex = index ~/ 2;
+                  return ChoiceChip(
+                    showCheckmark: false,
+                    avatar: Icon(icons[chipIndex]),
+                    shape: RoundedRectangleBorder(
+                      side:
+                          const BorderSide(width: 1, color: Color(0xFFE7E7EF)),
+                      borderRadius: BorderRadius.circular(28),
+                    ),
+                    label: Text(category[chipIndex]),
+                    labelStyle: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: selectedChipIndex == chipIndex
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                    selected: selectedChipIndex == chipIndex,
+                    selectedColor: const Color(0xff8ECAE6),
+                    onSelected: (selected) {
+                      setState(() {
+                        selectedChipIndex = selected ? chipIndex : -1;
+                        selectedCategory = category[chipIndex];
+                      });
+                    },
+                  );
+                } else {
+                  return const SizedBox(width: 8);
+                }
+              },
             ),
           ),
-        ),
+          const SizedBox(
+            height: 10,
+          ),
+          TripGridView(selectedCategory: selectedCategory)
+        ],
       ),
-    );
+    ));
   }
 }
