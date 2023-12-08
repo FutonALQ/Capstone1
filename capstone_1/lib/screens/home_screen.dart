@@ -142,6 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 0.6,
             child: GridView.builder(
+                padding: const EdgeInsets.only(bottom: 50),
                 shrinkWrap: true,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
