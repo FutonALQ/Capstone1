@@ -1,4 +1,5 @@
 import 'package:capstone_1/blocs/auth_bloc/auth_bloc.dart';
+import 'package:capstone_1/blocs/chat_bloc/chat_bloc.dart';
 import 'package:capstone_1/blocs/search_bloc/search_bloc.dart';
 import 'package:capstone_1/screens/welcome_screen.dart';
 import 'package:capstone_1/services/supabase_service.dart';
@@ -25,8 +26,12 @@ class MainApp extends StatelessWidget {
         BlocProvider(
           create: (context) => SearchBloc(),
         ),
+        BlocProvider(
+          create: (context) => ChatBloc(),
+        ),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: appThemme['light'],
         home: const WelcomeScreen(),
       ),

@@ -2,6 +2,7 @@ import 'package:capstone_1/screens/following_screen.dart';
 import 'package:capstone_1/screens/home_screen.dart';
 import 'package:capstone_1/screens/profile_screen.dart';
 import 'package:capstone_1/screens/search_screen.dart';
+import 'package:capstone_1/screens/users_screen.dart';
 import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
 
@@ -25,6 +26,7 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
     const TripListScreen(),
     SearchScreen(),
     const UserProfile(),
+    UsersScreen(),
   ];
 
   int selected = 0;
@@ -58,6 +60,11 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
             activeColor: const Color(0xff219EBC),
             icon: const Icon(Icons.person),
             title: const Text('Profile'),
+          ),
+          FlashyTabBarItem(
+            activeColor: const Color(0xff219EBC),
+            icon: const Icon(Icons.chat_bubble_outline_sharp),
+            title: const Text('chat'),
           ),
         ],
       ),
