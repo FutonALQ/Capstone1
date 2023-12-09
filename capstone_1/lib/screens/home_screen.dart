@@ -1,5 +1,5 @@
 import 'package:capstone_1/globals/global_user.dart';
-import 'package:capstone_1/screens/profile_screen.dart';
+import 'package:capstone_1/screens/old_profile_screen.dart';
 import 'package:capstone_1/widgets/trip_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';

@@ -25,7 +25,7 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
     const HomeScreen(),
     const TripListScreen(),
     SearchScreen(),
-    const UserProfile(),
+    ProfileScreen(),
     UsersScreen(),
   ];
 

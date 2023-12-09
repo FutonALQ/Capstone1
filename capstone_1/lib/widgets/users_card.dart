@@ -28,9 +28,10 @@ class UsersCard extends StatelessWidget {
       child: Container(
         height: MediaQuery.sizeOf(context).height * 0.12,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            // color: const Color(0xffe6eefa),
-            color: Colors.white),
+          borderRadius: BorderRadius.circular(20),
+          color: const Color(0xffe6eefa),
+          // color: Colors.white,
+        ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Row(
@@ -38,8 +39,8 @@ class UsersCard extends StatelessWidget {
             children: [
               Container(
                 clipBehavior: Clip.antiAlias,
-                height: 70,
-                width: 70,
+                height: 65,
+                width: 65,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   color: Colors.black,
@@ -50,7 +51,7 @@ class UsersCard extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 32),
+                padding: const EdgeInsets.only(right: 24),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
