@@ -9,14 +9,13 @@ part 'trip_state.dart';
 class TripBloc extends Bloc<TripEvent, TripState> {
   TripBloc() : super(TripInitial()) {
     on<GetUsersEvent>((event, emit) async {
+      emit(LoadingState());
       final UserModel user = await getAUser(event.trip.tripCreator!);
-       final bool isJoint = await searchUserInTrip(
+      final bool isJoint = await searchUserInTrip(
         tripId: event.tripId,
         userId: event.userId,
       );
-      emit(GetUserSuccessedState(user,isJoint));
+      emit(GetUserSuccessedState(user, isJoint));
     });
-
-
   }
 }

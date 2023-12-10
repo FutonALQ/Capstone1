@@ -24,9 +24,6 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
   initState() {
     context.read<TripBloc>().add(
         GetUsersEvent(widget.trip, currentUser!.user_uuid!, widget.trip.id!));
-    // context
-    //     .read<TripBloc>()
-    //     .add(IsJointEvent(currentUser!.user_uuid!, widget.trip.id!));
 
     super.initState();
   }
@@ -306,100 +303,219 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                             ),
                           ],
                         )
-                      : BlocBuilder<TripBloc, TripState>(
-                          builder: (context, state) {
-                            if (state is GetUserSuccessedState) {
-                              return !state.isJoint
-                                  ? InkWell(
-                                      onTap: () async {
-                                        await addUserToTrip({
-                                          "joint_id": currentUser!.user_uuid,
-                                          "trip_id": widget.trip.id
-                                        });
-                                        context.read<TripBloc>().add(
-                                            GetUsersEvent(
-                                                widget.trip,
-                                                currentUser!.user_uuid!,
-                                                widget.trip.id!));
-                                      },
-                                      child: Container(
-                                        width: 346,
-                                        height: 55,
-                                        decoration: BoxDecoration(
-                                          color: const Color(0xff8ECAE6),
-                                          shape: BoxShape.rectangle,
-                                          borderRadius:
-                                              BorderRadius.circular(48),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: const Color(0xff8ECAE6)
-                                                  .withOpacity(0.5),
-                                              spreadRadius: 1,
-                                              blurRadius: 10,
-                                              offset: const Offset(0, 5),
-                                            ),
-                                          ],
-                                        ),
-                                        child: const Center(
-                                          child: Text(
-                                            ' JOIN THE TRIP',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  : InkWell(
-                                      onTap: () async {
-                                        await unjointTrip(
-                                            userId: currentUser!.user_uuid!,
-                                            tripId: widget.trip.id!);
-                                        context.read<TripBloc>().add(
-                                            GetUsersEvent(
-                                                widget.trip,
-                                                currentUser!.user_uuid!,
-                                                widget.trip.id!));
-                                      },
-                                      child: Container(
-                                        width: 346,
-                                        height: 55,
-                                        decoration: BoxDecoration(
-                                          color: const Color.fromARGB(
-                                              168, 255, 102, 0),
-                                          shape: BoxShape.rectangle,
-                                          borderRadius:
-                                              BorderRadius.circular(48),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: const Color.fromARGB(
-                                                      168, 255, 102, 0)
-                                                  .withOpacity(0.5),
-                                              spreadRadius: 1,
-                                              blurRadius: 10,
-                                              offset: const Offset(0, 5),
-                                            ),
-                                          ],
-                                        ),
-                                        child: const Center(
-                                          child: Text(
-                                            ' REMOVE THE TRIP',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    );
+                      : BlocListener<TripBloc, TripState>(
+                          listener: (context, state) {
+                            if (state is LoadingState) {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) => const Center(
+                                      child: CircularProgressIndicator()));
                             }
-                            return Container();
+                            if (state is GetUserSuccessedState) {
+                              Navigator.pop(context);
+                            }
                           },
+                          child: BlocBuilder<TripBloc, TripState>(
+                            builder: (context, state) {
+                              if (state is GetUserSuccessedState) {
+                                return !state.isJoint
+                                    ? InkWell(
+                                        onTap: () async {
+                                          // await addUserToTrip({
+                                          //   "joint_id": currentUser!.user_uuid,
+                                          //   "trip_id": widget.trip.id
+                                          // });
+                                          // context.read<TripBloc>().add(
+                                          //     GetUsersEvent(
+                                          //         widget.trip,
+                                          //         currentUser!.user_uuid!,
+                                          //         widget.trip.id!));
+
+                                          bool deleteConfirmed =
+                                              await showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog.adaptive(
+                                                title: const Text(
+                                                    'Join Confirmation'),
+                                                content: const Text(
+                                                    'Are you sure you want to join to this trip?'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context).pop(
+                                                          false); // User canceled the operation
+                                                    },
+                                                    child: const Text(
+                                                      'Cancel',
+                                                      style: TextStyle(
+                                                          color: Color(
+                                                              0xff219EBC)),
+                                                    ),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context).pop(
+                                                          true); // User confirmed the operation
+                                                    },
+                                                    child: const Text(
+                                                      'Confirm',
+                                                      style: TextStyle(
+                                                          color: Color(
+                                                              0xff219EBC)),
+                                                    ),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+
+                                          // Check if the user confirmed the operation
+                                          if (deleteConfirmed == true) {
+                                            await addUserToTrip({
+                                              "joint_id":
+                                                  currentUser!.user_uuid,
+                                              "trip_id": widget.trip.id
+                                            });
+                                            context.read<TripBloc>().add(
+                                                GetUsersEvent(
+                                                    widget.trip,
+                                                    currentUser!.user_uuid!,
+                                                    widget.trip.id!));
+                                          }
+                                        },
+                                        child: Container(
+                                          width: 346,
+                                          height: 55,
+                                          decoration: BoxDecoration(
+                                            color: const Color(0xff8ECAE6),
+                                            shape: BoxShape.rectangle,
+                                            borderRadius:
+                                                BorderRadius.circular(48),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: const Color(0xff8ECAE6)
+                                                    .withOpacity(0.5),
+                                                spreadRadius: 1,
+                                                blurRadius: 10,
+                                                offset: const Offset(0, 5),
+                                              ),
+                                            ],
+                                          ),
+                                          child: const Center(
+                                            child: Text(
+                                              'JOIN THE TRIP',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    : InkWell(
+                                        onTap: () async {
+                                          // await unjointTrip(
+                                          //     userId: currentUser!.user_uuid!,
+                                          //     tripId: widget.trip.id!);
+                                          // context.read<TripBloc>().add(
+                                          //     GetUsersEvent(
+                                          //         widget.trip,
+                                          //         currentUser!.user_uuid!,
+                                          //         widget.trip.id!));
+
+                                          bool deleteConfirmed =
+                                              await showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog.adaptive(
+                                                title: const Text(
+                                                    'Delete Confirmation'),
+                                                content: const Text(
+                                                    'Are you sure you want to remove yourself from this trip?'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context).pop(
+                                                          false); // User canceled the operation
+                                                    },
+                                                    child: const Text(
+                                                      'Cancel',
+                                                      style: TextStyle(
+                                                        color: Color.fromARGB(
+                                                            168, 255, 102, 0),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context).pop(
+                                                          true); // User confirmed the operation
+                                                    },
+                                                    child: const Text(
+                                                      'Confirm',
+                                                      style: TextStyle(
+                                                        color: Color.fromARGB(
+                                                            168, 255, 102, 0),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+
+                                          // Check if the user confirmed the operation
+                                          if (deleteConfirmed == true) {
+                                            await unjointTrip(
+                                                userId: currentUser!.user_uuid!,
+                                                tripId: widget.trip.id!);
+                                            context.read<TripBloc>().add(
+                                                GetUsersEvent(
+                                                    widget.trip,
+                                                    currentUser!.user_uuid!,
+                                                    widget.trip.id!));
+                                          }
+                                        },
+                                        child: Container(
+                                          width: 346,
+                                          height: 55,
+                                          decoration: BoxDecoration(
+                                            color: const Color.fromARGB(
+                                                168, 255, 102, 0),
+                                            shape: BoxShape.rectangle,
+                                            borderRadius:
+                                                BorderRadius.circular(48),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: const Color.fromARGB(
+                                                        168, 255, 102, 0)
+                                                    .withOpacity(0.5),
+                                                spreadRadius: 1,
+                                                blurRadius: 10,
+                                                offset: const Offset(0, 5),
+                                              ),
+                                            ],
+                                          ),
+                                          child: const Center(
+                                            child: Text(
+                                              'REMOVE THE TRIP',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                              }
+                              return Container();
+                            },
+                          ),
                         )
                 ],
               ),

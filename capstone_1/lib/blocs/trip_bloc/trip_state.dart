@@ -9,3 +9,4 @@ final class GetUserSuccessedState extends TripState {
   final bool isJoint;
   GetUserSuccessedState(this.user, this.isJoint);
 }
+class LoadingState extends TripState {}
