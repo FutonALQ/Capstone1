@@ -1,5 +1,8 @@
+import 'package:capstone_1/blocs/home_bloc/home_bloc.dart';
 import 'package:capstone_1/blocs/trip_bloc/trip_bloc.dart';
+import 'package:capstone_1/globals/global_user.dart';
 import 'package:capstone_1/models/trip.dart';
+import 'package:capstone_1/services/supabase_request.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -53,14 +56,19 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   const SizedBox(height: 20),
-                  Text(
-                    widget.trip.title ?? "-",
-                    style: const TextStyle(
-                      color: Color(0xFF101018),
-                      fontSize: 32,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: -0.52,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        widget.trip.title ?? "-",
+                        style: const TextStyle(
+                          color: Color(0xFF101018),
+                          fontSize: 32,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: -0.52,
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 8),
                   Text(
@@ -191,18 +199,6 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Text(
-                    widget.trip.link ?? "-",
-                    style: const TextStyle(
-                      color: Color(0xFF818E9C),
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      height: 0.10,
-                    ),
-                  ),
                   const SizedBox(height: 30),
                   BlocBuilder<TripBloc, TripState>(
                     builder: (context, state) {
@@ -227,34 +223,99 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                     },
                   ),
                   const SizedBox(height: 25),
-                  Container(
-                    width: 346,
-                    height: 55,
-                    decoration: BoxDecoration(
-                      color: const Color(0xff8ECAE6),
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.circular(48),
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color(0xff8ECAE6).withOpacity(0.5),
-                          spreadRadius: 1,
-                          blurRadius: 10,
-                          offset: const Offset(0, 5),
+                  widget.trip.tripCreator == currentUser!.user_uuid
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: const Color.fromARGB(176, 255, 184, 3),
+                                shape: BoxShape.rectangle,
+                                borderRadius: BorderRadius.circular(48),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color:
+                                        const Color.fromARGB(164, 255, 184, 3)
+                                            .withOpacity(0.5),
+                                    spreadRadius: 1,
+                                    blurRadius: 5,
+                                    offset: const Offset(0, 5),
+                                  ),
+                                ],
+                              ),
+                              child: const Center(
+                                  child: Icon(
+                                Icons.edit,
+                                color: Colors.white,
+                              )),
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            InkWell(
+                              onTap: () async{
+                               await deleteTrip(id: widget.trip.id!);
+
+                                context.read<HomeBloc>().add(GetTripsEvent());
+                                Navigator.pop(context,"back");
+                              },
+                              child: Container(
+                                width: 50,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  color: const Color.fromARGB(168, 255, 102, 0),
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: BorderRadius.circular(48),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color:
+                                          const Color.fromARGB(168, 255, 102, 0)
+                                              .withOpacity(0.5),
+                                      spreadRadius: 1,
+                                      blurRadius: 5,
+                                      offset: const Offset(0, 5),
+                                    ),
+                                  ],
+                                ),
+                                child: const Center(
+                                    child: Icon(
+                                  Icons.delete,
+                                  color: Colors.white,
+                                )),
+                              ),
+                            ),
+                          ],
+                        )
+                      : Container(
+                          width: 346,
+                          height: 55,
+                          decoration: BoxDecoration(
+                            color: const Color(0xff8ECAE6),
+                            shape: BoxShape.rectangle,
+                            borderRadius: BorderRadius.circular(48),
+                            boxShadow: [
+                              BoxShadow(
+                                color: const Color(0xff8ECAE6).withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 10,
+                                offset: const Offset(0, 5),
+                              ),
+                            ],
+                          ),
+                          child: const Center(
+                            child: Text(
+                              ' JOIN THE TRIP',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
                         ),
-                      ],
-                    ),
-                    child: const Center(
-                      child: Text(
-                        ' JOIN THE TRIP',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ),

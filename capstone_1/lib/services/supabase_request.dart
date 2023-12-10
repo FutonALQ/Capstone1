@@ -73,3 +73,9 @@ Future<List<Trip>> getFollowingTrips({String? id}) async {
   }
   return followingTripsList;
 }
+
+deleteTrip({required int id}) async {
+  final supabase = Supabase.instance.client;
+  await supabase.from('a_trip').delete().eq("trip_id", id);
+  await supabase.from('trips').delete().eq("id", id);
+}
