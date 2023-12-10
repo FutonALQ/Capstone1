@@ -21,6 +21,13 @@ Future<UserModel> getUser() async {
   return user;
 }
 
+Future<UserModel> getAUser(String id) async {
+  final supabase = Supabase.instance.client;
+  final response = await supabase.from("users").select('*').eq('user_uuid', id);
+  final UserModel user = UserModel.fromJson(response[0]);
+  return user;
+}
+
 Future<List<Trip>> getTrips({int? Userid}) async {
   List data = [];
   List<Trip> tripsList = [];
