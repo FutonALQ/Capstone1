@@ -1,5 +1,6 @@
 import 'package:capstone_1/screens/edit_profile_screen.dart';
 import 'package:capstone_1/screens/followers_screen.dart';
+import 'package:capstone_1/screens/form_screen.dart';
 import 'package:capstone_1/screens/signin_screen.dart';
 import 'package:capstone_1/widgets/following_button.dart';
 import 'package:capstone_1/widgets/profile_popup_menu.dart';
@@ -91,7 +92,10 @@ class ProfileScreen extends StatelessWidget {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => TripFormScreen()));
+          },
           child: const Icon(
             Icons.add,
           ),
