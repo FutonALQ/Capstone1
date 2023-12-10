@@ -7,7 +7,6 @@ class Trip {
   String? category;
   num? cost;
   String? description;
-  String? link;
   String? tripCreator;
   String? image;
 
@@ -21,7 +20,6 @@ class Trip {
       this.category,
       this.cost,
       this.description,
-      this.link,
       this.tripCreator});
 
   Trip.fromJson(Map<String, dynamic> json) {
@@ -34,8 +32,7 @@ class Trip {
     category = json['category'];
     cost = json['cost'];
     description = json['description'];
-    link = json['link'];
-    tripCreator = json['trip_creator'];
+    tripCreator = json['creator_id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -49,8 +46,7 @@ class Trip {
     data['category'] = category;
     data['cost'] = cost;
     data['description'] = description;
-    data['link'] = link;
-    data['trip_creator'] = tripCreator;
+    data['creator_id'] = tripCreator;
     return data;
   }
 }

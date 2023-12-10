@@ -1,13 +1,8 @@
 import 'package:capstone_1/blocs/auth_bloc/auth_bloc.dart';
 import 'package:capstone_1/blocs/chat_bloc/chat_bloc.dart';
+import 'package:capstone_1/blocs/home_bloc/home_bloc.dart';
 import 'package:capstone_1/blocs/search_bloc/search_bloc.dart';
-
-import 'package:capstone_1/screens/nav_bar.dart';
-import 'package:capstone_1/screens/search_screen.dart';
-import 'package:capstone_1/screens/signup_screen.dart';
-
 import 'package:capstone_1/blocs/trip_bloc/trip_bloc.dart';
-
 import 'package:capstone_1/screens/welcome_screen.dart';
 import 'package:capstone_1/services/supabase_service.dart';
 import 'package:capstone_1/themes/app_theme.dart';
@@ -39,11 +34,14 @@ class MainApp extends StatelessWidget {
         BlocProvider(
           create: (context) => TripBloc(),
         ),
+        BlocProvider(
+          create: (context) => HomeBloc(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: appThemme['light'],
-        home: WelcomeScreen(),
+        home: const WelcomeScreen(),
       ),
     );
   }

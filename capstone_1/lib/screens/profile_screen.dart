@@ -1,3 +1,4 @@
+import 'package:capstone_1/globals/global_user.dart';
 import 'package:capstone_1/screens/edit_profile_screen.dart';
 import 'package:capstone_1/screens/followers_screen.dart';
 import 'package:capstone_1/screens/form_screen.dart';
@@ -7,6 +8,7 @@ import 'package:capstone_1/widgets/profile_popup_menu.dart';
 import 'package:capstone_1/widgets/user_avtar.dart';
 import 'package:capstone_1/widgets/user_info.dart';
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -48,6 +50,9 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ),
                 onTap: () {
+                  final supabase = Supabase.instance.client;
+                  supabase.auth.signOut();
+                  currentUser = null;
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(

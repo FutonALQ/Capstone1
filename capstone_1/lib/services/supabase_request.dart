@@ -73,3 +73,36 @@ Future<List<Trip>> getFollowingTrips({String? id}) async {
   }
   return followingTripsList;
 }
+
+deleteTrip({required int id}) async {
+  final supabase = Supabase.instance.client;
+  await supabase.from('a_trip').delete().eq("trip_id", id);
+  await supabase.from('trips').delete().eq("id", id);
+}
+
+addUserToTrip(Map body) async {
+  final supabase = Supabase.instance.client;
+  await supabase.from("a_trip").insert(body).select();
+}
+
+Future<bool> searchUserInTrip(
+    {required String userId, required int tripId}) async {
+  final supabase = Supabase.instance.client;
+  final List response = await supabase
+      .from("a_trip")
+      .select('*')
+      .match({'joint_id': userId, 'trip_id': tripId});
+
+  if (response.isEmpty) {
+    return false;
+  }
+  return true;
+}
+
+unjointTrip({required String userId, required int tripId}) async {
+  final supabase = Supabase.instance.client;
+  await supabase
+      .from('a_trip')
+      .delete()
+      .match({'joint_id': userId, 'trip_id': tripId});
+}

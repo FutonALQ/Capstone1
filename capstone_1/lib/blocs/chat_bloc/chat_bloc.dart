@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:capstone_1/models/chat.dart';
 import 'package:capstone_1/models/user.dart';
-
 import 'package:meta/meta.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -32,7 +31,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       //     print("Parsed User: $users");
       final List<UserModel> users = allUsers.map((user) {
         final userModel = UserModel.fromJson(user);
-        print("Parsed User: $userModel");
+        // print("Parsed User: $userModel");
         return userModel;
       }).toList();
 

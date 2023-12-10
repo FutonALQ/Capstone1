@@ -47,7 +47,10 @@ class WelcomeScreen extends StatelessWidget {
                   child: InkWell(
                     onTap: () async {
                       final supabaseClint = Supabase.instance.client;
-
+                      showDialog(
+                          context: context,
+                          builder: (context) =>
+                              const Center(child: CircularProgressIndicator()));
                       await Future.delayed(const Duration(seconds: 1),
                           () async {
                         final token =
@@ -60,6 +63,7 @@ class WelcomeScreen extends StatelessWidget {
                                 .auth.currentSession!.refreshToken!);
                           }
                           currentUser = await getUser();
+                          Navigator.pop(context);
                           Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
@@ -67,6 +71,7 @@ class WelcomeScreen extends StatelessWidget {
                                       const AppNavigationBar()),
                               (route) => false);
                         } else {
+                          Navigator.pop(context);
                           Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(

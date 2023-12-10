@@ -1,7 +1,9 @@
+import 'package:capstone_1/blocs/home_bloc/home_bloc.dart';
 import 'package:capstone_1/globals/global_user.dart';
-import 'package:capstone_1/screens/old_profile_screen.dart';
+import 'package:capstone_1/screens/profile_screen.dart';
 import 'package:capstone_1/widgets/trip_grid_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -23,6 +25,12 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
   String selectedCategory = "All";
   @override
+  void initState() {
+    context.read<HomeBloc>().add(GetTripsEvent());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Padding(
@@ -37,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    width: 163,
+                    width: 200,
                     child: Text(
                       ' Hello 👋 ${currentUser?.name}',
                       style: const TextStyle(
@@ -70,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const UserProfile()));
+                          builder: (context) => const ProfileScreen()));
                 },
                 child: ClipOval(
                   child: Image.network(

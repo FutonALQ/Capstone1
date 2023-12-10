@@ -71,6 +71,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthStates> {
             "image_url": user!.imageUrl,
             "age": user!.age,
           });
+          currentUser = await getUser();
           emit(SuccessOtpState());
         } else {
           emit(ErrorOtpState("Please enter otp"));
@@ -93,6 +94,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthStates> {
           } else {
             emit(ErrorSignInState("Email or password is error"));
           }
+          currentUser = await getUser();
           emit(SuccessSignInState());
         } else {
           emit(ErrorSignInState("Please enter all fields"));
