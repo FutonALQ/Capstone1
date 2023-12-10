@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    width: 163,
+                    width: 200,
                     child: Text(
                       ' Hello 👋 ${currentUser?.name}',
                       style: const TextStyle(
