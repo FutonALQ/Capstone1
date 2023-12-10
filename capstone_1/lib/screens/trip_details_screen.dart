@@ -120,7 +120,7 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                           ),
                           const SizedBox(width: 8),
                           Text(
-                            widget.trip.time ?? "-",
+                            widget.trip.time!,
                             style: const TextStyle(
                               color: Color(0xFF818E9C),
                               fontSize: 14,
@@ -148,7 +148,7 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                           SizedBox(
                             width: 100,
                             child: Text(
-                              widget.trip.location ?? "-",
+                              widget.trip.location!,
                               style: const TextStyle(
                                 color: Color(0xFF818E9C),
                                 fontSize: 14,

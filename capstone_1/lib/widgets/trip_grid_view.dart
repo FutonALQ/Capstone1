@@ -1,5 +1,5 @@
 import 'package:capstone_1/models/trip.dart';
-import 'package:capstone_1/screens/tripdeatail_screen.dart';
+import 'package:capstone_1/screens/trip_details_screen.dart';
 import 'package:capstone_1/services/supabase_request.dart';
 import 'package:capstone_1/widgets/trip_countener.dart';
 import 'package:flutter/material.dart';
