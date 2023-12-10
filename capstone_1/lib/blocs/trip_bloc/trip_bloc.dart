@@ -10,7 +10,13 @@ class TripBloc extends Bloc<TripEvent, TripState> {
   TripBloc() : super(TripInitial()) {
     on<GetUsersEvent>((event, emit) async {
       final UserModel user = await getAUser(event.trip.tripCreator!);
-      emit(GetUserSuccessedState(user));
+       final bool isJoint = await searchUserInTrip(
+        tripId: event.tripId,
+        userId: event.userId,
+      );
+      emit(GetUserSuccessedState(user,isJoint));
     });
+
+
   }
 }

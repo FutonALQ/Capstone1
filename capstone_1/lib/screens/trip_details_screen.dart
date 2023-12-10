@@ -2,6 +2,7 @@ import 'package:capstone_1/blocs/home_bloc/home_bloc.dart';
 import 'package:capstone_1/blocs/trip_bloc/trip_bloc.dart';
 import 'package:capstone_1/globals/global_user.dart';
 import 'package:capstone_1/models/trip.dart';
+import 'package:capstone_1/screens/home_screen.dart';
 import 'package:capstone_1/services/supabase_request.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,9 +19,15 @@ class TripDetailsScreen extends StatefulWidget {
 }
 
 class _TripDetailsScreenState extends State<TripDetailsScreen> {
+  bool isJoint = false;
   @override
-  void initState() {
-    context.read<TripBloc>().add(GetUsersEvent(widget.trip));
+  initState() {
+    context.read<TripBloc>().add(
+        GetUsersEvent(widget.trip, currentUser!.user_uuid!, widget.trip.id!));
+    // context
+    //     .read<TripBloc>()
+    //     .add(IsJointEvent(currentUser!.user_uuid!, widget.trip.id!));
+
     super.initState();
   }
 
@@ -227,39 +234,50 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Container(
-                              width: 50,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: const Color.fromARGB(176, 255, 184, 3),
-                                shape: BoxShape.rectangle,
-                                borderRadius: BorderRadius.circular(48),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color:
-                                        const Color.fromARGB(164, 255, 184, 3)
-                                            .withOpacity(0.5),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  ),
-                                ],
+                            InkWell(
+                              onTap: () {
+                                //--------------------------------------------
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const HomeScreen()));
+                                //--------------------------------------------
+                              },
+                              child: Container(
+                                width: 50,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  color: const Color.fromARGB(176, 255, 184, 3),
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: BorderRadius.circular(48),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color:
+                                          const Color.fromARGB(164, 255, 184, 3)
+                                              .withOpacity(0.5),
+                                      spreadRadius: 1,
+                                      blurRadius: 5,
+                                      offset: const Offset(0, 5),
+                                    ),
+                                  ],
+                                ),
+                                child: const Center(
+                                    child: Icon(
+                                  Icons.edit,
+                                  color: Colors.white,
+                                )),
                               ),
-                              child: const Center(
-                                  child: Icon(
-                                Icons.edit,
-                                color: Colors.white,
-                              )),
                             ),
                             const SizedBox(
                               width: 20,
                             ),
                             InkWell(
-                              onTap: () async{
-                               await deleteTrip(id: widget.trip.id!);
+                              onTap: () async {
+                                await deleteTrip(id: widget.trip.id!);
 
                                 context.read<HomeBloc>().add(GetTripsEvent());
-                                Navigator.pop(context,"back");
+                                Navigator.pop(context, "back");
                               },
                               child: Container(
                                 width: 50,
@@ -288,34 +306,101 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                             ),
                           ],
                         )
-                      : Container(
-                          width: 346,
-                          height: 55,
-                          decoration: BoxDecoration(
-                            color: const Color(0xff8ECAE6),
-                            shape: BoxShape.rectangle,
-                            borderRadius: BorderRadius.circular(48),
-                            boxShadow: [
-                              BoxShadow(
-                                color: const Color(0xff8ECAE6).withOpacity(0.5),
-                                spreadRadius: 1,
-                                blurRadius: 10,
-                                offset: const Offset(0, 5),
-                              ),
-                            ],
-                          ),
-                          child: const Center(
-                            child: Text(
-                              ' JOIN THE TRIP',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ),
-                        ),
+                      : BlocBuilder<TripBloc, TripState>(
+                          builder: (context, state) {
+                            if (state is GetUserSuccessedState) {
+                              return !state.isJoint
+                                  ? InkWell(
+                                      onTap: () async {
+                                        await addUserToTrip({
+                                          "joint_id": currentUser!.user_uuid,
+                                          "trip_id": widget.trip.id
+                                        });
+                                        context.read<TripBloc>().add(
+                                            GetUsersEvent(
+                                                widget.trip,
+                                                currentUser!.user_uuid!,
+                                                widget.trip.id!));
+                                      },
+                                      child: Container(
+                                        width: 346,
+                                        height: 55,
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xff8ECAE6),
+                                          shape: BoxShape.rectangle,
+                                          borderRadius:
+                                              BorderRadius.circular(48),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: const Color(0xff8ECAE6)
+                                                  .withOpacity(0.5),
+                                              spreadRadius: 1,
+                                              blurRadius: 10,
+                                              offset: const Offset(0, 5),
+                                            ),
+                                          ],
+                                        ),
+                                        child: const Center(
+                                          child: Text(
+                                            ' JOIN THE TRIP',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  : InkWell(
+                                      onTap: () async {
+                                        await unjointTrip(
+                                            userId: currentUser!.user_uuid!,
+                                            tripId: widget.trip.id!);
+                                        context.read<TripBloc>().add(
+                                            GetUsersEvent(
+                                                widget.trip,
+                                                currentUser!.user_uuid!,
+                                                widget.trip.id!));
+                                      },
+                                      child: Container(
+                                        width: 346,
+                                        height: 55,
+                                        decoration: BoxDecoration(
+                                          color: const Color.fromARGB(
+                                              168, 255, 102, 0),
+                                          shape: BoxShape.rectangle,
+                                          borderRadius:
+                                              BorderRadius.circular(48),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: const Color.fromARGB(
+                                                      168, 255, 102, 0)
+                                                  .withOpacity(0.5),
+                                              spreadRadius: 1,
+                                              blurRadius: 10,
+                                              offset: const Offset(0, 5),
+                                            ),
+                                          ],
+                                        ),
+                                        child: const Center(
+                                          child: Text(
+                                            ' REMOVE THE TRIP',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                            }
+                            return Container();
+                          },
+                        )
                 ],
               ),
             ),
