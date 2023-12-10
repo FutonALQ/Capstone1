@@ -7,12 +7,37 @@ addUser(Map body) async {
   await supabase.from("users").insert(body).select();
 }
 
-Future<List> getUsers() async {
+/// **********************************************************
+Future<List<UserModel>> getUsers() async {
   final supabase = Supabase.instance.client;
   final users = await supabase.from("users").select();
+  final List<UserModel> usersObjectList = [];
+
+  for (var element in users) {
+    usersObjectList.add(UserModel.fromJson(element));
+  }
+  return usersObjectList;
+}
+
+Future<List> getFollowing() async {
+  final supabase = Supabase.instance.client;
+  final users = await supabase
+      .from("public.user")
+      .select()
+      .eq('user_uuid', supabase.auth.currentUser!.id);
   return users;
 }
 
+Future<List> getFollowers() async {
+  final supabase = Supabase.instance.client;
+  final users = await supabase
+      .from("users")
+      .select()
+      .eq('user_uuid', supabase.auth.currentUser!.id);
+  return users;
+}
+
+/// ........................................................
 Future<UserModel> getUser() async {
   final supabase = Supabase.instance.client;
   final String id = Supabase.instance.client.auth.currentUser!.id;

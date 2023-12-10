@@ -1,5 +1,7 @@
 import 'package:capstone_1/blocs/search_bloc/search_bloc.dart';
 import 'package:capstone_1/blocs/search_bloc/search_event.dart';
+import 'package:capstone_1/models/user.dart';
+import 'package:capstone_1/services/supabase_request.dart';
 import 'package:capstone_1/widgets/search_text_field.dart';
 import 'package:capstone_1/widgets/users_card.dart';
 import 'package:flutter/material.dart';
@@ -55,14 +57,14 @@ class SearchScreen extends StatelessWidget {
                 ),
 
                 /* Testing Button */
-                // ElevatedButton(
-                //   onPressed: () async {
-                //     List userList = await getUsers();
-                //     print(
-                //         '============================\n$userList\n=============================');
-                //   },
-                //   child: CircularProgressIndicator(strokeAlign: 0.01),
-                // ),
+                ElevatedButton(
+                  onPressed: () async {
+                    final users = await getFollowing();
+                    print(
+                        '============================\n${users}\n=============================');
+                  },
+                  child: Text('TEST'),
+                ),
               ],
             ),
           ),

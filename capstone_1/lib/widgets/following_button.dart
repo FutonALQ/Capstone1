@@ -29,9 +29,15 @@ class FollowingButton extends StatelessWidget {
               text,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
+                color: Color(0xff219EBC),
               ),
             ),
-            Text(noOfusers.toString()),
+            Text(
+              noOfusers.toString(),
+              style: const TextStyle(
+                color: Color(0xff219EBC),
+              ),
+            ),
           ],
         ),
       ),
