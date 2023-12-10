@@ -46,6 +46,13 @@ Future<UserModel> getUser() async {
   return user;
 }
 
+Future<UserModel> getAUser(String id) async {
+  final supabase = Supabase.instance.client;
+  final response = await supabase.from("users").select('*').eq('user_uuid', id);
+  final UserModel user = UserModel.fromJson(response[0]);
+  return user;
+}
+
 Future<List<Trip>> getTrips({int? Userid}) async {
   List data = [];
   List<Trip> tripsList = [];
@@ -90,4 +97,10 @@ Future<List<Trip>> getFollowingTrips({String? id}) async {
     print(e.toString());
   }
   return followingTripsList;
+}
+
+deleteTrip({required int id}) async {
+  final supabase = Supabase.instance.client;
+  await supabase.from('a_trip').delete().eq("trip_id", id);
+  await supabase.from('trips').delete().eq("id", id);
 }
