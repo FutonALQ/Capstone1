@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 class ProfileTaps extends StatelessWidget {
-  ProfileTaps(
+  const ProfileTaps(
       {super.key,
       required this.leftWidget,
       required this.rightWidget,
       this.letTabText = 'My'});
 
-  Widget leftWidget;
-  Widget rightWidget;
-  String letTabText;
+  final Widget leftWidget;
+  final Widget rightWidget;
+  final String letTabText;
   @override
   Widget build(BuildContext context) {
     return Column(

@@ -1,8 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:capstone_1/blocs/home_bloc/home_bloc.dart';
 import 'package:capstone_1/blocs/trip_bloc/trip_bloc.dart';
 import 'package:capstone_1/globals/global_user.dart';
 import 'package:capstone_1/models/trip.dart';
+import 'package:capstone_1/models/user.dart';
 import 'package:capstone_1/screens/home_screen.dart';
+import 'package:capstone_1/screens/users_profile_screen.dart';
 import 'package:capstone_1/services/supabase_request.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -207,12 +211,37 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                   BlocBuilder<TripBloc, TripState>(
                     builder: (context, state) {
                       if (state is GetUserSuccessedState) {
-                        return Text(
-                          'Trip Creator: ${state.user.name}',
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
+                        return TextButton(
+                          onPressed: () async {
+                            final UserModel user =
+                                await getAUser(widget.trip.tripCreator!);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => UsersProfileScreen(
+                                          user: user,
+                                        )));
+                          },
+                          child: Row(
+                            children: [
+                              const Text(
+                                'Trip Creator:  ',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              Text(
+                                '${state.user.name}',
+                                style: const TextStyle(
+                                  color: Color(0xff023047),
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                            ],
                           ),
                         );
                       }
@@ -226,20 +255,20 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                       );
                     },
                   ),
-                  const SizedBox(height: 25),
+                  const SizedBox(height: 13),
                   widget.trip.tripCreator == currentUser!.user_uuid
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             InkWell(
                               onTap: () {
-                                //--------------------------------------------
+                                //-----------------------EDIT--------------------
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             const HomeScreen()));
-                                //--------------------------------------------
+                                //-------------------EDIT-------------------------
                               },
                               child: Container(
                                 width: 50,
@@ -272,7 +301,6 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                             InkWell(
                               onTap: () async {
                                 await deleteTrip(id: widget.trip.id!);
-
                                 context.read<HomeBloc>().add(GetTripsEvent());
                                 Navigator.pop(context, "back");
                               },
@@ -321,16 +349,6 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                                 return !state.isJoint
                                     ? InkWell(
                                         onTap: () async {
-                                          // await addUserToTrip({
-                                          //   "joint_id": currentUser!.user_uuid,
-                                          //   "trip_id": widget.trip.id
-                                          // });
-                                          // context.read<TripBloc>().add(
-                                          //     GetUsersEvent(
-                                          //         widget.trip,
-                                          //         currentUser!.user_uuid!,
-                                          //         widget.trip.id!));
-
                                           bool deleteConfirmed =
                                               await showDialog(
                                             context: context,
@@ -343,8 +361,8 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                                                 actions: [
                                                   TextButton(
                                                     onPressed: () {
-                                                      Navigator.of(context).pop(
-                                                          false); // User canceled the operation
+                                                      Navigator.of(context)
+                                                          .pop(false);
                                                     },
                                                     child: const Text(
                                                       'Cancel',
@@ -355,8 +373,8 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                                                   ),
                                                   TextButton(
                                                     onPressed: () {
-                                                      Navigator.of(context).pop(
-                                                          true); // User confirmed the operation
+                                                      Navigator.of(context)
+                                                          .pop(true);
                                                     },
                                                     child: const Text(
                                                       'Confirm',
@@ -369,8 +387,6 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                                               );
                                             },
                                           );
-
-                                          // Check if the user confirmed the operation
                                           if (deleteConfirmed == true) {
                                             await addUserToTrip({
                                               "joint_id":
@@ -417,15 +433,6 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                                       )
                                     : InkWell(
                                         onTap: () async {
-                                          // await unjointTrip(
-                                          //     userId: currentUser!.user_uuid!,
-                                          //     tripId: widget.trip.id!);
-                                          // context.read<TripBloc>().add(
-                                          //     GetUsersEvent(
-                                          //         widget.trip,
-                                          //         currentUser!.user_uuid!,
-                                          //         widget.trip.id!));
-
                                           bool deleteConfirmed =
                                               await showDialog(
                                             context: context,
@@ -438,8 +445,8 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                                                 actions: [
                                                   TextButton(
                                                     onPressed: () {
-                                                      Navigator.of(context).pop(
-                                                          false); // User canceled the operation
+                                                      Navigator.of(context)
+                                                          .pop(false);
                                                     },
                                                     child: const Text(
                                                       'Cancel',
@@ -451,8 +458,8 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                                                   ),
                                                   TextButton(
                                                     onPressed: () {
-                                                      Navigator.of(context).pop(
-                                                          true); // User confirmed the operation
+                                                      Navigator.of(context)
+                                                          .pop(true);
                                                     },
                                                     child: const Text(
                                                       'Confirm',
@@ -467,7 +474,6 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                                             },
                                           );
 
-                                          // Check if the user confirmed the operation
                                           if (deleteConfirmed == true) {
                                             await unjointTrip(
                                                 userId: currentUser!.user_uuid!,

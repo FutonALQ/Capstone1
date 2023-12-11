@@ -4,6 +4,7 @@ import 'package:capstone_1/screens/trip_details_screen.dart';
 import 'package:capstone_1/services/supabase_request.dart';
 import 'package:capstone_1/widgets/trip_countener.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class FollowingTripGridView extends StatelessWidget {
   const FollowingTripGridView({
@@ -58,7 +59,20 @@ class FollowingTripGridView extends StatelessWidget {
                           );
                         }),
                   )
-                : const Text("");
+                : Center(
+                    child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Lottie.asset('lib/assets/Animation - 1702283696079.json',
+                          height: 100, width: 100),
+                      const Text(
+                        "Add Your First Friend",
+                        style: TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.w500),
+                      )
+                    ],
+                  ));
           } else if (snapshot.hasError) {
             return const Center(child: Text("error"));
           }
