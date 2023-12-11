@@ -7,7 +7,7 @@ import 'package:capstone_1/widgets/form_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+// import 'package:supabase_flutter/supabase_flutter.dart';
 
 class TripFormScreen extends StatefulWidget {
   const TripFormScreen({super.key});
@@ -95,15 +95,38 @@ class _TripFormScreenState extends State<TripFormScreen> {
                       child: CircleAvatar(
                         backgroundColor: const Color(0xff8ECAE6),
                         radius: 50,
-                        backgroundImage:
-                            imageFile != null ? FileImage(imageFile!) : null,
-                        child: imageFile == null
-                            ? const Icon(Icons.camera_alt,
-                                size: 50, color: Color(0xffFFB703))
-                            : null,
+                        child: imageFile != null
+                            ? Image.file(
+                                imageFile!,
+                                width: 100,
+                                height: 100,
+                                fit: BoxFit.cover,
+                              )
+                            : Image.network(
+                                'https://www.fabhotels.com/blog/wp-content/uploads/2020/05/road-trip-hacks-tips-600.jpg',
+                                width: 100,
+                                height: 100,
+                                fit: BoxFit.cover,
+                              ),
                       ),
                     ),
                   ),
+                  // GestureDetector(
+                  //   onTap: getImage,
+                  //   child: Center(
+                  //     child: CircleAvatar(
+                  //       backgroundColor: const Color(0xff8ECAE6),
+                  //       radius: 50,
+                  //       backgroundImage:
+                  //           imageFile != null ? FileImage(imageFile!) : null,
+                  //       child: imageFile == null
+                  //           ? const Icon(Icons.camera_alt,
+                  //               size: 50, color: Color(0xffFFB703))
+                  //           : null,
+                  //     ),
+                  //   ),
+                  // ),
+
                   const SizedBox(height: 16),
                   const SizedBox(height: 16),
                   buildStyledTextField(
@@ -242,9 +265,10 @@ class _TripFormScreenState extends State<TripFormScreen> {
                                         location: selecteCity,
                                         description: descriptionController.text,
                                         cost: int.parse(costController.text),
-                                        image: imageFile != null
-                                            ? imageFile?.path
-                                            : 'https://www.fabhotels.com/blog/wp-content/uploads/2020/05/road-trip-hacks-tips-600.jpg',
+                                        image: imageFile?.path,
+                                        // image: imageFile != null
+                                        //     ? imageFile?.path
+                                        //     : 'https://www.fabhotels.com/blog/wp-content/uploads/2020/05/road-trip-hacks-tips-600.jpg',
                                         tripCreator: currentUser!.user_uuid),
                                   ),
                                 );
