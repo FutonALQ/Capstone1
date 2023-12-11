@@ -54,13 +54,7 @@ class FollowingUsersScreen extends StatelessWidget {
                             .read<ProfileBloc>()
                             .add(UnFollowEvent(user: state.followingUsers[i]));
                       },
-                      chatOnPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    ChatScreen(user: state.followingUsers[i])));
-                      },
+                    
                     );
                   },
                   separatorBuilder: (context, i) {

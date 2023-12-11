@@ -1,6 +1,6 @@
 import 'package:capstone_1/blocs/search_bloc/search_bloc.dart';
 import 'package:capstone_1/blocs/search_bloc/search_event.dart';
-import 'package:capstone_1/globals/global_user.dart';
+import 'package:capstone_1/blocs/search_bloc/search_state.dart';
 import 'package:capstone_1/widgets/search_text_field.dart';
 import 'package:capstone_1/widgets/users_card.dart';
 import 'package:flutter/material.dart';
@@ -21,53 +21,63 @@ class SearchScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: MediaQuery.sizeOf(context).height * 0.01),
-                SearchTextField(
-                  controller: searchController,
-                  onChange: (query) {
-                    context
-                        .read<SearchBloc>()
-                        .add(SearchRequestEvent(query: query));
-                  },
-                  onCancel: () {
-                    context.read<SearchBloc>().add(ClearSearchEvent());
-                  },
-                ),
+                BlocBuilder<SearchBloc, SearchState>(
+                  builder: (context, state) {
+                    if (state is ClearSearchState) {
+                      SearchTextField(
+                        controller: searchController,
+                        onChange: (query) {
+                          context
+                              .read<SearchBloc>()
+                              .add(SearchRequestEvent(query: query));
+                        },
+                      );
+                    }
 
-                SizedBox(height: MediaQuery.sizeOf(context).height * 0.02),
-                // Center(child: CircularProgressIndicator()),
-                ListView.separated(
-                  shrinkWrap: true,
-                  itemCount: 5,
-                  itemBuilder: (context, i) {
-                    return UsersCard(
-                      onTap: () {},
-                      user: currentUser!,
-                      chatOnPressed: () {},
-                      followOnPressed: () {},
+                    return SearchTextField(
+                      controller: searchController,
+                      onChange: (query) {
+                        context
+                            .read<SearchBloc>()
+                            .add(SearchRequestEvent(query: query));
+                      },
                     );
                   },
-                  separatorBuilder: (context, i) {
-                    return SizedBox(
-                        height: MediaQuery.sizeOf(context).height * 0.01);
-                  },
                 ),
-
-                /* Testing Button */
-                ElevatedButton(
-                  onPressed: () async {
-                    // await follow('42c953d5-cc40-4406-b933-9a643cfe6842',
-                    //     'd33d895d-ab10-40b2-90d6-badf3917425b');
-                    // await follow('d33d895d-ab10-40b2-90d6-badf3917425b',
-                    //     '42c953d5-cc40-4406-b933-9a643cfe6842');
-                    // await unfollow('f0785a24-5ca7-4431-acbc-bf6992b516d9');
-                    // await isAFollower();
-                    // await getOwnerTrips('d33d895d-ab10-40b2-90d6-badf3917425b');
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (contsex) => UsersProfileScreen()));
+                SizedBox(height: MediaQuery.sizeOf(context).height * 0.02),
+                BlocConsumer<SearchBloc, SearchState>(
+                  listener: (context, state) {
+                    if (state is LoadingState) {
+                      showDialog(
+                          context: context,
+                          builder: (context) =>
+                              const Center(child: CircularProgressIndicator()));
+                    }
                   },
-                  child: const Text('TEST'),
+                  builder: (context, state) {
+                    if (state is ResultResponseState) {
+                      Navigator.maybePop(context);
+                      return state.response.isNotEmpty
+                          ? ListView.separated(
+                              shrinkWrap: true,
+                              itemCount: state.response.length,
+                              itemBuilder: (context, i) {
+                                return UsersCard(
+                                  onTap: () {},
+                                  user: state.response[i]!,
+                                  followOnPressed: () {},
+                                );
+                              },
+                              separatorBuilder: (context, i) {
+                                return SizedBox(
+                                    height: MediaQuery.sizeOf(context).height *
+                                        0.01);
+                              },
+                            )
+                          : Container();
+                    }
+                    return const Text("");
+                  },
                 ),
               ],
             ),

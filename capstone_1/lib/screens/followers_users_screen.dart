@@ -1,7 +1,6 @@
 import 'package:capstone_1/blocs/profile_bloc/profile_bloc.dart';
 import 'package:capstone_1/blocs/profile_bloc/profile_event.dart';
 import 'package:capstone_1/blocs/profile_bloc/profile_state.dart';
-import 'package:capstone_1/screens/chat_screen.dart';
 import 'package:capstone_1/screens/users_profile_screen.dart';
 import 'package:capstone_1/widgets/users_card.dart';
 import 'package:flutter/material.dart';
@@ -49,13 +48,6 @@ class FollowersUsersScreen extends StatelessWidget {
                             .read<ProfileBloc>()
                             .add(FollowEvent(user: state.followersUsers[i]));
                       },
-                      chatOnPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    ChatScreen(user: state.followersUsers[i])));
-                      },
                     );
                   },
                   separatorBuilder: (context, i) {
@@ -82,13 +74,6 @@ class FollowersUsersScreen extends StatelessWidget {
                         context
                             .read<ProfileBloc>()
                             .add(FollowEvent(user: state.followersUsers[i]));
-                      },
-                      chatOnPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    ChatScreen(user: state.followersUsers[i])));
                       },
                     );
                   },

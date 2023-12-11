@@ -6,14 +6,13 @@ class UsersCard extends StatelessWidget {
   UsersCard(
       {super.key,
       required this.onTap,
-      required this.chatOnPressed,
       required this.followOnPressed,
       this.buttonText = 'Follow',
       required this.user,
       this.buttonTextColor = const Color(0xff023047)});
 
   Function() onTap;
-  Function() chatOnPressed;
+
   Function() followOnPressed;
   String buttonText;
   Color buttonTextColor;
