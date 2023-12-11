@@ -3,7 +3,6 @@ import 'package:capstone_1/blocs/auth_bloc/auth_bloc.dart';
 import 'package:capstone_1/blocs/chat_bloc/chat_bloc.dart';
 import 'package:capstone_1/blocs/home_bloc/home_bloc.dart';
 import 'package:capstone_1/blocs/profile_bloc/profile_bloc.dart';
-import 'package:capstone_1/blocs/profile_bloc/profile_event.dart';
 import 'package:capstone_1/blocs/search_bloc/search_bloc.dart';
 import 'package:capstone_1/blocs/trip_bloc/trip_bloc.dart';
 import 'package:capstone_1/screens/welcome_screen.dart';
@@ -39,7 +38,7 @@ class MainApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => HomeBloc(),
-        ), 
+        ),
         BlocProvider(
           create: (context) => AddTripBloc(),
         ),
