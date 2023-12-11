@@ -106,3 +106,12 @@ unjointTrip({required String userId, required int tripId}) async {
       .delete()
       .match({'joint_id': userId, 'trip_id': tripId});
 }
+
+// addTrip(Map<String, dynamic> body) async {
+//   final supabase = Supabase.instance.client;
+//   await supabase.from("trips").insert(body).select();
+// }
+addTrip(Map<String, dynamic> body) async {
+  final supabase = Supabase.instance.client;
+  await supabase.from("trips").upsert(body).select();
+}

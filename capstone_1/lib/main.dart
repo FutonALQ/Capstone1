@@ -1,3 +1,4 @@
+import 'package:capstone_1/blocs/addtrip_bloc/addtrip_bloc.dart';
 import 'package:capstone_1/blocs/auth_bloc/auth_bloc.dart';
 import 'package:capstone_1/blocs/chat_bloc/chat_bloc.dart';
 import 'package:capstone_1/blocs/home_bloc/home_bloc.dart';
@@ -36,6 +37,9 @@ class MainApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => HomeBloc(),
+        ), 
+        BlocProvider(
+          create: (context) => AddTripBloc(),
         ),
       ],
       child: MaterialApp(
