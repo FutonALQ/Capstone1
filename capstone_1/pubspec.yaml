@@ -15,6 +15,7 @@ dependencies:
   flashy_tab_bar2: ^0.0.6
   icons_plus: ^4.0.0
   image_picker: ^1.0.4
+  lottie: ^2.7.0
 
 dev_dependencies:
   flutter_test:
