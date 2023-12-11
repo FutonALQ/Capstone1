@@ -2,6 +2,8 @@ import 'package:capstone_1/blocs/addtrip_bloc/addtrip_bloc.dart';
 import 'package:capstone_1/blocs/auth_bloc/auth_bloc.dart';
 import 'package:capstone_1/blocs/chat_bloc/chat_bloc.dart';
 import 'package:capstone_1/blocs/home_bloc/home_bloc.dart';
+import 'package:capstone_1/blocs/profile_bloc/profile_bloc.dart';
+import 'package:capstone_1/blocs/profile_bloc/profile_event.dart';
 import 'package:capstone_1/blocs/search_bloc/search_bloc.dart';
 import 'package:capstone_1/blocs/trip_bloc/trip_bloc.dart';
 import 'package:capstone_1/screens/welcome_screen.dart';
@@ -10,9 +12,9 @@ import 'package:capstone_1/themes/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  supabaseConfig();
+  await supabaseConfig();
   runApp(const MainApp());
 }
 
@@ -40,6 +42,9 @@ class MainApp extends StatelessWidget {
         ), 
         BlocProvider(
           create: (context) => AddTripBloc(),
+        ),
+        BlocProvider(
+          create: (context) => ProfileBloc(),
         ),
       ],
       child: MaterialApp(

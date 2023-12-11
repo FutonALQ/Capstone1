@@ -9,7 +9,7 @@ class UsersCard extends StatelessWidget {
     required this.name,
     required this.phone,
     required this.chatOnPressed,
-    required this.followOnOressed,
+    required this.followOnPressed,
     this.buttonText = 'follow',
     this.buttonTextColor = Colors.deepPurple,
   });
@@ -18,7 +18,7 @@ class UsersCard extends StatelessWidget {
   String name;
   String phone;
   Function() chatOnPressed;
-  Function() followOnOressed;
+  Function() followOnPressed;
   String buttonText;
   Color buttonTextColor;
   @override
@@ -87,7 +87,7 @@ class UsersCard extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       elevation: 0,
                     ),
-                    onPressed: followOnOressed,
+                    onPressed: followOnPressed,
                     child: Text(
                       buttonText,
                       style: TextStyle(
