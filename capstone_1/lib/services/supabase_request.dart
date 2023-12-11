@@ -124,6 +124,7 @@ Future<List<Trip>> getOwnerTrips(String userID) async {
 
 Future<UserModel> getUser() async {
   final supabase = Supabase.instance.client;
+  await Future.delayed(const Duration(seconds: 1));
   final String id = Supabase.instance.client.auth.currentUser!.id;
   final response = await supabase.from("users").select('*').eq('user_uuid', id);
   final UserModel user = UserModel.fromJson(response[0]);
@@ -138,17 +139,20 @@ Future<UserModel> getAUser(String id) async {
 }
 
 Future<List<Trip>> getTrips({int? Userid}) async {
+  final supabase = Supabase.instance.client;
+  await Future.delayed(const Duration(seconds: 1));
+
   List data = [];
   List<Trip> tripsList = [];
   try {
     if (Userid != null) {
-      data = await Supabase.instance.client
+      data = await supabase
           .from('trips')
           .select('*, a_trip!inner()')
           .eq('a_trip.joint_id', Userid);
       print(data);
     } else {
-      data = await Supabase.instance.client.from('trips').select('*');
+      data = await supabase.from('trips').select('*');
     }
 
     for (var element in data) {
@@ -216,10 +220,6 @@ unjointTrip({required String userId, required int tripId}) async {
       .match({'joint_id': userId, 'trip_id': tripId});
 }
 
-// addTrip(Map<String, dynamic> body) async {
-//   final supabase = Supabase.instance.client;
-//   await supabase.from("trips").insert(body).select();
-// }
 addTrip(Map<String, dynamic> body) async {
   final supabase = Supabase.instance.client;
   await supabase.from("trips").upsert(body).select();

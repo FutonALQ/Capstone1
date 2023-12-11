@@ -18,6 +18,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthStates> {
                   r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
               .hasMatch(event.email)) {
             final supabase = Supabase.instance.client;
+
             await supabase.auth
                 .signUp(email: event.email, password: event.password);
 
@@ -83,13 +84,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthStates> {
     });
 
     on<SignInEvent>((event, emit) async {
-      emit(LoadingOtpState());
+      emit(LoadingSignInState());
       try {
         if (event.email.isNotEmpty && event.password.isNotEmpty) {
           final supabase = Supabase.instance.client;
+          await Future.delayed(const Duration(seconds: 1));
+
           final login = await supabase.auth
               .signInWithPassword(email: event.email, password: event.password);
           if (login.user?.id != null) {
+            currentUser = await getUser();
             emit(SuccessSignInState());
           } else {
             emit(ErrorSignInState("Email or password is error"));

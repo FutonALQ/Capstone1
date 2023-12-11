@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:capstone_1/blocs/addtrip_bloc/addtrip_bloc.dart';
-import 'package:capstone_1/globals/global_user.dart';
 import 'package:capstone_1/models/trip.dart';
 import 'package:capstone_1/widgets/form_widget.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +9,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class TripFormScreen extends StatefulWidget {
+  const TripFormScreen({super.key});
+
   @override
   _TripFormScreenState createState() => _TripFormScreenState();
 }
@@ -38,9 +39,10 @@ class _TripFormScreenState extends State<TripFormScreen> {
       builder: (BuildContext context, Widget? child) {
         return Theme(
           data: ThemeData.light().copyWith(
-            primaryColor: Color(0xff8ECAE6),
-            colorScheme: ColorScheme.light(primary: Color(0xff8ECAE6)),
-            buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
+            primaryColor: const Color(0xff8ECAE6),
+            colorScheme: const ColorScheme.light(primary: Color(0xff8ECAE6)),
+            buttonTheme:
+                const ButtonThemeData(textTheme: ButtonTextTheme.primary),
           ),
           child: child!,
         );
@@ -73,7 +75,7 @@ class _TripFormScreenState extends State<TripFormScreen> {
         // backgroundColor: Colors.white,
         appBar: AppBar(
           // backgroundColor: Color(0xff8ECAE6),
-          title: Text(
+          title: const Text(
             'Add Your trip now !',
             style: TextStyle(
                 fontWeight: FontWeight.bold, color: Color(0xff023047)),
@@ -90,24 +92,24 @@ class _TripFormScreenState extends State<TripFormScreen> {
                     onTap: getImage,
                     child: Center(
                       child: CircleAvatar(
-                        backgroundColor: Color(0xff8ECAE6),
+                        backgroundColor: const Color(0xff8ECAE6),
                         radius: 50,
                         backgroundImage:
                             imageFile != null ? FileImage(imageFile!) : null,
                         child: imageFile == null
-                            ? Icon(Icons.camera_alt,
+                            ? const Icon(Icons.camera_alt,
                                 size: 50, color: Color(0xffFFB703))
                             : null,
                       ),
                     ),
                   ),
-                  SizedBox(height: 16),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   buildStyledTextField(
                     controller: titleController,
                     labelText: 'Trip Title',
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   InkWell(
                     onTap: () {
                       _selectDate(context);
@@ -116,19 +118,19 @@ class _TripFormScreenState extends State<TripFormScreen> {
                       child: buildStyledTextField(
                         controller: dateController,
                         labelText: 'Date',
-                        suffixIcon: Icon(
+                        suffixIcon: const Icon(
                           Icons.calendar_today,
                           color: Color(0xff219EBC),
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   buildStyledTextField(
                     controller: timeController,
                     labelText: 'Time',
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   DropdownButton<String>(
                       value: selecteCity,
                       onChanged: (String? newValue) {
@@ -155,20 +157,20 @@ class _TripFormScreenState extends State<TripFormScreen> {
                         height: 2,
                         color: const Color(0xff8ECAE6),
                       ),
-                      dropdownColor: Color(0xff8ECAE6)),
-                  SizedBox(height: 16),
+                      dropdownColor: const Color(0xff8ECAE6)),
+                  const SizedBox(height: 16),
                   buildStyledTextField(
                     controller: costController,
                     labelText: 'Cost',
                     keyboardType: TextInputType.number,
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   buildStyledTextField(
                     controller: descriptionController,
                     labelText: 'Description',
                     maxLines: 3,
                   ),
-                  SizedBox(height: 32),
+                  const SizedBox(height: 32),
                   DropdownButton<String>(
                     value: selectedCategory,
                     onChanged: (String? newValue) {
@@ -197,18 +199,18 @@ class _TripFormScreenState extends State<TripFormScreen> {
                       height: 2,
                       color: const Color(0xff8ECAE6),
                     ),
-                    dropdownColor: Color(0xff8ECAE6),
+                    dropdownColor: const Color(0xff8ECAE6),
                   ),
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                   BlocConsumer<AddTripBloc, AddTripState>(
                     listener: (context, state) {
                       // Handle state changes here
                       if (state is AddTripSuccessState) {
                         // Show a success message or navigate to another screen
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
+                          const SnackBar(
                             content: Text('Trip added successfully!'),
-                            duration: const Duration(seconds: 2),
+                            duration: Duration(seconds: 2),
                           ),
                         );
                       } else if (state is AddTripErrorState) {
