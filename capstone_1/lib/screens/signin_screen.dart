@@ -72,7 +72,7 @@ class SigninScreen extends StatelessWidget {
           ),
           BlocListener<AuthBloc, AuthStates>(
             listener: (context, state) {
-              if (state is LoadingSignUpState) {
+              if (state is LoadingSignInState) {
                 print("sign in");
                 showDialog(
                     context: context,

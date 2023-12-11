@@ -26,10 +26,12 @@ class _HomeScreenState extends State<HomeScreen> {
   String selectedCategory = "All";
   @override
   void initState() {
-    context.read<HomeBloc>().add(GetTripsEvent());
     super.initState();
+        context.read<HomeBloc>().add(GetTripsEvent());
+
   }
 
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(

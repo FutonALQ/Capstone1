@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 class SearchTextField extends StatelessWidget {
-  SearchTextField({
+  const SearchTextField({
     super.key,
     required this.controller,
     required this.onChange,
     required this.onCancel,
   });
-  TextEditingController controller;
-  Function(String query) onChange;
-  Function() onCancel;
+  final TextEditingController controller;
+  final Function(String query) onChange;
+  final Function() onCancel;
   @override
   Widget build(BuildContext context) {
     return SizedBox(

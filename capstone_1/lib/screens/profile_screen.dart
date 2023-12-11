@@ -3,19 +3,15 @@ import 'package:capstone_1/blocs/profile_bloc/profile_event.dart';
 import 'package:capstone_1/blocs/profile_bloc/profile_state.dart';
 import 'package:capstone_1/globals/global_user.dart';
 import 'package:capstone_1/screens/edit_profile_screen.dart';
-
-
-import 'package:capstone_1/screens/form_screen.dart';
-
-import 'package:capstone_1/screens/following_users_screen.dart';
 import 'package:capstone_1/screens/followers_users_screen.dart';
-
+import 'package:capstone_1/screens/following_users_screen.dart';
+import 'package:capstone_1/screens/form_screen.dart';
 import 'package:capstone_1/screens/signin_screen.dart';
 import 'package:capstone_1/widgets/following_button.dart';
 import 'package:capstone_1/widgets/profile_left_widget.dart';
 import 'package:capstone_1/widgets/profile_popup_menu.dart';
-import 'package:capstone_1/widgets/profile_taps.dart';
 import 'package:capstone_1/widgets/profile_right_widget.dart';
+import 'package:capstone_1/widgets/profile_taps.dart';
 import 'package:capstone_1/widgets/user_avtar.dart';
 import 'package:capstone_1/widgets/user_info.dart';
 import 'package:flutter/material.dart';
@@ -187,7 +183,7 @@ class ProfileScreen extends StatelessWidget {
               ProfileTaps(
                 leftWidget: ProfileLeftWidget(
                     tripOwnerId: Supabase.instance.client.auth.currentUser!.id),
-                rightWidget: ProfileRightWidget(),
+                rightWidget: const ProfileRightWidget(),
               ),
             ],
           ),

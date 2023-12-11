@@ -1,13 +1,9 @@
 import 'package:capstone_1/blocs/search_bloc/search_bloc.dart';
 import 'package:capstone_1/blocs/search_bloc/search_event.dart';
-import 'package:capstone_1/models/user.dart';
-import 'package:capstone_1/screens/users_profile_screen.dart';
-import 'package:capstone_1/services/supabase_request.dart';
 import 'package:capstone_1/widgets/search_text_field.dart';
 import 'package:capstone_1/widgets/users_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 // ignore: must_be_immutable
 class SearchScreen extends StatelessWidget {
