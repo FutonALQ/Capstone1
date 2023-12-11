@@ -202,9 +202,7 @@ class _TripFormScreenState extends State<TripFormScreen> {
                   SizedBox(height: 30),
                   BlocConsumer<AddTripBloc, AddTripState>(
                     listener: (context, state) {
-                      // Handle state changes here
                       if (state is AddTripSuccessState) {
-                        // Show a success message or navigate to another screen
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text('Trip added successfully!'),
@@ -212,7 +210,6 @@ class _TripFormScreenState extends State<TripFormScreen> {
                           ),
                         );
                       } else if (state is AddTripErrorState) {
-                        // Show an error message
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
@@ -232,7 +229,6 @@ class _TripFormScreenState extends State<TripFormScreen> {
                         ),
                         child: TextButton(
                           onPressed: () {
-                            // Trigger the AddTripEvent when the button is pressed
                             context.read<AddTripBloc>().add(
                                   AddTripEvent(
                                     trip: Trip(
@@ -245,9 +241,8 @@ class _TripFormScreenState extends State<TripFormScreen> {
                                         cost: int.parse(costController.text),
                                         image: imageFile != null
                                             ? imageFile?.path
-                                            : null,
-                                        tripCreator: Supabase.instance.client
-                                            .auth.currentUser!.id),
+                                            : 'https://www.fabhotels.com/blog/wp-content/uploads/2020/05/road-trip-hacks-tips-600.jpg',
+                                        tripCreator: currentUser!.user_uuid),
                                   ),
                                 );
                           },

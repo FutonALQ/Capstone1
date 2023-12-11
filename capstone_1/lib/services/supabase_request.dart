@@ -222,5 +222,5 @@ unjointTrip({required String userId, required int tripId}) async {
 // }
 addTrip(Map<String, dynamic> body) async {
   final supabase = Supabase.instance.client;
-  await supabase.from("trips").upsert(body).select();
+  await supabase.from("trips").insert(body).select();
 }
