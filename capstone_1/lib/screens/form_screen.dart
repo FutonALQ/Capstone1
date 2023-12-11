@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:capstone_1/blocs/addtrip_bloc/addtrip_bloc.dart';
+import 'package:capstone_1/globals/global_user.dart';
 import 'package:capstone_1/models/trip.dart';
 import 'package:capstone_1/widgets/form_widget.dart';
 import 'package:flutter/material.dart';
