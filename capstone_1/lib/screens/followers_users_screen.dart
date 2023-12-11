@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FollowersUsersScreen extends StatelessWidget {
-  FollowersUsersScreen({super.key});
+  const FollowersUsersScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +42,7 @@ class FollowersUsersScreen extends StatelessWidget {
                   itemBuilder: (context, i) {
                     return UsersCard(
                       onTap: () {},
-                      src: state.followersUsers[i].imageUrl.toString(),
-                      name: state.followersUsers[i].name.toString(),
-                      phone: state.followersUsers[i].phone.toString(),
+                      user: state.followersUsers[i],
                       buttonTextColor: const Color(0xff219EBC),
                       followOnPressed: () {
                         context
@@ -78,10 +76,7 @@ class FollowersUsersScreen extends StatelessWidget {
                                 builder: (contsex) => UsersProfileScreen(
                                     user: state.followersUsers[i])));
                       },
-                      src: state.followersUsers[i].imageUrl.toString(),
-                      name: state.followersUsers[i].name.toString(),
-                      phone: state.followersUsers[i].phone.toString(),
-                      buttonTextColor: const Color(0xff219EBC),
+                      user: state.followersUsers[i],
                       buttonText: state.check == false ? 'Followed' : 'Follow',
                       followOnPressed: () {
                         context

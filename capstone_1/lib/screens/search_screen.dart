@@ -1,5 +1,6 @@
 import 'package:capstone_1/blocs/search_bloc/search_bloc.dart';
 import 'package:capstone_1/blocs/search_bloc/search_event.dart';
+import 'package:capstone_1/globals/global_user.dart';
 import 'package:capstone_1/widgets/search_text_field.dart';
 import 'package:capstone_1/widgets/users_card.dart';
 import 'package:flutter/material.dart';
@@ -40,10 +41,7 @@ class SearchScreen extends StatelessWidget {
                   itemBuilder: (context, i) {
                     return UsersCard(
                       onTap: () {},
-                      src:
-                          'https://www.newarab.com/sites/default/files/styles/image_1440x810/public/2022-10/GettyImages-1243553139.jpg',
-                      name: 'Abdullah',
-                      phone: '0544539726',
+                      user: currentUser!,
                       chatOnPressed: () {},
                       followOnPressed: () {},
                     );
