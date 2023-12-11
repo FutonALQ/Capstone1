@@ -69,7 +69,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
     on<GetUsersInfoEvent>((event, emit) async {
       emit(LoadingUsersInfoState());
-      final user = await getUser();
+      final user = await getUserById(event.user.user_uuid.toString());
       final followingUsers =
           await getFollowing(event.user.user_uuid.toString());
       final followersUsers =

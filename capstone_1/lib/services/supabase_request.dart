@@ -106,7 +106,7 @@ Future<bool> isAFollower(String currentUser, String checkUser) async {
   return isAfollower;
 }
 
-/// **************************************************************
+/// ***************************DONE********************************
 Future<List<Trip>> getOwnerTrips(String userID) async {
   final supabase = Supabase.instance.client;
   final trips = await supabase.from("trips").select().eq('creator_id', userID);
@@ -117,6 +117,37 @@ Future<List<Trip>> getOwnerTrips(String userID) async {
 
   print(
       '%%%%%%%%%%%%%%%%%%%%%%\n${tripsObjectList.first.title}\n%%%%%%%%%%%%%%%%%%%%%%');
+  return tripsObjectList;
+}
+
+/// ***************************DONE********************************
+Future<UserModel> getUserById(String userId) async {
+  final supabase = Supabase.instance.client;
+  final response =
+      await supabase.from("users").select('*').eq('user_uuid', userId);
+  final UserModel user = UserModel.fromJson(response[0]);
+  return user;
+}
+
+/// *************************DONE*******************************
+
+Future<List<Trip>> getJointTrips(String userID) async {
+  final supabase = Supabase.instance.client;
+  final List jointUserIdList =
+      await supabase.from("a_trip").select('trip_id').eq('joint_id', userID);
+  final List trips = await supabase.from('trips').select();
+  final List mergeList = [];
+  for (var jointUserId in jointUserIdList) {
+    for (var element in trips) {
+      if (jointUserId['trip_id'] == element['id']) {
+        mergeList.add(element);
+      }
+    }
+  }
+  final List<Trip> tripsObjectList = [];
+  for (var element in mergeList) {
+    tripsObjectList.add(Trip.fromJson(element));
+  }
   return tripsObjectList;
 }
 

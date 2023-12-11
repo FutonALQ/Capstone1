@@ -179,7 +179,8 @@ class ProfileScreen extends StatelessWidget {
               ProfileTaps(
                 leftWidget: ProfileLeftWidget(
                     tripOwnerId: Supabase.instance.client.auth.currentUser!.id),
-                rightWidget: ProfileRightWidget(),
+                rightWidget: ProfileRightWidget(
+                    jointUserId: Supabase.instance.client.auth.currentUser!.id),
               ),
             ],
           ),

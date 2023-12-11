@@ -2,8 +2,8 @@ import 'package:capstone_1/screens/trip_details_screen.dart';
 import 'package:capstone_1/services/supabase_request.dart';
 import 'package:capstone_1/widgets/trip_countener.dart';
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
+// ignore: must_be_immutable
 class ProfileLeftWidget extends StatelessWidget {
   ProfileLeftWidget({super.key, required this.tripOwnerId});
   String tripOwnerId;
@@ -49,10 +49,10 @@ class ProfileLeftWidget extends StatelessWidget {
                       );
                     }),
               );
-            } else if (snapshot.hasError) {
-              return const Center(child: Text("error"));
-            }
-            return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.data == null) {
+              return const Center(child: Text('No Trips Found'));
+            } else
+              return const Center(child: CircularProgressIndicator());
           }),
     );
   }

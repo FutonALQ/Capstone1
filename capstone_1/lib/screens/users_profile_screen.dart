@@ -13,6 +13,7 @@ import 'package:capstone_1/widgets/user_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// ignore: must_be_immutable
 class UsersProfileScreen extends StatelessWidget {
   UsersProfileScreen({super.key, required this.user});
   UserModel user;
@@ -26,13 +27,6 @@ class UsersProfileScreen extends StatelessWidget {
           title: const Text('Profile',
               style: TextStyle(
                   color: Color(0xff023047), fontWeight: FontWeight.bold)),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          child: const Icon(
-            Icons.add,
-            color: Color(0xff219EBC),
-          ),
         ),
         body: SafeArea(
           child: ListView(
@@ -104,7 +98,8 @@ class UsersProfileScreen extends StatelessWidget {
                 letTabText: user.gender == 'Male' ? 'His' : 'Her',
                 leftWidget:
                     ProfileLeftWidget(tripOwnerId: user.user_uuid.toString()),
-                rightWidget: ProfileRightWidget(),
+                rightWidget:
+                    ProfileRightWidget(jointUserId: user.user_uuid.toString()),
               ),
             ],
           ),

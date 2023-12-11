@@ -72,6 +72,8 @@ class SearchScreen extends StatelessWidget {
                     //     context,
                     //     MaterialPageRoute(
                     //         builder: (contsex) => UsersProfileScreen()));
+
+                    // await getJointTrips('d33d895d-ab10-40b2-90d6-badf3917425b');
                   },
                   child: const Text('TEST'),
                 ),

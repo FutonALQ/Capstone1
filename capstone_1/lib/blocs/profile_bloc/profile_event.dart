@@ -10,7 +10,6 @@ class GetFollowersEvent extends ProfileEvent {}
 
 class FollowEvent extends ProfileEvent {
   UserModel user;
-  // bool isFollower;
   FollowEvent({required this.user});
 }
 
