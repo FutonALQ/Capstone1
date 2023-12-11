@@ -138,6 +138,16 @@ Future<UserModel> getAUser(String id) async {
   return user;
 }
 
+Future<List<UserModel>> getSearchUser(String name) async {
+  final supabase = Supabase.instance.client;
+  final List<UserModel> usersList = [];
+  final response = await supabase.from("users").select('*').ilike('name', name);
+  for (var element in response) {
+    usersList.add(UserModel.fromJson(element));
+  }
+  return usersList;
+}
+
 Future<List<Trip>> getTrips({int? Userid}) async {
   final supabase = Supabase.instance.client;
   await Future.delayed(const Duration(seconds: 1));

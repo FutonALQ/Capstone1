@@ -14,7 +14,4 @@ class ResultResponseState extends SearchState {
   ResultResponseState({required this.response});
 }
 
-class ClearSearchState extends SearchState {
-  String query = '';
-  ClearSearchState({required this.query});
-}
+class ClearSearchState extends SearchState {}
