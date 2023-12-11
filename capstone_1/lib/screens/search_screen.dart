@@ -1,11 +1,13 @@
 import 'package:capstone_1/blocs/search_bloc/search_bloc.dart';
 import 'package:capstone_1/blocs/search_bloc/search_event.dart';
 import 'package:capstone_1/models/user.dart';
+import 'package:capstone_1/screens/users_profile_screen.dart';
 import 'package:capstone_1/services/supabase_request.dart';
 import 'package:capstone_1/widgets/search_text_field.dart';
 import 'package:capstone_1/widgets/users_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 // ignore: must_be_immutable
 class SearchScreen extends StatelessWidget {
@@ -47,7 +49,7 @@ class SearchScreen extends StatelessWidget {
                       name: 'Abdullah',
                       phone: '0544539726',
                       chatOnPressed: () {},
-                      followOnOressed: () {},
+                      followOnPressed: () {},
                     );
                   },
                   separatorBuilder: (context, i) {
@@ -59,11 +61,19 @@ class SearchScreen extends StatelessWidget {
                 /* Testing Button */
                 ElevatedButton(
                   onPressed: () async {
-                    final users = await getFollowing();
-                    print(
-                        '============================\n${users}\n=============================');
+                    // await follow('42c953d5-cc40-4406-b933-9a643cfe6842',
+                    //     'd33d895d-ab10-40b2-90d6-badf3917425b');
+                    // await follow('d33d895d-ab10-40b2-90d6-badf3917425b',
+                    //     '42c953d5-cc40-4406-b933-9a643cfe6842');
+                    // await unfollow('f0785a24-5ca7-4431-acbc-bf6992b516d9');
+                    // await isAFollower();
+                    // await getOwnerTrips('d33d895d-ab10-40b2-90d6-badf3917425b');
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (contsex) => UsersProfileScreen()));
                   },
-                  child: Text('TEST'),
+                  child: const Text('TEST'),
                 ),
               ],
             ),

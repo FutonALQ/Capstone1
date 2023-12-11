@@ -255,11 +255,11 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                               width: 20,
                             ),
                             InkWell(
-                              onTap: () async{
-                               await deleteTrip(id: widget.trip.id!);
+                              onTap: () async {
+                                await deleteTrip(id: widget.trip.id!);
 
                                 context.read<HomeBloc>().add(GetTripsEvent());
-                                Navigator.pop(context,"back");
+                                Navigator.pop(context, "back");
                               },
                               child: Container(
                                 width: 50,
