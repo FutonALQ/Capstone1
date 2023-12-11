@@ -1,13 +1,16 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:capstone_1/blocs/addtrip_bloc/addtrip_bloc.dart';
 import 'package:capstone_1/globals/global_user.dart';
 import 'package:capstone_1/models/trip.dart';
+import 'package:capstone_1/screens/home_screen.dart';
+import 'package:capstone_1/screens/nav_bar.dart';
 import 'package:capstone_1/widgets/form_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+// import 'package:supabase_flutter/supabase_flutter.dart';
 
 class TripFormScreen extends StatefulWidget {
   const TripFormScreen({super.key});
@@ -68,6 +71,12 @@ class _TripFormScreenState extends State<TripFormScreen> {
     }
   }
 
+  String base64EncodeImage(File imageFile) {
+    List<int> imageBytes = imageFile.readAsBytesSync();
+    String base64Image = base64Encode(imageBytes);
+    return base64Image;
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -89,43 +98,43 @@ class _TripFormScreenState extends State<TripFormScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+//                   GestureDetector(
+//   onTap: getImage,
+//   child: Center(
+//     child: CircleAvatar(
+//       backgroundColor: const Color(0xff8ECAE6),
+//       radius: 50,
+//       child: imageFile != null
+//           ? Image.file(
+//               imageFile!,
+//               width: 100,
+//               height: 100,
+//               fit: BoxFit.cover,
+//             )
+//           : Image.network(
+//               'https://www.fabhotels.com/blog/wp-content/uploads/2020/05/road-trip-hacks-tips-600.jpg',
+//               width: 100,
+//               height: 100,
+//               fit: BoxFit.cover,
+//             ),
+//     ),
+//   ),
+// ),
                   GestureDetector(
                     onTap: getImage,
                     child: Center(
                       child: CircleAvatar(
                         backgroundColor: const Color(0xff8ECAE6),
                         radius: 50,
-                        child: imageFile != null
-                            ? Image.file(
-                                imageFile!,
-                                width: 100,
-                                height: 100,
-                                fit: BoxFit.cover,
-                              )
-                            : Image.network(
-                                'https://www.fabhotels.com/blog/wp-content/uploads/2020/05/road-trip-hacks-tips-600.jpg',
-                                width: 100,
-                                height: 100,
-                                fit: BoxFit.cover,
-                              ),
+                        backgroundImage:
+                            imageFile != null ? FileImage(imageFile!) : null,
+                        child: imageFile == null
+                            ? const Icon(Icons.camera_alt,
+                                size: 50, color: Color(0xffFFB703))
+                            : null,
                       ),
                     ),
                   ),
-                  // GestureDetector(
-                  //   onTap: getImage,
-                  //   child: Center(
-                  //     child: CircleAvatar(
-                  //       backgroundColor: const Color(0xff8ECAE6),
-                  //       radius: 50,
-                  //       backgroundImage:
-                  //           imageFile != null ? FileImage(imageFile!) : null,
-                  //       child: imageFile == null
-                  //           ? const Icon(Icons.camera_alt,
-                  //               size: 50, color: Color(0xffFFB703))
-                  //           : null,
-                  //     ),
-                  //   ),
-                  // ),
 
                   const SizedBox(height: 16),
                   const SizedBox(height: 16),
@@ -255,6 +264,19 @@ class _TripFormScreenState extends State<TripFormScreen> {
                         ),
                         child: TextButton(
                           onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AppNavigationBar()));
+                            String? base64Image;
+                            if (imageFile != null) {
+                              base64Image = base64EncodeImage(imageFile!);
+                            } else {
+                              // Use a default image if user didn't provide one
+                              base64Image = base64EncodeImage(File(
+                                  'https://www.fabhotels.com/blog/wp-content/uploads/2020/05/road-trip-hacks-tips-600.jpg'));
+                            }
+
                             context.read<AddTripBloc>().add(
                                   AddTripEvent(
                                     trip: Trip(
@@ -265,7 +287,7 @@ class _TripFormScreenState extends State<TripFormScreen> {
                                         location: selecteCity,
                                         description: descriptionController.text,
                                         cost: int.parse(costController.text),
-                                        image: imageFile?.path,
+                                        image: base64Image,
                                         // image: imageFile != null
                                         //     ? imageFile?.path
                                         //     : 'https://www.fabhotels.com/blog/wp-content/uploads/2020/05/road-trip-hacks-tips-600.jpg',
