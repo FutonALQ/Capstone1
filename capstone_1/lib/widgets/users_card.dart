@@ -22,14 +22,10 @@ class UsersCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-
       onTap: isVisible == false ? () {} : onTap,
       child: SizedBox(
         height: 75,
         child: Card(
-
-      
-      
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 17),
             child: Row(
@@ -45,7 +41,6 @@ class UsersCard extends StatelessWidget {
                         fit: BoxFit.cover,
                       ),
                     ),
-
                     Padding(
                       padding: const EdgeInsets.only(right: 10, left: 14),
                       child: SizedBox(
@@ -76,35 +71,27 @@ class UsersCard extends StatelessWidget {
                   ],
                 ),
                 isVisible == false
-                  ? const SizedBox()
-                  :
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                  ),
-                  onPressed: followOnPressed,
-                  child: Text(
-                    buttonText,
-                    style: TextStyle(
-                      color: buttonText == 'Unfollow'
-                          ? const Color.fromARGB(196, 244, 67, 54)
-                          : buttonTextColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
+                    ? const SizedBox()
+                    : ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                        ),
+                        onPressed: followOnPressed,
+                        child: Text(
+                          buttonText,
+                          style: TextStyle(
+                            color: buttonText == 'Unfollow'
+                                ? const Color.fromARGB(196, 244, 67, 54)
+                                : buttonTextColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
               ],
             ),
-
-                  ),
+          ),
         ),
       ),
-              );
-    
-       
-           
-
-         
-   
+    );
   }
 }
