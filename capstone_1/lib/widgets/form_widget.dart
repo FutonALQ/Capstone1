@@ -11,7 +11,7 @@ Widget buildStyledTextField({
     controller: controller,
     maxLines: maxLines,
     keyboardType: keyboardType,
-    style: TextStyle(color: Color(0xffFFB703)),
+    style: TextStyle(color: Color(0xff023047)),
     decoration: InputDecoration(
       labelText: labelText,
       labelStyle:

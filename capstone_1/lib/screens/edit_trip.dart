@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:capstone_1/blocs/trip_details_bloc/tripdetails_bloc.dart';
 import 'package:capstone_1/blocs/trip_details_bloc/tripdetails_event.dart';
 import 'package:capstone_1/blocs/trip_details_bloc/tripdetails_state.dart';
@@ -30,19 +32,23 @@ class _EditTripScreenState extends State<EditTripScreen> {
   late TextEditingController timeController;
   late TextEditingController dateController;
   late final ImagePicker picker;
-  // late File? imageFile;
+  File? imageFile;
 
   late DateTime selectedDate;
+  late TimeOfDay selectedTime;
 
   @override
   void initState() {
     super.initState();
 
     selectedDate = DateTime.now();
+    selectedTime = TimeOfDay.now();
+    picker = ImagePicker();
     initializeControllers();
   }
 
   void initializeControllers() {
+    imageFile = File(widget.existingTrip.image!);
     titleController = TextEditingController(text: widget.existingTrip.title);
     descriptionController =
         TextEditingController(text: widget.existingTrip.description);
@@ -82,15 +88,31 @@ class _EditTripScreenState extends State<EditTripScreen> {
     }
   }
 
-  // Future getImage() async {
-  //   XFile? image = await picker.pickImage(source: ImageSource.gallery);
+  Future<void> _selectTime(BuildContext context) async {
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: selectedTime,
+    );
 
-  //   if (image != null) {
-  //     setState(() {
-  //       imageFile = File(image.path);
-  //     });
-  //   }
-  // }
+    if (picked != null && picked != selectedTime) {
+      setState(() {
+        selectedTime = picked;
+        String formattedTime =
+            '${picked.hour}:${picked.minute.toString().padLeft(2, '0')}';
+        timeController.text = formattedTime;
+      });
+    }
+  }
+
+  Future<void> getImage() async {
+    XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      setState(() {
+        imageFile = File(image.path);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,21 +131,18 @@ class _EditTripScreenState extends State<EditTripScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // GestureDetector(
-                //   onTap: getImage,
-                //   child: Center(
-                //     child: CircleAvatar(
-                //       backgroundColor: const Color(0xff8ECAE6),
-                //       radius: 50,
-                //       backgroundImage:
-                //           imageFile != null ? FileImage(imageFile!) : null,
-                //       child: imageFile == null
-                //           ? const Icon(Icons.camera_alt,
-                //               size: 50, color: Color(0xffFFB703))
-                //           : null,
-                //     ),
-                //   ),
-                // ),
+                GestureDetector(
+                  onTap: getImage,
+                  child: Center(
+                    child: CircleAvatar(
+                        backgroundColor: const Color(0xff8ECAE6),
+                        radius: 50,
+                        backgroundImage: widget.existingTrip.image != null
+                            ? NetworkImage(widget.existingTrip.image!)
+                            : NetworkImage(
+                                "https://t4.ftcdn.net/jpg/01/07/57/91/360_F_107579101_QVlTG43Fwg9Q6ggwF436MPIBTVpaKKtb.jpg")),
+                  ),
+                ),
                 const SizedBox(height: 16),
                 const SizedBox(height: 16),
                 buildStyledTextField(
@@ -147,9 +166,20 @@ class _EditTripScreenState extends State<EditTripScreen> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                buildStyledTextField(
-                  controller: timeController,
-                  labelText: 'Time',
+                InkWell(
+                  onTap: () {
+                    _selectTime(context);
+                  },
+                  child: IgnorePointer(
+                    child: buildStyledTextField(
+                      controller: timeController,
+                      labelText: 'Time',
+                      suffixIcon: const Icon(
+                        Icons.access_time,
+                        color: Color(0xff219EBC),
+                      ),
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 16),
                 DropdownButton<String>(
@@ -228,17 +258,22 @@ class _EditTripScreenState extends State<EditTripScreen> {
                     if (state is TripUpdateSuccessState) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text('Trip updated successfully!'),
-                          duration: Duration(seconds: 2),
-                        ),
+                            content: Text('Trip updated successfully!',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black)),
+                            duration: Duration(seconds: 2),
+                            backgroundColor: Color(0xff8ECAE6)),
                       );
                     } else if (state is TripDetailsErrorState) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text(
-                              'Failed to update trip: ${state.errorMessage}'),
-                          duration: const Duration(seconds: 2),
-                        ),
+                            content: Text('Oops!  ${state.errorMessage}',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black)),
+                            duration: const Duration(seconds: 2),
+                            backgroundColor: Color(0xff8ECAE6)),
                       );
                     }
                   },

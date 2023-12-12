@@ -10,26 +10,26 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
 class TripFormScreen extends StatefulWidget {
-  const TripFormScreen({super.key});
+  const TripFormScreen({Key? key}) : super(key: key);
 
   @override
   _TripFormScreenState createState() => _TripFormScreenState();
 }
 
 String selectedCategory = "sport";
-String selecteCity = "Riyadh";
+String selectedCity = "Riyadh";
 
 class _TripFormScreenState extends State<TripFormScreen> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController costController = TextEditingController();
-  TextEditingController timeController = TextEditingController();
   TextEditingController dateController = TextEditingController();
-  // TextEditingController governorController = TextEditingController();
+  TextEditingController timeController = TextEditingController();
   final ImagePicker picker = ImagePicker();
   File? imageFile;
 
   DateTime selectedDate = DateTime.now();
+  TimeOfDay selectedTime = TimeOfDay.now();
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -58,7 +58,23 @@ class _TripFormScreenState extends State<TripFormScreen> {
     }
   }
 
-  Future getImage() async {
+  Future<void> _selectTime(BuildContext context) async {
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: selectedTime,
+    );
+
+    if (picked != null && picked != selectedTime) {
+      setState(() {
+        selectedTime = picked;
+        String formattedTime =
+            '${picked.hour}:${picked.minute.toString().padLeft(2, '0')}';
+        timeController.text = formattedTime;
+      });
+    }
+  }
+
+  Future<void> getImage() async {
     XFile? image = await picker.pickImage(source: ImageSource.gallery);
 
     if (image != null) {
@@ -73,11 +89,9 @@ class _TripFormScreenState extends State<TripFormScreen> {
     return BlocProvider(
       create: (context) => AddTripBloc(),
       child: Scaffold(
-        // backgroundColor: Colors.white,
         appBar: AppBar(
-          // backgroundColor: Color(0xff8ECAE6),
           title: const Text(
-            'Add Your trip now !',
+            'Add Your Trip Now!',
             style: TextStyle(
                 fontWeight: FontWeight.bold, color: Color(0xff023047)),
           ),
@@ -89,28 +103,6 @@ class _TripFormScreenState extends State<TripFormScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-//                   GestureDetector(
-//   onTap: getImage,
-//   child: Center(
-//     child: CircleAvatar(
-//       backgroundColor: const Color(0xff8ECAE6),
-//       radius: 50,
-//       child: imageFile != null
-//           ? Image.file(
-//               imageFile!,
-//               width: 100,
-//               height: 100,
-//               fit: BoxFit.cover,
-//             )
-//           : Image.network(
-//               'https://www.fabhotels.com/blog/wp-content/uploads/2020/05/road-trip-hacks-tips-600.jpg',
-//               width: 100,
-//               height: 100,
-//               fit: BoxFit.cover,
-//             ),
-//     ),
-//   ),
-// ),
                   GestureDetector(
                     onTap: getImage,
                     child: Center(
@@ -121,12 +113,11 @@ class _TripFormScreenState extends State<TripFormScreen> {
                             imageFile != null ? FileImage(imageFile!) : null,
                         child: imageFile == null
                             ? const Icon(Icons.camera_alt,
-                                size: 50, color: Color(0xffFFB703))
+                                size: 50, color: Colors.white)
                             : null,
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 16),
                   const SizedBox(height: 16),
                   buildStyledTextField(
@@ -150,16 +141,54 @@ class _TripFormScreenState extends State<TripFormScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  buildStyledTextField(
-                    controller: timeController,
-                    labelText: 'Time',
+                  InkWell(
+                    onTap: () {
+                      _selectTime(context);
+                    },
+                    child: IgnorePointer(
+                      child: buildStyledTextField(
+                        controller: timeController,
+                        labelText: 'Time',
+                        suffixIcon: const Icon(
+                          Icons.access_time,
+                          color: Color(0xff219EBC),
+                        ),
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 16),
-                  DropdownButton<String>(
-                      value: selecteCity,
+                  // ElevatedButton(
+                  //   style: ElevatedButton.styleFrom(
+                  //     primary: Color(0xff8ECAE6),
+                  //   ),
+                  //   onPressed: () {
+                  //     _selectTime(context);
+                  //   },
+                  //   child: Padding(
+                  //     padding: const EdgeInsets.symmetric(vertical: 15.0),
+                  //     child: Row(
+                  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //       children: [
+                  //         Text(
+                  //           'Time: ${selectedTime.format(context)}',
+                  //           style: TextStyle(fontSize: 16),
+                  //         ),
+                  //         Icon(
+                  //           Icons.access_time,
+                  //           color: Color(0xff219EBC),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
+                  const SizedBox(height: 9),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: DropdownButton<String>(
+                      value: selectedCity,
                       onChanged: (String? newValue) {
                         setState(() {
-                          selecteCity = newValue!;
+                          selectedCity = newValue!;
                         });
                       },
                       items: <String>['Riyadh', 'Jeddah', 'Dammam']
@@ -168,7 +197,7 @@ class _TripFormScreenState extends State<TripFormScreen> {
                           value: value,
                           child: Text(
                             value,
-                            style: const TextStyle(fontSize: 14),
+                            style: const TextStyle(fontSize: 16),
                           ),
                         );
                       }).toList(),
@@ -178,11 +207,12 @@ class _TripFormScreenState extends State<TripFormScreen> {
                       elevation: 16,
                       style: const TextStyle(color: Color(0xff023047)),
                       underline: Container(
-                        height: 2,
                         color: const Color(0xff8ECAE6),
                       ),
-                      dropdownColor: const Color(0xff8ECAE6)),
-                  const SizedBox(height: 16),
+                      dropdownColor: const Color(0xff8ECAE6),
+                    ),
+                  ),
+                  const SizedBox(height: 9),
                   buildStyledTextField(
                     controller: costController,
                     labelText: 'Cost',
@@ -194,36 +224,38 @@ class _TripFormScreenState extends State<TripFormScreen> {
                     labelText: 'Description',
                     maxLines: 3,
                   ),
-                  const SizedBox(height: 32),
-                  DropdownButton<String>(
-                    value: selectedCategory,
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        selectedCategory = newValue!;
-                      });
-                    },
-                    items: <String>['sport', 'art', 'education', 'hangout']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(
-                          value,
-                          style: const TextStyle(
-                            fontSize: 14,
+                  const SizedBox(height: 9),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: DropdownButton<String>(
+                      value: selectedCategory,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          selectedCategory = newValue!;
+                        });
+                      },
+                      items: <String>['sport', 'art', 'education', 'hangout']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(
+                            value,
+                            style: const TextStyle(
+                              fontSize: 16,
+                            ),
                           ),
-                        ),
-                      );
-                    }).toList(),
-                    icon: const Icon(Icons.arrow_drop_down,
-                        color: Color(0xff8ECAE6)),
-                    iconSize: 30,
-                    elevation: 16,
-                    style: const TextStyle(color: Color(0xff023047)),
-                    underline: Container(
-                      height: 2,
-                      color: const Color(0xff8ECAE6),
+                        );
+                      }).toList(),
+                      icon: const Icon(Icons.arrow_drop_down,
+                          color: Color(0xff8ECAE6)),
+                      iconSize: 30,
+                      elevation: 16,
+                      style: const TextStyle(color: Color(0xff023047)),
+                      underline: Container(
+                        color: const Color(0xff8ECAE6),
+                      ),
+                      dropdownColor: const Color(0xff8ECAE6),
                     ),
-                    dropdownColor: const Color(0xff8ECAE6),
                   ),
                   const SizedBox(height: 30),
                   BlocConsumer<AddTripBloc, AddTripState>(
@@ -231,16 +263,29 @@ class _TripFormScreenState extends State<TripFormScreen> {
                       if (state is AddTripSuccessState) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text('Trip added successfully!'),
+                            content: Text(
+                              'Trip added successfully!',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
                             duration: Duration(seconds: 2),
+                            backgroundColor: Color(0xff8ECAE6),
                           ),
                         );
                       } else if (state is AddTripErrorState) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
-                                'Failed to add trip: ${state.errorMessage}'),
+                              'Oops! ${state.errorMessage}',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
                             duration: const Duration(seconds: 2),
+                            backgroundColor: Color(0xff8ECAE6),
                           ),
                         );
                       }
@@ -256,27 +301,24 @@ class _TripFormScreenState extends State<TripFormScreen> {
                         child: TextButton(
                           onPressed: () {
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const AppNavigationBar()));
-                            // builder: (context) =>
-                            //     const AppNavigationBar()));
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const AppNavigationBar(),
+                              ),
+                            );
 
                             context.read<AddTripBloc>().add(
                                   AddTripEvent(
                                     trip: Trip(
-                                        title: titleController.text,
-                                        time: timeController.text,
-                                        date: dateController.text,
-                                        category: selectedCategory,
-                                        location: selecteCity,
-                                        description: descriptionController.text,
-                                        cost: int.parse(costController.text),
-                                        // image: imageFile != null
-                                        //     ? imageFile?.path
-                                        //     : 'https://www.fabhotels.com/blog/wp-content/uploads/2020/05/road-trip-hacks-tips-600.jpg',
-                                        tripCreator: currentUser!.user_uuid),
+                                      title: titleController.text,
+                                      time: selectedTime.format(context),
+                                      date: dateController.text,
+                                      category: selectedCategory,
+                                      location: selectedCity,
+                                      description: descriptionController.text,
+                                      cost: int.parse(costController.text),
+                                      tripCreator: currentUser!.user_uuid,
+                                    ),
                                     image: imageFile,
                                   ),
                                 );

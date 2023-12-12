@@ -19,11 +19,11 @@ class AddTripBloc extends Bloc<AddTripEvent, AddTripState> {
     try {
       print('Trying to add trip: ${event.trip.toJson()}');
       await addTrip(event.trip.toJson(), event.image);
-      print('Trip added successfully!');
+      print('Trip added successfully! Enjoy');
       emit(AddTripSuccessState());
     } catch (error) {
       print('Failed to add trip: $error');
-      emit(AddTripErrorState('Failed to add trip: $error'));
+      emit(AddTripErrorState("Something went wrong. Please try again."));
     }
   }
 }
