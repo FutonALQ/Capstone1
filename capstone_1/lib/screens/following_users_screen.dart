@@ -2,8 +2,8 @@ import 'package:capstone_1/blocs/profile_bloc/profile_bloc.dart';
 import 'package:capstone_1/blocs/profile_bloc/profile_event.dart';
 import 'package:capstone_1/blocs/profile_bloc/profile_state.dart';
 
-
 import 'package:capstone_1/models/user.dart';
+import 'package:capstone_1/screens/profile_screen.dart';
 
 import 'package:capstone_1/screens/users_profile_screen.dart';
 import 'package:capstone_1/widgets/users_card.dart';
@@ -54,24 +54,6 @@ class FollowingUsersScreen extends StatelessWidget {
                   shrinkWrap: true,
                   itemCount: state.followingUsers.length,
                   itemBuilder: (context, i) {
-
-                    // return UsersCard(
-                    //   onTap: () {
-                    //     Navigator.push(
-                    //         context,
-                    //         MaterialPageRoute(
-                    //             builder: (contsex) => UsersProfileScreen(
-                    //                 user: state.followingUsers[i])));
-                    //   },
-                    //   user: state.followingUsers[i],
-                    //   buttonText: 'Unfollow',
-                    //   followOnPressed: () {
-                    //     context
-                    //         .read<ProfileBloc>()
-                    //         .add(UnFollowEvent(user: state.followingUsers[i]));
-                    //   },
-                    // );
-
                     if (state.followingUsers[i].user_uuid == currentUserId) {
                       return UsersCard(
                         isVisible: false,
@@ -79,10 +61,7 @@ class FollowingUsersScreen extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (contsex) => UsersProfileScreen(
-                                      user: state.followingUsers[i],
-                                      direction: 'following',
-                                      identity: user)));
+                                  builder: (contsex) => const ProfileScreen()));
                         },
                         user: state.followingUsers[i],
                         buttonText: 'Unfollow',
@@ -110,7 +89,6 @@ class FollowingUsersScreen extends StatelessWidget {
                         },
                       );
                     }
-
                   },
                   separatorBuilder: (context, i) {
                     return SizedBox(

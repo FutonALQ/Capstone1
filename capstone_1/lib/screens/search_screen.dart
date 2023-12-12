@@ -1,16 +1,20 @@
 import 'package:capstone_1/blocs/search_bloc/search_bloc.dart';
 import 'package:capstone_1/blocs/search_bloc/search_event.dart';
 import 'package:capstone_1/blocs/search_bloc/search_state.dart';
+import 'package:capstone_1/screens/profile_screen.dart';
+import 'package:capstone_1/screens/users_profile_screen.dart';
 import 'package:capstone_1/widgets/search_text_field.dart';
 import 'package:capstone_1/widgets/users_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 // ignore: must_be_immutable
 class SearchScreen extends StatelessWidget {
   SearchScreen({super.key});
   TextEditingController searchController = TextEditingController();
   String aQuery = '';
+  final currentUserId = Supabase.instance.client.auth.currentUser!.id;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,16 +71,45 @@ class SearchScreen extends StatelessWidget {
                                 shrinkWrap: true,
                                 itemCount: state.response.length,
                                 itemBuilder: (context, i) {
-                                  return UsersCard(
-                                    onTap: () {},
-                                    user: state.response[i]!,
-                                    followOnPressed: () {
-                                      context.read<SearchBloc>().add(
-                                          FollowEvent(
-                                              user: state.response[i],
-                                              query: aQuery));
-                                    },
-                                  );
+                                  if (state.response[i].user_uuid ==
+                                      currentUserId) {
+                                    return UsersCard(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (contsex) =>
+                                                    const ProfileScreen()));
+                                      },
+                                      user: state.response[i]!,
+                                      followOnPressed: () {
+                                        context.read<SearchBloc>().add(
+                                            FollowEvent(
+                                                user: state.response[i],
+                                                query: aQuery));
+                                      },
+                                    );
+                                  } else {
+                                    return UsersCard(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (contsex) =>
+                                                    UsersProfileScreen(
+                                                        user: state.response[i],
+                                                        identity: state
+                                                            .response[i])));
+                                      },
+                                      user: state.response[i]!,
+                                      followOnPressed: () {
+                                        context.read<SearchBloc>().add(
+                                            FollowEvent(
+                                                user: state.response[i],
+                                                query: aQuery));
+                                      },
+                                    );
+                                  }
                                 },
                                 separatorBuilder: (context, i) {
                                   return SizedBox(
@@ -94,20 +127,51 @@ class SearchScreen extends StatelessWidget {
                           shrinkWrap: true,
                           itemCount: state.users.length,
                           itemBuilder: (context, i) {
-                            return UsersCard(
-                              onTap: () {},
-                              user: state.users[i],
-                              buttonText: state.followState == false
-                                  ? 'Unfollow'
-                                  : 'Follow',
-                              buttonTextColor: state.followState == false
-                                  ? Colors.red
-                                  : const Color(0xff023047),
-                              followOnPressed: () {
-                                context.read<SearchBloc>().add(FollowEvent(
-                                    user: state.users[i], query: aQuery));
-                              },
-                            );
+                            if (state.users[i].user_uuid == currentUserId) {
+                              return UsersCard(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (contsex) =>
+                                              const ProfileScreen()));
+                                },
+                                user: state.users[i],
+                                buttonText: state.followState == false
+                                    ? 'Unfollow'
+                                    : 'Follow',
+                                buttonTextColor: state.followState == false
+                                    ? Colors.red
+                                    : const Color(0xff023047),
+                                followOnPressed: () {
+                                  context.read<SearchBloc>().add(FollowEvent(
+                                      user: state.users[i], query: aQuery));
+                                },
+                              );
+                            } else {
+                              return UsersCard(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (contsex) =>
+                                              UsersProfileScreen(
+                                                  user: state.users[i],
+                                                  identity: state.users[i])));
+                                },
+                                user: state.users[i],
+                                buttonText: state.followState == false
+                                    ? 'Unfollow'
+                                    : 'Follow',
+                                buttonTextColor: state.followState == false
+                                    ? Colors.red
+                                    : const Color(0xff023047),
+                                followOnPressed: () {
+                                  context.read<SearchBloc>().add(FollowEvent(
+                                      user: state.users[i], query: aQuery));
+                                },
+                              );
+                            }
                           },
                           separatorBuilder: (context, i) {
                             return SizedBox(

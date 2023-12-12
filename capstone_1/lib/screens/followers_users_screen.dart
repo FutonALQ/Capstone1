@@ -2,6 +2,7 @@ import 'package:capstone_1/blocs/profile_bloc/profile_bloc.dart';
 import 'package:capstone_1/blocs/profile_bloc/profile_event.dart';
 import 'package:capstone_1/blocs/profile_bloc/profile_state.dart';
 import 'package:capstone_1/models/user.dart';
+import 'package:capstone_1/screens/profile_screen.dart';
 import 'package:capstone_1/screens/users_profile_screen.dart';
 import 'package:capstone_1/widgets/users_card.dart';
 import 'package:flutter/material.dart';
@@ -110,9 +111,7 @@ class FollowersUsersScreen extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (contsex) => UsersProfileScreen(
-                                      user: state.followersUsers[i],
-                                      identity: state.followersUsers[i])));
+                                  builder: (contsex) => const ProfileScreen()));
                         },
                         user: state.followersUsers[i],
                         buttonText:

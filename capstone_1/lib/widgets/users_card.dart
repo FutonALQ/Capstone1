@@ -22,7 +22,7 @@ class UsersCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: isVisible == false ? () {} : onTap,
+      onTap: onTap,
       child: SizedBox(
         height: 75,
         child: Card(
