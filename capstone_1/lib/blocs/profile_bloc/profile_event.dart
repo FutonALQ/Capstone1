@@ -4,9 +4,15 @@ abstract class ProfileEvent {}
 
 class GetInfoEvent extends ProfileEvent {}
 
-class GetFollowingEvent extends ProfileEvent {}
+class GetFollowingEvent extends ProfileEvent {
+  UserModel user;
+  GetFollowingEvent({required this.user});
+}
 
-class GetFollowersEvent extends ProfileEvent {}
+class GetFollowersEvent extends ProfileEvent {
+  UserModel user;
+  GetFollowersEvent({required this.user});
+}
 
 class FollowEvent extends ProfileEvent {
   UserModel user;

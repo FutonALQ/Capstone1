@@ -9,8 +9,6 @@ addUser(Map body) async {
   await supabase.from("users").insert(body).select();
 }
 
-/// *****************************START*********************************
-/// *****************************DONE*********************************
 Future<List<UserModel>> getUsers() async {
   final supabase = Supabase.instance.client;
   final users = await supabase.from("users").select();
@@ -22,7 +20,6 @@ Future<List<UserModel>> getUsers() async {
   return usersObjectList;
 }
 
-/// *****************************DONE*********************************
 Future<List<UserModel>> getFollowing(String userId) async {
   final supabase = Supabase.instance.client;
   final List following = await supabase
@@ -45,7 +42,6 @@ Future<List<UserModel>> getFollowing(String userId) async {
   return usersObject;
 }
 
-/// *****************************DONE*********************************
 Future<List<UserModel>> getFollowers(String userId) async {
   final supabase = Supabase.instance.client;
   final List followers = await supabase
@@ -68,7 +64,6 @@ Future<List<UserModel>> getFollowers(String userId) async {
   return usersObject;
 }
 
-/// ****************************DONE*******************************
 Future<void> follow(String userId, String followUserId) async {
   final supabase = Supabase.instance.client;
   await supabase
@@ -80,7 +75,6 @@ Future<void> follow(String userId, String followUserId) async {
   print('DONE');
 }
 
-// / *************************DONE**********************************
 Future<void> unfollow(String unFollowUserId) async {
   final supabase = Supabase.instance.client;
   await supabase.from('following').delete().eq('follows_uuid', unFollowUserId);
@@ -88,10 +82,7 @@ Future<void> unfollow(String unFollowUserId) async {
   print('DONE');
 }
 
-/// ***************************DONE********************************
 Future<bool> isAFollower(String currentUser, String checkUser) async {
-  // currentUser ==> 'd33d895d-ab10-40b2-90d6-badf3917425b'
-  // checkUser ==> '42c953d5-cc40-4406-b933-9a643cfe6842'
   bool isAfollower = false;
   final supabase = Supabase.instance.client;
   final List following = await supabase.from('following').select();
@@ -108,7 +99,14 @@ Future<bool> isAFollower(String currentUser, String checkUser) async {
   return isAfollower;
 }
 
-/// **************************************************************
+Future<UserModel> getUserById(String userId) async {
+  final supabase = Supabase.instance.client;
+  final response =
+      await supabase.from("users").select('*').eq('user_uuid', userId);
+  final UserModel user = UserModel.fromJson(response[0]);
+  return user;
+}
+
 Future<List<Trip>> getOwnerTrips(String userID) async {
   final supabase = Supabase.instance.client;
   final trips = await supabase.from("trips").select().eq('creator_id', userID);

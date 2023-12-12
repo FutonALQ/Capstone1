@@ -221,6 +221,7 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                                 MaterialPageRoute(
                                     builder: (context) => UsersProfileScreen(
                                           user: user,
+                                          identity: user,
                                         )));
                           },
                           child: Row(

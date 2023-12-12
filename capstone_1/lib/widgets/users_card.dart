@@ -9,26 +9,27 @@ class UsersCard extends StatelessWidget {
       required this.followOnPressed,
       this.buttonText = 'Follow',
       required this.user,
-      this.buttonTextColor = const Color(0xff023047)});
+      this.buttonTextColor = const Color(0xff023047),
+      this.isVisible = true});
 
   Function() onTap;
-
   Function() followOnPressed;
   String buttonText;
   Color buttonTextColor;
+  bool isVisible;
   final UserModel user;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+
+      onTap: isVisible == false ? () {} : onTap,
       child: SizedBox(
         height: 75,
         child: Card(
-          color: const Color(0xffe6eefa),
-          // decoration: BoxDecoration(
-          //   borderRadius: BorderRadius.circular(20),
-          // ),
+
+      
+      
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 17),
             child: Row(
@@ -44,6 +45,7 @@ class UsersCard extends StatelessWidget {
                         fit: BoxFit.cover,
                       ),
                     ),
+
                     Padding(
                       padding: const EdgeInsets.only(right: 10, left: 14),
                       child: SizedBox(
@@ -73,6 +75,9 @@ class UsersCard extends StatelessWidget {
                     ),
                   ],
                 ),
+                isVisible == false
+                  ? const SizedBox()
+                  :
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     elevation: 0,
@@ -90,9 +95,16 @@ class UsersCard extends StatelessWidget {
                 ),
               ],
             ),
-          ),
+
+                  ),
         ),
       ),
-    );
+              );
+    
+       
+           
+
+         
+   
   }
 }
