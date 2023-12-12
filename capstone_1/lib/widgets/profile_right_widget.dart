@@ -1,4 +1,5 @@
 import 'package:capstone_1/blocs/profile_trips_bloc/profile_trips_bloc.dart';
+import 'package:capstone_1/globals/global_user.dart';
 import 'package:capstone_1/models/trip.dart';
 import 'package:capstone_1/screens/trip_details_screen.dart';
 import 'package:capstone_1/services/supabase_request.dart';
@@ -63,19 +64,21 @@ class ProfileRightWidget extends StatelessWidget {
                                 );
                               }),
                         )
-                      : Center(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const SizedBox(
-                                height: 100,
+                      : tripOwnerId == currentUser!.user_uuid!
+                          ? Center(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const SizedBox(
+                                    height: 100,
+                                  ),
+                                  const Text("Join to your first trip"),
+                                  Lottie.asset('lib/assets/Add.json',
+                                      height: 60, width: 60),
+                                ],
                               ),
-                              const Text("Join to your first trip"),
-                              Lottie.asset('lib/assets/Add.json',
-                                  height: 60, width: 60),
-                            ],
-                          ),
-                        );
+                            )
+                          : const Text("no joining trip");
                 } else if (snapshot.hasError) {
                   return const Center(child: Text("error"));
                 }
@@ -127,19 +130,21 @@ class ProfileRightWidget extends StatelessWidget {
                               );
                             }),
                       )
-                    : Center(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const SizedBox(
-                              height: 100,
+                    : tripOwnerId == currentUser!.user_uuid!
+                        ? Center(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                const SizedBox(
+                                  height: 100,
+                                ),
+                                const Text("Join to your first trip"),
+                                Lottie.asset('lib/assets/Add.json',
+                                    height: 60, width: 60),
+                              ],
                             ),
-                            const Text("Join to your first trip"),
-                            Lottie.asset('lib/assets/Add.json',
-                                height: 60, width: 60),
-                          ],
-                        ),
-                      );
+                          )
+                        : const Text("no joining trip");
               } else if (snapshot.hasError) {
                 return const Center(child: Text("error"));
               }

@@ -50,8 +50,7 @@ class ProfileLeftWidget extends StatelessWidget {
                                                 ))).then((value) {
                                       if (value == "back") {
                                         context.read<ProfileTripsBloc>().add(
-                                            GetProfileTripsEvent(
-                                                tripOwnerId));
+                                            GetProfileTripsEvent(tripOwnerId));
                                       }
                                     });
                                   },
@@ -65,19 +64,31 @@ class ProfileLeftWidget extends StatelessWidget {
                                 );
                               }),
                         )
-                      : Center(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const SizedBox(
-                                height: 100,
+                      : tripOwnerId == currentUser!.user_uuid!
+                          ? Center(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const SizedBox(
+                                    height: 100,
+                                  ),
+                                  const Text("add your first trip"),
+                                  Lottie.asset('lib/assets/Add.json',
+                                      height: 60, width: 60),
+                                ],
                               ),
-                              const Text("add your first trip"),
-                              Lottie.asset('lib/assets/Add.json',
-                                  height: 60, width: 60),
-                            ],
-                          ),
-                        );
+                            )
+                          : const Center(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: 100,
+                                  ),
+                                  Text("no trip"),
+                                ],
+                              ),
+                            );
                 } else if (snapshot.hasError) {
                   return const Center(child: Text("error"));
                 }
@@ -129,19 +140,31 @@ class ProfileLeftWidget extends StatelessWidget {
                               );
                             }),
                       )
-                    : Center(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const SizedBox(
-                              height: 100,
+                    : tripOwnerId == currentUser!.user_uuid!
+                        ? Center(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                const SizedBox(
+                                  height: 100,
+                                ),
+                                const Text("add your first trip"),
+                                Lottie.asset('lib/assets/Add.json',
+                                    height: 60, width: 60),
+                              ],
                             ),
-                            const Text("add your first trip"),
-                            Lottie.asset('lib/assets/Add.json',
-                                height: 60, width: 60),
-                          ],
-                        ),
-                      );
+                          )
+                        : const Center(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  height: 100,
+                                ),
+                                Text("no trip"),
+                              ],
+                            ),
+                          );
               } else if (snapshot.hasError) {
                 return const Center(child: Text("error"));
               }
