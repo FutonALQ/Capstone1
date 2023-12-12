@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:capstone_1/blocs/addtrip_bloc/addtrip_bloc.dart';
+import 'package:capstone_1/blocs/profile_trips_bloc/profile_trips_bloc.dart';
 import 'package:capstone_1/globals/global_user.dart';
 import 'package:capstone_1/models/trip.dart';
-import 'package:capstone_1/screens/nav_bar.dart';
 import 'package:capstone_1/widgets/form_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -279,13 +279,13 @@ class _TripFormScreenState extends State<TripFormScreen> {
                           SnackBar(
                             content: Text(
                               'Oops! ${state.errorMessage}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
                               ),
                             ),
                             duration: const Duration(seconds: 2),
-                            backgroundColor: Color(0xff8ECAE6),
+                            backgroundColor: const Color(0xff8ECAE6),
                           ),
                         );
                       }
@@ -300,13 +300,7 @@ class _TripFormScreenState extends State<TripFormScreen> {
                         ),
                         child: TextButton(
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const AppNavigationBar(),
-                              ),
-                            );
-
+                            
                             context.read<AddTripBloc>().add(
                                   AddTripEvent(
                                     trip: Trip(
@@ -322,6 +316,11 @@ class _TripFormScreenState extends State<TripFormScreen> {
                                     image: imageFile,
                                   ),
                                 );
+                            Future.delayed(const Duration(seconds: 2));
+                            context.read<ProfileTripsBloc>().add(
+                                GetProfileTripsEvent(currentUser!.user_uuid!));
+
+                            Navigator.pop(context, "back");
                           },
                           child: const Center(
                             child: Text(

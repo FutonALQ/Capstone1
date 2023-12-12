@@ -14,7 +14,7 @@ import 'package:image_picker/image_picker.dart';
 class EditTripScreen extends StatefulWidget {
   final Trip existingTrip;
 
-  const EditTripScreen({Key? key, required this.existingTrip});
+  const EditTripScreen({super.key, required this.existingTrip});
 
   @override
   State<EditTripScreen> createState() => _EditTripScreenState();
@@ -102,17 +102,13 @@ class _EditTripScreenState extends State<EditTripScreen> {
     }
   }
 
-  Future<void> getImage() async {
+  Future getImage() async {
     XFile? image = await picker.pickImage(source: ImageSource.gallery);
 
-    Future getImage() async {
-      XFile? image = await picker.pickImage(source: ImageSource.gallery);
-
-      if (image != null) {
-        setState(() {
-          imageFile = File(image.path);
-        });
-      }
+    if (image != null) {
+      setState(() {
+        imageFile = File(image.path);
+      });
     }
   }
 
@@ -141,7 +137,7 @@ class _EditTripScreenState extends State<EditTripScreen> {
                           radius: 50,
                           backgroundImage: widget.existingTrip.image != null
                               ? NetworkImage(widget.existingTrip.image!)
-                              : NetworkImage(
+                              : const NetworkImage(
                                   "https://t4.ftcdn.net/jpg/01/07/57/91/360_F_107579101_QVlTG43Fwg9Q6ggwF436MPIBTVpaKKtb.jpg")),
                     ),
                   ),
@@ -271,11 +267,11 @@ class _EditTripScreenState extends State<EditTripScreen> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                               content: Text('Oops!  ${state.errorMessage}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black)),
                               duration: const Duration(seconds: 2),
-                              backgroundColor: Color(0xff8ECAE6)),
+                              backgroundColor: const Color(0xff8ECAE6)),
                         );
                       }
                     },

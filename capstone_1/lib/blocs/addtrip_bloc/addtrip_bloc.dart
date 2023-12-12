@@ -17,7 +17,7 @@ class AddTripBloc extends Bloc<AddTripEvent, AddTripState> {
     emit(AddTripLoadingState());
 
     try {
-      print('Trying to add trip: ${event.trip.toJson()}');
+      // print('Trying to add trip: ${event.trip.toJson()}');
       await addTrip(event.trip.toJson(), event.image);
       print('Trip added successfully! Enjoy');
       emit(AddTripSuccessState());
