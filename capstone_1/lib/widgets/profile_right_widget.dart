@@ -78,7 +78,12 @@ class ProfileRightWidget extends StatelessWidget {
                                 ],
                               ),
                             )
-                          : const Text("no joining trip");
+                          : Center(
+                              child: Lottie.asset(
+                                  'lib/assets/Animation - 1702414059341.json',
+                                  height: 100,
+                                  width: 100),
+                            );
                 } else if (snapshot.hasError) {
                   return const Center(child: Text("error"));
                 }
@@ -144,7 +149,12 @@ class ProfileRightWidget extends StatelessWidget {
                               ],
                             ),
                           )
-                        : const Text("no joining trip");
+                        : Center(
+                            child: Lottie.asset(
+                                'lib/assets/Animation - 1702414059341.json',
+                                height: 100,
+                                width: 100),
+                          );
               } else if (snapshot.hasError) {
                 return const Center(child: Text("error"));
               }
