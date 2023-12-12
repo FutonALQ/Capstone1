@@ -2,6 +2,7 @@ import 'package:capstone_1/blocs/profile_bloc/profile_bloc.dart';
 import 'package:capstone_1/blocs/profile_bloc/profile_event.dart';
 import 'package:capstone_1/blocs/profile_bloc/profile_state.dart';
 import 'package:capstone_1/models/user.dart';
+import 'package:capstone_1/screens/chat_screen.dart';
 import 'package:capstone_1/screens/followers_users_screen.dart';
 import 'package:capstone_1/screens/following_users_screen.dart';
 import 'package:capstone_1/widgets/following_button.dart';
@@ -13,9 +14,16 @@ import 'package:capstone_1/widgets/user_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// ignore: must_be_immutable
 class UsersProfileScreen extends StatelessWidget {
-  const UsersProfileScreen({super.key, required this.user});
+  UsersProfileScreen(
+      {super.key,
+      required this.user,
+      this.direction = '',
+      required this.identity});
   final UserModel user;
+  String direction;
+  UserModel identity;
   @override
   Widget build(BuildContext context) {
     context.read<ProfileBloc>().add(GetUsersInfoEvent(user: user));
@@ -23,16 +31,44 @@ class UsersProfileScreen extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              if (direction == 'following') {
+                print('*****************FOLLOWING********************');
+                context
+                    .read<ProfileBloc>()
+                    .add(GetFollowingEvent(user: identity));
+                Navigator.pop(context);
+              } else if (direction == 'followers') {
+                print('*****************FOLLOWERS********************');
+                context
+                    .read<ProfileBloc>()
+                    .add(GetFollowersEvent(user: identity));
+                Navigator.pop(context);
+              } else {
+                print('*****************NULL********************');
+                Navigator.pop(context);
+              }
+            },
+          ),
           title: const Text('Profile',
               style: TextStyle(
                   color: Color(0xff023047), fontWeight: FontWeight.bold)),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          child: const Icon(
-            Icons.add,
-            color: Color(0xff219EBC),
-          ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (contsex) => ChatScreen(user: user)));
+              },
+              icon: const Icon(
+                Icons.chat_bubble,
+                color: Colors.blue,
+              ),
+            ),
+          ],
         ),
         body: SafeArea(
           child: ListView(
@@ -76,7 +112,9 @@ class UsersProfileScreen extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              FollowingUsersScreen()));
+                                              FollowingUsersScreen(
+                                                  user: state.user,
+                                                  dirction: 1)));
                                 },
                               ),
                               const SizedBox(width: 8),
@@ -88,7 +126,9 @@ class UsersProfileScreen extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              FollowersUsersScreen()));
+                                              FollowersUsersScreen(
+                                                  user: state.user,
+                                                  dirction: 1)));
                                 },
                               ),
                             ],

@@ -21,7 +21,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<GetFollowingEvent>((event, emit) async {
       emit(LoadingFollowingState());
       final followingUsers =
-          await getFollowing(Supabase.instance.client.auth.currentUser!.id);
+          await getFollowing(event.user.user_uuid.toString());
       if (followingUsers.isEmpty) {
         emit(EmptyFollowingState());
       } else {
@@ -30,9 +30,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     });
 
     on<GetFollowersEvent>((event, emit) async {
-      final currentUserId = Supabase.instance.client.auth.currentUser!.id;
       emit(LoadingFollowersState());
-      final followersUsers = await getFollowers(currentUserId);
+      final followersUsers =
+          await getFollowers(event.user.user_uuid.toString());
       if (followersUsers.isEmpty) {
         emit(EmptyFollowersState());
       } else {
@@ -69,7 +69,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
     on<GetUsersInfoEvent>((event, emit) async {
       emit(LoadingUsersInfoState());
-      final user = await getUser();
+      final user = await getUserById(event.user.user_uuid.toString());
       final followingUsers =
           await getFollowing(event.user.user_uuid.toString());
       final followersUsers =

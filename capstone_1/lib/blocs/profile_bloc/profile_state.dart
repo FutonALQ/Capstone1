@@ -31,7 +31,6 @@ class EmptyFollowersState extends ProfileState {}
 
 class GetFollowersState extends ProfileState {
   List<UserModel> followersUsers;
-
   GetFollowersState({required this.followersUsers});
 }
 

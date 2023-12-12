@@ -9,19 +9,20 @@ class UsersCard extends StatelessWidget {
       required this.followOnPressed,
       this.buttonText = 'Follow',
       required this.user,
-      this.buttonTextColor = const Color(0xff023047)});
+      this.buttonTextColor = const Color(0xff023047),
+      this.isVisible = true});
 
   Function() onTap;
-
   Function() followOnPressed;
   String buttonText;
   Color buttonTextColor;
+  bool isVisible;
   final UserModel user;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: isVisible == false ? () {} : onTap,
       child: Container(
         height: 68,
         decoration: BoxDecoration(
@@ -72,21 +73,23 @@ class UsersCard extends StatelessWidget {
                   ),
                 ],
               ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                ),
-                onPressed: followOnPressed,
-                child: Text(
-                  buttonText,
-                  style: TextStyle(
-                    color: buttonText == 'Unfollow'
-                        ? const Color.fromARGB(196, 244, 67, 54)
-                        : buttonTextColor,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
+              isVisible == false
+                  ? const SizedBox()
+                  : ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        elevation: 0,
+                      ),
+                      onPressed: followOnPressed,
+                      child: Text(
+                        buttonText,
+                        style: TextStyle(
+                          color: buttonText == 'Unfollow'
+                              ? const Color.fromARGB(196, 244, 67, 54)
+                              : buttonTextColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
             ],
           ),
         ),

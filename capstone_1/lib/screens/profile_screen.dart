@@ -24,6 +24,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.read<ProfileBloc>().add(GetInfoEvent());
+    print('TEST');
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -156,7 +157,9 @@ class ProfileScreen extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              FollowingUsersScreen()));
+                                              FollowingUsersScreen(
+                                                  user: state.user,
+                                                  dirction: 0)));
                                 },
                               ),
                               const SizedBox(width: 8),
@@ -168,7 +171,9 @@ class ProfileScreen extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              FollowersUsersScreen()));
+                                              FollowersUsersScreen(
+                                                  user: state.user,
+                                                  dirction: 0)));
                                 },
                               ),
                             ],
