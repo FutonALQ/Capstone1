@@ -130,6 +130,7 @@ class SearchScreen extends StatelessWidget {
                           itemBuilder: (context, i) {
                             if (state.users[i].user_uuid == currentUserId) {
                               return UsersCard(
+                                isVisible: false,
                                 onTap: () {
                                   Navigator.push(
                                       context,
