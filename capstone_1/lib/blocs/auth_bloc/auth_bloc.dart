@@ -25,11 +25,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthStates> {
             user = UserModel(
                 name: event.name,
                 email: event.email,
-                phone: (event.phone),
+
+  
+
+                phone: event.phone,
                 age: int.tryParse(event.age),
                 gender: event.gender,
                 imageUrl:
-                    "https://www.pngitem.com/pimgs/m/146-1468843_profile-icon-orange-png-transparent-png.png",
+                    "https://cdn-icons-png.flaticon.com/512/5987/5987424.png",
+
                 city: event.city);
 
             emit(SuccessSignUpState());

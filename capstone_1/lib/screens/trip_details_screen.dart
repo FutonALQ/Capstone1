@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:capstone_1/blocs/home_bloc/home_bloc.dart';
+import 'package:capstone_1/blocs/profile_trips_bloc/profile_trips_bloc.dart';
 import 'package:capstone_1/blocs/trip_bloc/trip_bloc.dart';
 import 'package:capstone_1/globals/global_user.dart';
 import 'package:capstone_1/models/trip.dart';
@@ -306,6 +307,9 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                               onTap: () async {
                                 await deleteTrip(id: widget.trip.id!);
                                 context.read<HomeBloc>().add(GetTripsEvent());
+                                context.read<ProfileTripsBloc>().add(
+                                    GetProfileTripsEvent(
+                                        currentUser!.user_uuid!));
                                 Navigator.pop(context, "back");
                               },
                               child: Container(
@@ -402,6 +406,11 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                                                     widget.trip,
                                                     currentUser!.user_uuid!,
                                                     widget.trip.id!));
+
+                                            context
+                                                .read<ProfileTripsBloc>()
+                                                .add(GetProfileTripsEvent(
+                                                    currentUser!.user_uuid!));
                                           }
                                         },
                                         child: Container(
@@ -487,6 +496,10 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                                                     widget.trip,
                                                     currentUser!.user_uuid!,
                                                     widget.trip.id!));
+                                            context
+                                                .read<ProfileTripsBloc>()
+                                                .add(GetProfileTripsEvent(
+                                                    currentUser!.user_uuid!));
                                           }
                                         },
                                         child: Container(

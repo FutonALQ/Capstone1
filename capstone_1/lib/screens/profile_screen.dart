@@ -29,6 +29,8 @@ class ProfileScreen extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
           title: const Text('Profile',
               style: TextStyle(
                   color: Color(0xff023047), fontWeight: FontWeight.bold)),
@@ -36,8 +38,11 @@ class ProfileScreen extends StatelessWidget {
             ProfilePopUpMenu(
               editProfile: PopupMenuItem(
                 child: const ListTile(
-                  leading: Icon(Icons.edit),
-                  title: Text('Edit Profile'),
+                  leading: Icon(Icons.edit, color: Color(0xff023047)),
+                  title: Text(
+                    'Edit Profile',
+                    style: TextStyle(color: Color(0xff023047)),
+                  ),
                 ),
                 onTap: () {
                   Navigator.push(
@@ -50,12 +55,12 @@ class ProfileScreen extends StatelessWidget {
                 child: const ListTile(
                   leading: Icon(
                     Icons.logout_outlined,
-                    color: Colors.red,
+                    color: Color(0xffFB8500),
                   ),
                   title: Text(
                     'Sign Out',
                     style: TextStyle(
-                      color: Colors.red,
+                      color: Color(0xffFB8500),
                     ),
                   ),
                 ),
@@ -72,8 +77,12 @@ class ProfileScreen extends StatelessWidget {
               ),
               mode: PopupMenuItem(
                 child: ListTile(
-                  leading: const Icon(Icons.dark_mode),
-                  title: const Text('Mode'),
+                  leading:
+                      const Icon(Icons.dark_mode, color: Color(0xff023047)),
+                  title: const Text(
+                    'Mode',
+                    style: TextStyle(color: Color(0xff023047)),
+                  ),
                   trailing: Switch(
                     value: false,
                     onChanged: (value) {},
@@ -83,15 +92,18 @@ class ProfileScreen extends StatelessWidget {
               ),
               language: PopupMenuItem(
                 child: ListTile(
-                  leading: const Icon(Icons.language),
+                  leading: const Icon(Icons.language, color: Color(0xff023047)),
                   title: const Row(
                     children: [
-                      Text('EN | '),
+                      Text(
+                        'EN | ',
+                        style: TextStyle(color: Color(0xff023047)),
+                      ),
                       Text(
                         'عربي',
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff023047)),
                       ),
                     ],
                   ),
@@ -105,18 +117,26 @@ class ProfileScreen extends StatelessWidget {
             ),
           ],
         ),
+
+        ///////
         floatingActionButton: FloatingActionButton(
+          backgroundColor: const Color.fromARGB(184, 255, 184, 3),
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => TripFormScreen()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const TripFormScreen()));
           },
           child: const Icon(
             Icons.add,
-            color: Color(0xff219EBC),
+            color: Colors.white,
           ),
         ),
+
+        ///
         body: SafeArea(
           child: ListView(
+            //   physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             children: [
               BlocBuilder<ProfileBloc, ProfileState>(
@@ -137,7 +157,17 @@ class ProfileScreen extends StatelessWidget {
                               UserAvatar(
                                 src: state.user.imageUrl.toString(),
                               ),
-                              const VerticalDivider(),
+                              const SizedBox(
+                                width: 8,
+                              ),
+                              Container(
+                                width: 1,
+                                height: 75,
+                                color: const Color.fromARGB(150, 158, 158, 158),
+                              ),
+                              const SizedBox(
+                                width: 20,
+                              ),
                               UserInfo(
                                 age: '${state.user.age.toString()} years',
                                 city: state.user.city.toString(),
@@ -146,37 +176,43 @@ class ProfileScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              FollowingButton(
-                                text: 'Following',
-                                noOfusers: state.followingUsers.length,
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              FollowingUsersScreen(
+
+
+////
+                          Padding(
+                            padding: const EdgeInsets.only(left: 130.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                FollowingButton(
+                                  text: 'Following',
+                                  noOfusers: state.followingUsers.length,
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                               FollowingUsersScreen(
                                                   user: state.user,
                                                   dirction: 0)));
-                                },
-                              ),
-                              const SizedBox(width: 8),
-                              FollowingButton(
-                                text: 'Followers',
-                                noOfusers: state.followersUsers.length,
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              FollowersUsersScreen(
+                                  },
+                                ),
+                                const SizedBox(width: 20),
+                                FollowingButton(
+                                  text: 'Followers',
+                                  noOfusers: state.followersUsers.length,
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                FollowersUsersScreen(
                                                   user: state.user,
                                                   dirction: 0)));
-                                },
-                              ),
-                            ],
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -186,10 +222,14 @@ class ProfileScreen extends StatelessWidget {
                 },
               ),
               ProfileTaps(
-                leftWidget: ProfileLeftWidget(
-                    tripOwnerId: Supabase.instance.client.auth.currentUser!.id),
-                rightWidget: const ProfileRightWidget(),
+                leftWidget:
+                    ProfileLeftWidget(tripOwnerId: currentUser!.user_uuid!),
+                rightWidget:
+                    ProfileRightWidget(tripOwnerId: currentUser!.user_uuid!),
               ),
+              const SizedBox(
+                height: 40,
+              )
             ],
           ),
         ),

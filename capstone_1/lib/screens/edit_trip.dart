@@ -6,7 +6,6 @@ import 'package:capstone_1/blocs/trip_details_bloc/tripdetails_state.dart';
 import 'package:capstone_1/globals/global_user.dart';
 import 'package:capstone_1/models/trip.dart';
 import 'package:capstone_1/screens/nav_bar.dart';
-
 import 'package:capstone_1/widgets/form_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,6 +32,9 @@ class _EditTripScreenState extends State<EditTripScreen> {
   late TextEditingController dateController;
   late final ImagePicker picker;
   File? imageFile;
+
+
+
 
   late DateTime selectedDate;
   late TimeOfDay selectedTime;
@@ -88,6 +90,7 @@ class _EditTripScreenState extends State<EditTripScreen> {
     }
   }
 
+
   Future<void> _selectTime(BuildContext context) async {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
@@ -106,6 +109,11 @@ class _EditTripScreenState extends State<EditTripScreen> {
 
   Future<void> getImage() async {
     XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+
+  Future getImage() async {
+    XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
 
     if (image != null) {
       setState(() {
@@ -135,12 +143,15 @@ class _EditTripScreenState extends State<EditTripScreen> {
                   onTap: getImage,
                   child: Center(
                     child: CircleAvatar(
+
                         backgroundColor: const Color(0xff8ECAE6),
                         radius: 50,
                         backgroundImage: widget.existingTrip.image != null
                             ? NetworkImage(widget.existingTrip.image!)
                             : NetworkImage(
                                 "https://t4.ftcdn.net/jpg/01/07/57/91/360_F_107579101_QVlTG43Fwg9Q6ggwF436MPIBTVpaKKtb.jpg")),
+
+
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -290,7 +301,8 @@ class _EditTripScreenState extends State<EditTripScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => AppNavigationBar()));
+                                  builder: (context) =>
+                                      const AppNavigationBar()));
 
                           context.read<TripDetailsBloc>().add(
                                 UpdateTripEvent(

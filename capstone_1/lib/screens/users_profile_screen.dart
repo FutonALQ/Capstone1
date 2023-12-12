@@ -13,6 +13,7 @@ import 'package:capstone_1/widgets/user_avtar.dart';
 import 'package:capstone_1/widgets/user_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:icons_plus/icons_plus.dart';
 
 // ignore: must_be_immutable
 class UsersProfileScreen extends StatelessWidget {
@@ -64,10 +65,13 @@ class UsersProfileScreen extends StatelessWidget {
                         builder: (contsex) => ChatScreen(user: user)));
               },
               icon: const Icon(
-                Icons.chat_bubble,
-                color: Colors.blue,
+                FontAwesome.comment_dots,
+                color: Color(0xff8ecae6),
               ),
             ),
+            const SizedBox(
+              width: 8,
+            )
           ],
         ),
         body: SafeArea(
@@ -101,37 +105,39 @@ class UsersProfileScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              FollowingButton(
-                                text: 'Following',
-                                noOfusers: state.followingUsers.length,
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              FollowingUsersScreen(
-                                                  user: state.user,
-                                                  dirction: 1)));
-                                },
-                              ),
-                              const SizedBox(width: 8),
-                              FollowingButton(
-                                text: 'Followers',
-                                noOfusers: state.followersUsers.length,
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              FollowersUsersScreen(
-                                                  user: state.user,
-                                                  dirction: 1)));
-                                },
-                              ),
-                            ],
+                          Padding(
+                            padding: const EdgeInsets.only(left: 130.0),
+                            child: Row(
+                              children: [
+                                FollowingButton(
+                                  text: 'Following',
+                                  noOfusers: state.followingUsers.length,
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                FollowingUsersScreen(
+                                                    user: state.user,
+                                                    dirction: 1)));
+                                  },
+                                ),
+                                const SizedBox(width: 8),
+                                FollowingButton(
+                                  text: 'Followers',
+                                  noOfusers: state.followersUsers.length,
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                FollowersUsersScreen(
+                                                    user: state.user,
+                                                    dirction: 1)));
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -144,7 +150,8 @@ class UsersProfileScreen extends StatelessWidget {
                 letTabText: user.gender == 'Male' ? 'His' : 'Her',
                 leftWidget:
                     ProfileLeftWidget(tripOwnerId: user.user_uuid.toString()),
-                rightWidget: const ProfileRightWidget(),
+                rightWidget:
+                    ProfileRightWidget(tripOwnerId: user.user_uuid.toString()),
               ),
             ],
           ),
