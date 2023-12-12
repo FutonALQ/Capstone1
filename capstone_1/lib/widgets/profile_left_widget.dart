@@ -78,17 +78,7 @@ class ProfileLeftWidget extends StatelessWidget {
                                 ],
                               ),
                             )
-                          : const Center(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                    height: 100,
-                                  ),
-                                  Text("no trip"),
-                                ],
-                              ),
-                            );
+                          : const Text("no trip");
                 } else if (snapshot.hasError) {
                   return const Center(child: Text("error"));
                 }
@@ -154,17 +144,7 @@ class ProfileLeftWidget extends StatelessWidget {
                               ],
                             ),
                           )
-                        : const Center(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  height: 100,
-                                ),
-                                Text("no trip"),
-                              ],
-                            ),
-                          );
+                        : const Text("no trip");
               } else if (snapshot.hasError) {
                 return const Center(child: Text("error"));
               }

@@ -70,6 +70,7 @@ class _TripListScreenState extends State<TripListScreen> {
                           const BorderSide(width: 1, color: Color(0xFFE7E7EF)),
                       borderRadius: BorderRadius.circular(28),
                     ),
+                    backgroundColor: const Color.fromARGB(255, 247, 247, 247),
                     label: Text(category[chipIndex]),
                     labelStyle: TextStyle(
                       fontWeight: FontWeight.w500,

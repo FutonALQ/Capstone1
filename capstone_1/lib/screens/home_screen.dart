@@ -138,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     selected: selectedChipIndex == chipIndex,
                     selectedColor: const Color(0xfffd9e02),
-                    backgroundColor: const Color.fromARGB(255, 239, 239, 239),
+                    backgroundColor: const Color.fromARGB(255, 247, 247, 247),
                     onSelected: (selected) {
                       setState(() {
                         selectedChipIndex = selected ? chipIndex : -1;
