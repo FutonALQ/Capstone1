@@ -27,11 +27,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-        context.read<HomeBloc>().add(GetTripsEvent());
-
+    context.read<HomeBloc>().add(GetTripsEvent());
   }
 
- 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,8 +117,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   final chipIndex = index ~/ 2;
                   return ChoiceChip(
                     showCheckmark: false,
-                    avatar: Icon(icons[chipIndex],
-                        color: const Color.fromARGB(77, 0, 0, 0)),
+                    avatar: Icon(
+                      icons[chipIndex],
+                      color: const Color.fromARGB(189, 251, 134, 0),
+                      size: 18,
+                    ),
                     shape: RoundedRectangleBorder(
                       side:
                           const BorderSide(width: 1, color: Color(0xFFE7E7EF)),
@@ -134,7 +135,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           : Colors.black,
                     ),
                     selected: selectedChipIndex == chipIndex,
-                    selectedColor: const Color(0xff8ECAE6),
+                    selectedColor: const Color.fromARGB(255, 255, 179, 92),
+                    backgroundColor: const Color.fromARGB(255, 239, 239, 239),
                     onSelected: (selected) {
                       setState(() {
                         selectedChipIndex = selected ? chipIndex : -1;

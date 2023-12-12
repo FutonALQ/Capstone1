@@ -25,8 +25,8 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
     const HomeScreen(),
     const TripListScreen(),
     SearchScreen(),
-    ProfileScreen(),
-    UsersScreen(),
+    const ProfileScreen(),
+    const UsersScreen(),
   ];
 
   int selected = 0;
@@ -35,6 +35,7 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
     return Scaffold(
       body: screensList[selected],
       bottomNavigationBar: FlashyTabBar(
+        backgroundColor: const Color.fromARGB(255, 255, 179, 92),
         selectedIndex: selected,
         showElevation: true,
         onItemSelected: (index) => setState(() {
@@ -42,28 +43,43 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
         }),
         items: [
           FlashyTabBarItem(
-            activeColor: const Color(0xff219EBC),
-            icon: const Icon(Icons.home),
+            activeColor: Colors.white,
+            icon: const Icon(
+              Icons.home,
+              color: Colors.white,
+            ),
             title: const Text('Home'),
           ),
           FlashyTabBarItem(
-            activeColor: const Color(0xff219EBC),
-            icon: const Icon(Icons.people),
+            activeColor: Colors.white,
+            icon: const Icon(
+              Icons.people,
+              color: Colors.white,
+            ),
             title: const Text('Trips'),
           ),
           FlashyTabBarItem(
-            activeColor: const Color(0xff219EBC),
-            icon: const Icon(Icons.search),
+            activeColor: Colors.white,
+            icon: const Icon(
+              Icons.search,
+              color: Colors.white,
+            ),
             title: const Text('Search'),
           ),
           FlashyTabBarItem(
-            activeColor: const Color(0xff219EBC),
-            icon: const Icon(Icons.person),
+            activeColor: Colors.white,
+            icon: const Icon(
+              Icons.person,
+              color: Colors.white,
+            ),
             title: const Text('Profile'),
           ),
           FlashyTabBarItem(
-            activeColor: const Color(0xff219EBC),
-            icon: const Icon(Icons.chat_bubble_outline_sharp),
+            activeColor: Colors.white,
+            icon: const Icon(
+              Icons.chat_bubble_outline_sharp,
+              color: Colors.white,
+            ),
             title: const Text('chat'),
           ),
         ],

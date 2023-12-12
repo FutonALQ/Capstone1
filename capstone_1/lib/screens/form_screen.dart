@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:capstone_1/blocs/addtrip_bloc/addtrip_bloc.dart';
 import 'package:capstone_1/globals/global_user.dart';
 import 'package:capstone_1/models/trip.dart';
-
 import 'package:capstone_1/screens/nav_bar.dart';
 import 'package:capstone_1/widgets/form_widget.dart';
 import 'package:flutter/material.dart';
@@ -259,7 +258,10 @@ class _TripFormScreenState extends State<TripFormScreen> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => AppNavigationBar()));
+                                    builder: (context) =>
+                                        const AppNavigationBar()));
+                            // builder: (context) =>
+                            //     const AppNavigationBar()));
 
                             context.read<AddTripBloc>().add(
                                   AddTripEvent(

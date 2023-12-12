@@ -26,9 +26,9 @@ class TripCountener extends StatelessWidget {
         ),
         shadows: [
           BoxShadow(
-            color: Color(0x3F000000),
+            color: Color.fromARGB(61, 81, 81, 81),
             blurRadius: 10,
-            offset: Offset(0, 4),
+            offset: Offset(0, 3),
             spreadRadius: 0,
           )
         ],

@@ -39,6 +39,7 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        foregroundColor: Colors.black,
         elevation: 0,
         title: Text(widget.trip.title!),
       ),
@@ -225,6 +226,7 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                                         )));
                           },
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               const Text(
                                 'Trip Creator:  ',
