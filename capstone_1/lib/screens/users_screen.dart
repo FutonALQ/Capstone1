@@ -55,9 +55,7 @@ class _UsersScreenState extends State<UsersScreen> {
                 );
               },
               separatorBuilder: (context, index) {
-                return const Divider(
-                  color: Color(0xff023047),
-                );
+                return const Divider();
               },
             );
           } else if (state is ErrorGetUsersState) {

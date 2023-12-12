@@ -18,8 +18,7 @@ class WelcomeScreen extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image:
-                AssetImage("lib/assets/daniel-jensen-tQpypKA92k8-unsplash.jpg"),
+            image: AssetImage("lib/assets/3.jpeg"),
             fit: BoxFit.cover,
           ),
         ),
@@ -32,17 +31,17 @@ class WelcomeScreen extends StatelessWidget {
             children: [
               const Padding(
                 padding: EdgeInsets.only(top: 100.0, left: 20.0),
-                child: Text(
-                  "Start your next \nadventure, where \nnew friends meet",
-                  style: TextStyle(
-                      fontSize: 35,
-                      fontWeight: FontWeight.w700,
-                      height: 1.1,
-                      color: Color.fromARGB(255, 50, 50, 50)),
-                ),
+                // child: Text(
+                //   "Start your next \nadventure, where \nnew friends meet",
+                //   style: TextStyle(
+                //       fontSize: 35,
+                //       fontWeight: FontWeight.w700,
+                //       height: 1.1,
+                //       color: Color.fromARGB(255, 50, 50, 50)),
+                // ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 530.0),
+                padding: const EdgeInsets.only(top: 630),
                 child: Center(
                   child: InkWell(
                     onTap: () async {

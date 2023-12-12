@@ -90,6 +90,20 @@ class _EditTripScreenState extends State<EditTripScreen> {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
       initialTime: selectedTime,
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            primaryColor: const Color(0xff8ECAE6),
+            colorScheme: ColorScheme.light(
+              primary: const Color(0xff8ECAE6),
+            ),
+            buttonTheme: ButtonThemeData(
+              textTheme: ButtonTextTheme.primary,
+            ),
+          ),
+          child: child!,
+        );
+      },
     );
 
     if (picked != null && picked != selectedTime) {
@@ -262,7 +276,7 @@ class _EditTripScreenState extends State<EditTripScreen> {
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black)),
-                              duration: Duration(seconds: 2),
+                              duration: Duration(seconds: 1),
                               backgroundColor: Color(0xff8ECAE6)),
                         );
                       } else if (state is TripDetailsErrorState) {
