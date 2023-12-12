@@ -384,7 +384,7 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                               showDialog(
                                   context: context,
                                   builder: (context) => const Center(
-                                      child: CircularProgressIndicator()));
+                                      child: CircularProgressIndicator(color: Color(0xff023047))));
                             }
                             if (state is GetUserSuccessedState) {
                               Navigator.pop(context);

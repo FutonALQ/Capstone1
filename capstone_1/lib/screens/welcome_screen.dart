@@ -50,7 +50,7 @@ class WelcomeScreen extends StatelessWidget {
                       showDialog(
                           context: context,
                           builder: (context) =>
-                              const Center(child: CircularProgressIndicator()));
+                              const Center(child: CircularProgressIndicator(color: Color(0xff023047))));
                       await Future.delayed(const Duration(seconds: 1),
                           () async {
                         final token =

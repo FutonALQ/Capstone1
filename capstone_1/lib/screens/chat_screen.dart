@@ -51,7 +51,7 @@ class ChatScreen extends StatelessWidget {
                 });
           } else {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(color: Color(0xff023047),),
             );
           }
         },

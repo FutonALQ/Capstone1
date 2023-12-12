@@ -87,7 +87,7 @@ class ProfileLeftWidget extends StatelessWidget {
                 } else if (snapshot.hasError) {
                   return const Center(child: Text("error"));
                 }
-                return const Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator(color: Color(0xff023047)));
               }),
         );
       }
@@ -158,7 +158,7 @@ class ProfileLeftWidget extends StatelessWidget {
               } else if (snapshot.hasError) {
                 return const Center(child: Text("error"));
               }
-              return const Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator(color: Color(0xff023047)));
             }),
       );
     });

@@ -76,7 +76,7 @@ class SigninScreen extends StatelessWidget {
                 showDialog(
                     context: context,
                     builder: (context) =>
-                        const Center(child: CircularProgressIndicator()));
+                        const Center(child: CircularProgressIndicator(color: Color(0xff023047))));
               } else if (state is ErrorSignInState) {
                 Navigator.pop(context);
                 ScaffoldMessenger.of(context)
