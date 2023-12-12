@@ -1,16 +1,14 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:capstone_1/blocs/addtrip_bloc/addtrip_bloc.dart';
 import 'package:capstone_1/globals/global_user.dart';
 import 'package:capstone_1/models/trip.dart';
-import 'package:capstone_1/screens/home_screen.dart';
+
 import 'package:capstone_1/screens/nav_bar.dart';
 import 'package:capstone_1/widgets/form_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-// import 'package:supabase_flutter/supabase_flutter.dart';
 
 class TripFormScreen extends StatefulWidget {
   const TripFormScreen({super.key});
@@ -69,12 +67,6 @@ class _TripFormScreenState extends State<TripFormScreen> {
         imageFile = File(image.path);
       });
     }
-  }
-
-  String base64EncodeImage(File imageFile) {
-    List<int> imageBytes = imageFile.readAsBytesSync();
-    String base64Image = base64Encode(imageBytes);
-    return base64Image;
   }
 
   @override
@@ -268,14 +260,6 @@ class _TripFormScreenState extends State<TripFormScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => AppNavigationBar()));
-                            String? base64Image;
-                            if (imageFile != null) {
-                              base64Image = base64EncodeImage(imageFile!);
-                            } else {
-                              // Use a default image if user didn't provide one
-                              base64Image = base64EncodeImage(File(
-                                  'https://www.fabhotels.com/blog/wp-content/uploads/2020/05/road-trip-hacks-tips-600.jpg'));
-                            }
 
                             context.read<AddTripBloc>().add(
                                   AddTripEvent(
@@ -287,11 +271,11 @@ class _TripFormScreenState extends State<TripFormScreen> {
                                         location: selecteCity,
                                         description: descriptionController.text,
                                         cost: int.parse(costController.text),
-                                        image: base64Image,
                                         // image: imageFile != null
                                         //     ? imageFile?.path
                                         //     : 'https://www.fabhotels.com/blog/wp-content/uploads/2020/05/road-trip-hacks-tips-600.jpg',
                                         tripCreator: currentUser!.user_uuid),
+                                    image: imageFile,
                                   ),
                                 );
                           },

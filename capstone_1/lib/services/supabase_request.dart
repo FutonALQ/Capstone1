@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:capstone_1/models/trip.dart';
 import 'package:capstone_1/models/user.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -230,7 +232,66 @@ unjointTrip({required String userId, required int tripId}) async {
       .match({'joint_id': userId, 'trip_id': tripId});
 }
 
-addTrip(Map<String, dynamic> body) async {
+Future<void> addTrip(Map<String, dynamic> body, File? image) async {
   final supabase = Supabase.instance.client;
+
+  if (image != null) {
+    final timestamp = DateTime.now().millisecondsSinceEpoch;
+    final imageName = '$timestamp.png';
+
+    await supabase.storage.from("image_project").upload(imageName, image);
+
+    final imageUrl =
+        await supabase.storage.from("image_project").getPublicUrl(imageName);
+
+    body["image"] = imageUrl;
+  } else {
+    body["image"] =
+        'https://www.fabhotels.com/blog/wp-content/uploads/2020/05/road-trip-hacks-tips-600.jpg';
+  }
+
   await supabase.from("trips").insert(body).select();
 }
+
+Future<Trip> getTripDetails(String tripId) async {
+  final supabase = Supabase.instance.client;
+
+  final response =
+      await supabase.from("trips").select().eq('id', tripId).single().execute();
+
+  return Trip.fromJson(response.data.first as Map<String, dynamic>);
+}
+
+// Function to update trip details
+Future<void> updateTrip(String tripId, Map<String, dynamic> body) async {
+  final supabase = Supabase.instance.client;
+
+  await supabase.from("trips").update(body).eq('id', tripId).execute();
+}
+
+
+// Future<void> addTrip(Map<String, dynamic> body, File image) async {
+//   final supabase = Supabase.instance.client;
+
+
+//   final timestamp = DateTime.now().millisecondsSinceEpoch;
+//   final imageName = '$timestamp.png';
+
+ 
+//   await supabase.storage.from("image_project").upload(imageName, image);
+
+  
+//   final imageUrl = await supabase.storage.from("image_project").getPublicUrl(imageName);
+
+ 
+//   body["image"] = imageUrl;
+
+  
+//   await supabase.from("trips").insert(body).select();
+// }
+
+
+// addTrip(Map<String, dynamic> body) async {
+//   final supabase = Supabase.instance.client;
+//   await supabase.from("trips").insert(body).select();
+// }

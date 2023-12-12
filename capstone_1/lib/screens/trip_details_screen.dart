@@ -5,6 +5,8 @@ import 'package:capstone_1/blocs/trip_bloc/trip_bloc.dart';
 import 'package:capstone_1/globals/global_user.dart';
 import 'package:capstone_1/models/trip.dart';
 import 'package:capstone_1/models/user.dart';
+import 'package:capstone_1/screens/edit_trip.dart';
+import 'package:capstone_1/screens/form_screen.dart';
 import 'package:capstone_1/screens/home_screen.dart';
 import 'package:capstone_1/screens/users_profile_screen.dart';
 import 'package:capstone_1/services/supabase_request.dart';
@@ -262,12 +264,13 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                           children: [
                             InkWell(
                               onTap: () {
-                                //-----------------------EDIT--------------------
+                                //-----------
+                                //------------EDIT--------------------
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            const HomeScreen()));
+                                        builder: (context) => EditTripScreen(
+                                            existingTrip: widget.trip)));
                                 //-------------------EDIT-------------------------
                               },
                               child: Container(

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:capstone_1/models/trip.dart';
 import 'package:capstone_1/services/supabase_request.dart';
@@ -15,7 +17,9 @@ class AddTripBloc extends Bloc<AddTripEvent, AddTripState> {
     emit(AddTripLoadingState());
 
     try {
-      await addTrip(event.trip.toJson());
+      print('Trying to add trip: ${event.trip.toJson()}');
+      await addTrip(event.trip.toJson(), event.image);
+      print('Trip added successfully!');
       emit(AddTripSuccessState());
     } catch (error) {
       print('Failed to add trip: $error');
