@@ -17,6 +17,9 @@ class ProfileTaps extends StatelessWidget {
         SizedBox(
           // height: 80,
           child: TabBar(
+            indicatorColor: const Color(0xff8ECAE6),
+            labelStyle: const TextStyle(
+                color: Color(0xff8ECAE6), fontWeight: FontWeight.w500),
             tabs: [
               Tab(text: '${letTabText.trim()} Trips'),
               const Tab(text: 'Joint Trips'),

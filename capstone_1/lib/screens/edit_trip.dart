@@ -1,10 +1,11 @@
+import 'dart:io';
+
 import 'package:capstone_1/blocs/trip_details_bloc/tripdetails_bloc.dart';
 import 'package:capstone_1/blocs/trip_details_bloc/tripdetails_event.dart';
 import 'package:capstone_1/blocs/trip_details_bloc/tripdetails_state.dart';
 import 'package:capstone_1/globals/global_user.dart';
 import 'package:capstone_1/models/trip.dart';
 import 'package:capstone_1/screens/nav_bar.dart';
-
 import 'package:capstone_1/widgets/form_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,8 +31,7 @@ class _EditTripScreenState extends State<EditTripScreen> {
   late TextEditingController timeController;
   late TextEditingController dateController;
   late final ImagePicker picker;
-  // late File? imageFile;
-
+  File? imageFile;
   late DateTime selectedDate;
 
   @override
@@ -82,15 +82,15 @@ class _EditTripScreenState extends State<EditTripScreen> {
     }
   }
 
-  // Future getImage() async {
-  //   XFile? image = await picker.pickImage(source: ImageSource.gallery);
+  Future getImage() async {
+    XFile? image = await picker.pickImage(source: ImageSource.gallery);
 
-  //   if (image != null) {
-  //     setState(() {
-  //       imageFile = File(image.path);
-  //     });
-  //   }
-  // }
+    if (image != null) {
+      setState(() {
+        imageFile = File(image.path);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,21 +109,21 @@ class _EditTripScreenState extends State<EditTripScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // GestureDetector(
-                //   onTap: getImage,
-                //   child: Center(
-                //     child: CircleAvatar(
-                //       backgroundColor: const Color(0xff8ECAE6),
-                //       radius: 50,
-                //       backgroundImage:
-                //           imageFile != null ? FileImage(imageFile!) : null,
-                //       child: imageFile == null
-                //           ? const Icon(Icons.camera_alt,
-                //               size: 50, color: Color(0xffFFB703))
-                //           : null,
-                //     ),
-                //   ),
-                // ),
+                GestureDetector(
+                  onTap: getImage,
+                  child: Center(
+                    child: CircleAvatar(
+                      backgroundColor: const Color(0xff8ECAE6),
+                      radius: 50,
+                      backgroundImage:
+                          imageFile != null ? FileImage(imageFile!) : null,
+                      child: imageFile == null
+                          ? const Icon(Icons.camera_alt,
+                              size: 50, color: Color(0xffFFB703))
+                          : null,
+                    ),
+                  ),
+                ),
                 const SizedBox(height: 16),
                 const SizedBox(height: 16),
                 buildStyledTextField(
@@ -255,7 +255,8 @@ class _EditTripScreenState extends State<EditTripScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => AppNavigationBar()));
+                                  builder: (context) =>
+                                      const AppNavigationBar()));
 
                           context.read<TripDetailsBloc>().add(
                                 UpdateTripEvent(

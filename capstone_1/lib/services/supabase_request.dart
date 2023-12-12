@@ -150,7 +150,7 @@ Future<List<UserModel>> getSearchUser(String name) async {
   return usersList;
 }
 
-Future<List<Trip>> getTrips({int? Userid}) async {
+Future<List<Trip>> getTrips({String? Userid}) async {
   final supabase = Supabase.instance.client;
   await Future.delayed(const Duration(seconds: 1));
 

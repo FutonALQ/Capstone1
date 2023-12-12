@@ -76,7 +76,7 @@ class UsersProfileScreen extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              FollowingUsersScreen()));
+                                              const FollowingUsersScreen()));
                                 },
                               ),
                               const SizedBox(width: 8),
@@ -88,7 +88,7 @@ class UsersProfileScreen extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              FollowersUsersScreen()));
+                                              const FollowersUsersScreen()));
                                 },
                               ),
                             ],
@@ -104,7 +104,8 @@ class UsersProfileScreen extends StatelessWidget {
                 letTabText: user.gender == 'Male' ? 'His' : 'Her',
                 leftWidget:
                     ProfileLeftWidget(tripOwnerId: user.user_uuid.toString()),
-                rightWidget: const ProfileRightWidget(),
+                rightWidget:
+                    ProfileRightWidget(tripOwnerId: user.user_uuid.toString()),
               ),
             ],
           ),
