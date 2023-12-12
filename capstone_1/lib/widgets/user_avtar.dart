@@ -14,7 +14,7 @@ class UserAvatar extends StatelessWidget {
         width: MediaQuery.sizeOf(context).height * 0.13,
         decoration: const BoxDecoration(
           shape: BoxShape.circle,
-          color: Colors.black,
+          color: Colors.transparent,
         ),
         child: Image.network(
           src,

@@ -2,7 +2,7 @@ class UserModel {
   int? id;
   String? name;
   String? email;
-  int? phone;
+  String? phone;
   int? age;
   String? city;
   String? password;

@@ -1,4 +1,3 @@
-import 'package:capstone_1/widgets/profile_info_row.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -20,18 +19,25 @@ class UserInfo extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ProfileInfoRow(
-          text: name.toString(),
-          black: true,
+        Text(
+          name.toString(),
+          style: const TextStyle(
+              fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black),
         ),
-        ProfileInfoRow(
-          text: city.toString(),
+        Text(
+          city.toString(),
+          style: const TextStyle(
+              fontSize: 14, color: Color.fromARGB(255, 128, 127, 127)),
         ),
-        ProfileInfoRow(
-          text: phone.toString(),
+        Text(
+          phone.toString(),
+          style: const TextStyle(
+              fontSize: 14, color: Color.fromARGB(255, 128, 127, 127)),
         ),
-        ProfileInfoRow(
-          text: age.toString(),
+        Text(
+          age.toString(),
+          style: const TextStyle(
+              fontSize: 14, color: Color.fromARGB(255, 128, 127, 127)),
         ),
       ],
     );

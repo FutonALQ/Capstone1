@@ -13,29 +13,32 @@ class FollowingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.sizeOf(context).width * 0.28,
+      width: MediaQuery.sizeOf(context).width * 0.23,
+      height: 50,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
+          // backgroundColor: const Color.fromARGB(255, 195, 226, 241),
+          backgroundColor: Colors.white,
           padding: const EdgeInsets.all(5),
-          elevation: 0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
+          elevation: 1,
+          // shape: RoundedRectangleBorder(
+          //   borderRadius: BorderRadius.circular(10),
+          // ),
         ),
         onPressed: onPressed,
         child: Column(
           children: [
             Text(
-              text,
+              noOfusers.toString(),
               style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Color(0xff219EBC),
+                color: Color(0xff023047),
               ),
             ),
             Text(
-              noOfusers.toString(),
+              text,
               style: const TextStyle(
-                color: Color(0xff219EBC),
+                fontWeight: FontWeight.bold,
+                color: Color(0xff023047),
               ),
             ),
           ],

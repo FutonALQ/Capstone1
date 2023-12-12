@@ -15,6 +15,10 @@ class ProfilePopUpMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
+        color: const Color.fromARGB(255, 248, 248, 248),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        elevation: 2,
+        surfaceTintColor: Colors.white,
         itemBuilder: (context) => [editProfile, mode, language, signout]);
   }
 }

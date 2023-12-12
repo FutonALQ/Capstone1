@@ -144,7 +144,8 @@ class UsersProfileScreen extends StatelessWidget {
                 letTabText: user.gender == 'Male' ? 'His' : 'Her',
                 leftWidget:
                     ProfileLeftWidget(tripOwnerId: user.user_uuid.toString()),
-                rightWidget: const ProfileRightWidget(),
+                rightWidget:
+                    ProfileRightWidget(tripOwnerId: user.user_uuid.toString()),
               ),
             ],
           ),
