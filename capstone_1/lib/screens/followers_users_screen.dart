@@ -20,7 +20,8 @@ class FollowersUsersScreen extends StatelessWidget {
     context.read<ProfileBloc>().add(GetFollowersEvent(user: user));
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xff8ECAE6),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         title: Text(
             currentUserId == user.user_uuid ? 'My Followers' : 'Followers'),
         leading: IconButton(

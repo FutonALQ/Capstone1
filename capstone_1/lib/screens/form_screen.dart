@@ -90,8 +90,10 @@ class _TripFormScreenState extends State<TripFormScreen> {
       create: (context) => AddTripBloc(),
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
           title: const Text(
-            'Add Your Trip Now!',
+            'Add Trip Now!',
             style: TextStyle(
                 fontWeight: FontWeight.bold, color: Color(0xff023047)),
           ),
@@ -300,7 +302,6 @@ class _TripFormScreenState extends State<TripFormScreen> {
                         ),
                         child: TextButton(
                           onPressed: () {
-                            
                             context.read<AddTripBloc>().add(
                                   AddTripEvent(
                                     trip: Trip(

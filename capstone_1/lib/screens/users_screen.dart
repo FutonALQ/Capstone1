@@ -23,12 +23,13 @@ class _UsersScreenState extends State<UsersScreen> {
     //
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         title: const Text(
           "Chat",
           style:
               TextStyle(color: Color(0xff023047), fontWeight: FontWeight.bold),
         ),
-        backgroundColor: const Color(0xff8ECAE6),
       ),
       body: BlocBuilder<ChatBloc, ChatState>(
         builder: (context, state) {

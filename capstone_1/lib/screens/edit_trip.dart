@@ -116,8 +116,10 @@ class _EditTripScreenState extends State<EditTripScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         title: const Text(
-          'Edit',
+          'Edit Trip',
           style:
               TextStyle(fontWeight: FontWeight.bold, color: Color(0xff023047)),
         ),
