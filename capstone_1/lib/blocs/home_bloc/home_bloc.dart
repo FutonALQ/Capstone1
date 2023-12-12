@@ -9,7 +9,6 @@ part 'home_state.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeInitial()) {
     on<GetTripsEvent>((event, emit) async {
-      print("event");
       final List<Trip> tripsList = await getTrips();
       emit(GetTripsSuccessedState(tripsList));
     });

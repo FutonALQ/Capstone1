@@ -13,7 +13,8 @@ class TripDetailsBloc extends Bloc<TripDetailsEvent, TripDetailsState> {
         emit(TripDetailsSuccessState(trip));
       } catch (error) {
         print('Failed to get trip details: $error');
-        emit(TripDetailsErrorState('Failed to get trip details: $error'));
+        emit(TripDetailsErrorState(
+            'Something went wrong. Please try again.'));
       }
     });
 
@@ -23,7 +24,8 @@ class TripDetailsBloc extends Bloc<TripDetailsEvent, TripDetailsState> {
         emit(TripUpdateSuccessState());
       } catch (error) {
         print('Failed to update trip: $error');
-        emit(TripDetailsErrorState('Failed to update trip: $error'));
+        emit(TripDetailsErrorState(
+            'Something went wrong. Please try again.'));
       }
     });
   }

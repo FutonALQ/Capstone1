@@ -29,7 +29,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthStates> {
                 age: int.tryParse(event.age),
                 gender: event.gender,
                 imageUrl:
-                    "https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-foreigners-avatar-child-face.png",
+                    "https://cdn-icons-png.flaticon.com/512/5987/5987424.png",
                 city: event.city);
 
             emit(SuccessSignUpState());
