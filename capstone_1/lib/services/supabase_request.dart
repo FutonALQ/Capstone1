@@ -82,7 +82,7 @@ Future<void> unfollow(String unFollowUserId) async {
   print('DONE');
 }
 
-Future<bool> isAFollower(String currentUser, String checkUser) async {
+Future<bool> isFollowed(String currentUser, String checkUser) async {
   bool isAfollower = false;
   final supabase = Supabase.instance.client;
   final List following = await supabase.from('following').select();

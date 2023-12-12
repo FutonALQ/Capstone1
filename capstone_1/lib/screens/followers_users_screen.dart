@@ -116,7 +116,10 @@ class FollowersUsersScreen extends StatelessWidget {
                         },
                         user: state.followersUsers[i],
                         buttonText:
-                            state.check == false ? 'Followed' : 'Follow',
+                            state.check == false ? 'Unfollow' : 'Follow',
+                        buttonTextColor: state.check == false
+                            ? Colors.red
+                            : const Color(0xff023047),
                         followOnPressed: () {
                           context
                               .read<ProfileBloc>()
@@ -135,7 +138,10 @@ class FollowersUsersScreen extends StatelessWidget {
                         },
                         user: state.followersUsers[i],
                         buttonText:
-                            state.check == false ? 'Followed' : 'Follow',
+                            state.check == false ? 'Unfollow' : 'Follow',
+                        buttonTextColor: state.check == false
+                            ? Colors.red
+                            : const Color(0xff023047),
                         followOnPressed: () {
                           context
                               .read<ProfileBloc>()

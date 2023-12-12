@@ -43,7 +43,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<FollowEvent>((event, emit) async {
       final currentUserId = Supabase.instance.client.auth.currentUser!.id;
       final check =
-          await isAFollower(currentUserId, event.user.user_uuid.toString());
+          await isFollowed(currentUserId, event.user.user_uuid.toString());
 
       if (check == false) {
         emit(LoadingFollowersState());

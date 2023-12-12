@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class SearchScreen extends StatelessWidget {
   SearchScreen({super.key});
   TextEditingController searchController = TextEditingController();
+  String aQuery = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,6 +28,7 @@ class SearchScreen extends StatelessWidget {
                       SearchTextField(
                         controller: searchController,
                         onChange: (query) {
+                          aQuery = query;
                           context
                               .read<SearchBloc>()
                               .add(SearchRequestEvent(query: query));
@@ -37,6 +39,7 @@ class SearchScreen extends StatelessWidget {
                     return SearchTextField(
                       controller: searchController,
                       onChange: (query) {
+                        aQuery = query;
                         context
                             .read<SearchBloc>()
                             .add(SearchRequestEvent(query: query));
@@ -67,7 +70,12 @@ class SearchScreen extends StatelessWidget {
                                   return UsersCard(
                                     onTap: () {},
                                     user: state.response[i]!,
-                                    followOnPressed: () {},
+                                    followOnPressed: () {
+                                      context.read<SearchBloc>().add(
+                                          FollowEvent(
+                                              user: state.response[i],
+                                              query: aQuery));
+                                    },
                                   );
                                 },
                                 separatorBuilder: (context, i) {
@@ -79,6 +87,35 @@ class SearchScreen extends StatelessWidget {
                               ),
                             )
                           : Container();
+                    } else if (state is FollowState) {
+                      return SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.6,
+                        child: ListView.separated(
+                          shrinkWrap: true,
+                          itemCount: state.users.length,
+                          itemBuilder: (context, i) {
+                            return UsersCard(
+                              onTap: () {},
+                              user: state.users[i],
+                              buttonText: state.followState == false
+                                  ? 'Unfollow'
+                                  : 'Follow',
+                              buttonTextColor: state.followState == false
+                                  ? Colors.red
+                                  : const Color(0xff023047),
+                              followOnPressed: () {
+                                context.read<SearchBloc>().add(FollowEvent(
+                                    user: state.users[i], query: aQuery));
+                              },
+                            );
+                          },
+                          separatorBuilder: (context, i) {
+                            return SizedBox(
+                                height:
+                                    MediaQuery.sizeOf(context).height * 0.01);
+                          },
+                        ),
+                      );
                     }
                     return const Text("");
                   },

@@ -25,7 +25,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthStates> {
             user = UserModel(
                 name: event.name,
                 email: event.email,
-                phone: int.tryParse(event.phone),
+                phone: event.phone,
                 age: int.tryParse(event.age),
                 gender: event.gender,
                 imageUrl:
