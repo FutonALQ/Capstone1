@@ -9,13 +9,11 @@ part 'profile_trips_state.dart';
 class ProfileTripsBloc extends Bloc<ProfileTripsEvent, ProfileTripsState> {
   ProfileTripsBloc() : super(ProfileTripsInitial()) {
     on<GetProfileTripsEvent>((event, emit) async {
-      print("-------------heerreee----");
       final List<Trip> tripsList = await getOwnerTrips(event.id);
       emit(GetTripsSuccessedState(tripsList));
     });
 
     on<GetJointTripsEvent>((event, emit) async {
-      print("event");
       final List<Trip> tripsList = await getTrips(Userid: event.id);
       emit(GetJointTripsSuccessedState(tripsList));
     });
