@@ -117,8 +117,8 @@ Future<List<Trip>> getOwnerTrips(String userID) async {
     tripsObjectList.add(Trip.fromJson(element));
   }
 
-  print(
-      '%%%%%%%%%%%%%%%%%%%%%%\n${tripsObjectList.first.title}\n%%%%%%%%%%%%%%%%%%%%%%');
+  // print(
+  //     '%%%%%%%%%%%%%%%%%%%%%%\n${tripsObjectList.first.title}\n%%%%%%%%%%%%%%%%%%%%%%');
   return tripsObjectList;
 }
 
@@ -242,7 +242,7 @@ Future<void> addTrip(Map<String, dynamic> body, File? image) async {
     await supabase.storage.from("image_project").upload(imageName, image);
 
     final imageUrl =
-        await supabase.storage.from("image_project").getPublicUrl(imageName);
+        supabase.storage.from("image_project").getPublicUrl(imageName);
 
     body["image"] = imageUrl;
   } else {
@@ -257,7 +257,7 @@ Future<Trip> getTripDetails(String tripId) async {
   final supabase = Supabase.instance.client;
 
   final response =
-      await supabase.from("trips").select().eq('id', tripId).single().execute();
+      await supabase.from("trips").select().eq('id', tripId).single();
 
   return Trip.fromJson(response.data.first as Map<String, dynamic>);
 }
@@ -266,7 +266,7 @@ Future<Trip> getTripDetails(String tripId) async {
 Future<void> updateTrip(String tripId, Map<String, dynamic> body) async {
   final supabase = Supabase.instance.client;
 
-  await supabase.from("trips").update(body).eq('id', tripId).execute();
+  await supabase.from("trips").update(body).eq('id', tripId);
 }
 
 

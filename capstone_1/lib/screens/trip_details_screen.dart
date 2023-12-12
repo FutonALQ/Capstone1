@@ -6,8 +6,6 @@ import 'package:capstone_1/globals/global_user.dart';
 import 'package:capstone_1/models/trip.dart';
 import 'package:capstone_1/models/user.dart';
 import 'package:capstone_1/screens/edit_trip.dart';
-import 'package:capstone_1/screens/form_screen.dart';
-import 'package:capstone_1/screens/home_screen.dart';
 import 'package:capstone_1/screens/users_profile_screen.dart';
 import 'package:capstone_1/services/supabase_request.dart';
 import 'package:flutter/material.dart';

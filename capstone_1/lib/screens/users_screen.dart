@@ -1,8 +1,6 @@
 import 'package:capstone_1/blocs/chat_bloc/chat_bloc.dart';
 import 'package:capstone_1/screens/chat_screen.dart';
-
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UsersScreen extends StatefulWidget {
@@ -30,7 +28,7 @@ class _UsersScreenState extends State<UsersScreen> {
           style:
               TextStyle(color: Color(0xff023047), fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Color(0xff8ECAE6),
+        backgroundColor: const Color(0xff8ECAE6),
       ),
       body: BlocBuilder<ChatBloc, ChatState>(
         builder: (context, state) {

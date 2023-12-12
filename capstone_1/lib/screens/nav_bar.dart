@@ -35,7 +35,7 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
     return Scaffold(
       body: screensList[selected],
       bottomNavigationBar: FlashyTabBar(
-        backgroundColor: const Color.fromARGB(255, 255, 179, 92),
+        backgroundColor: const Color(0xff023047),
         selectedIndex: selected,
         showElevation: true,
         onItemSelected: (index) => setState(() {

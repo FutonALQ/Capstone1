@@ -23,6 +23,9 @@ class _HomeScreenState extends State<HomeScreen> {
     FontAwesome.book,
     FontAwesome.mug_saucer,
   ];
+  Color selectedIconColor = Colors.white;
+  Color unselectedIconColor = const Color(0xfffd9e02);
+
   String selectedCategory = "All";
   @override
   void initState() {
@@ -36,7 +39,6 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Padding(
       padding: const EdgeInsets.only(top: 22.0, left: 24, right: 24),
       child: ListView(
-        // shrinkWrap: true,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -57,14 +59,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Row(
                     children: [
-                      const Icon(
-                        Icons.location_on,
-                        color: Color(0xFFDE7254),
-                      ),
+                      const Icon(Icons.location_on,
+                          color: Color.fromARGB(255, 255, 179, 92)),
                       Text(
                         " Saudi Arabia, ${currentUser!.city!}",
                         style: const TextStyle(
-                          color: Color(0xFFDE7254),
+                          color: Color.fromARGB(255, 255, 179, 92),
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),
@@ -119,7 +119,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     showCheckmark: false,
                     avatar: Icon(
                       icons[chipIndex],
-                      color: const Color.fromARGB(189, 251, 134, 0),
+                      color: selectedChipIndex == chipIndex
+                          ? selectedIconColor
+                          : unselectedIconColor,
                       size: 18,
                     ),
                     shape: RoundedRectangleBorder(
@@ -135,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           : Colors.black,
                     ),
                     selected: selectedChipIndex == chipIndex,
-                    selectedColor: const Color.fromARGB(255, 255, 179, 92),
+                    selectedColor: const Color(0xfffd9e02),
                     backgroundColor: const Color.fromARGB(255, 239, 239, 239),
                     onSelected: (selected) {
                       setState(() {

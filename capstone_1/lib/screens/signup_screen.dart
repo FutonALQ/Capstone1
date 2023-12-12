@@ -182,7 +182,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
               BlocListener<AuthBloc, AuthStates>(
                 listener: (context, state) {
                   if (state is LoadingSignUpState) {
-                    print("sign up");
                     showDialog(
                         context: context,
                         builder: (context) =>

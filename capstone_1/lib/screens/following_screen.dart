@@ -28,6 +28,8 @@ class _TripListScreenState extends State<TripListScreen> {
       FontAwesome.book,
       FontAwesome.mug_saucer,
     ];
+    Color selectedIconColor = Colors.white;
+    Color unselectedIconColor = const Color(0xfffd9e02);
 
     return Scaffold(
         body: Padding(
@@ -57,8 +59,12 @@ class _TripListScreenState extends State<TripListScreen> {
                   final chipIndex = index ~/ 2;
                   return ChoiceChip(
                     showCheckmark: false,
-                    avatar: Icon(icons[chipIndex],
-                        color: const Color.fromARGB(77, 0, 0, 0)),
+                    avatar: Icon(
+                      icons[chipIndex],
+                      color: selectedChipIndex == chipIndex
+                          ? selectedIconColor
+                          : unselectedIconColor,
+                    ),
                     shape: RoundedRectangleBorder(
                       side:
                           const BorderSide(width: 1, color: Color(0xFFE7E7EF)),
@@ -72,7 +78,7 @@ class _TripListScreenState extends State<TripListScreen> {
                           : Colors.black,
                     ),
                     selected: selectedChipIndex == chipIndex,
-                    selectedColor: const Color(0xff8ECAE6),
+                    selectedColor: const Color(0xfffd9e02),
                     onSelected: (selected) {
                       setState(() {
                         selectedChipIndex = selected ? chipIndex : -1;

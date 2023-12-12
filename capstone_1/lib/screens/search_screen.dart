@@ -58,21 +58,25 @@ class SearchScreen extends StatelessWidget {
                     if (state is ResultResponseState) {
                       Navigator.maybePop(context);
                       return state.response.isNotEmpty
-                          ? ListView.separated(
-                              shrinkWrap: true,
-                              itemCount: state.response.length,
-                              itemBuilder: (context, i) {
-                                return UsersCard(
-                                  onTap: () {},
-                                  user: state.response[i]!,
-                                  followOnPressed: () {},
-                                );
-                              },
-                              separatorBuilder: (context, i) {
-                                return SizedBox(
-                                    height: MediaQuery.sizeOf(context).height *
-                                        0.01);
-                              },
+                          ? SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.6,
+                              child: ListView.separated(
+                                shrinkWrap: true,
+                                itemCount: state.response.length,
+                                itemBuilder: (context, i) {
+                                  return UsersCard(
+                                    onTap: () {},
+                                    user: state.response[i]!,
+                                    followOnPressed: () {},
+                                  );
+                                },
+                                separatorBuilder: (context, i) {
+                                  return SizedBox(
+                                      height:
+                                          MediaQuery.sizeOf(context).height *
+                                              0.01);
+                                },
+                              ),
                             )
                           : Container();
                     }
