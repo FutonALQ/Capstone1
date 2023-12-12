@@ -32,6 +32,8 @@ class UsersProfileScreen extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
@@ -84,7 +86,7 @@ class UsersProfileScreen extends StatelessWidget {
                     return SizedBox(
                         height: MediaQuery.sizeOf(context).height * 0.26,
                         child:
-                            const Center(child: CircularProgressIndicator()));
+                            const Center(child: CircularProgressIndicator(color: Color(0xff023047))));
                   } else if (state is GetUsersInfoState) {
                     return Container(
                       padding: const EdgeInsets.all(20),

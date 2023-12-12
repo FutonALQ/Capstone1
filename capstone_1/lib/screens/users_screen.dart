@@ -62,7 +62,7 @@ class _UsersScreenState extends State<UsersScreen> {
             return const Text("error!!");
           }
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(color: Color(0xff023047)),
           );
         },
       ),

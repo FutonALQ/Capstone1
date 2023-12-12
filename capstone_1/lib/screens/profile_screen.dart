@@ -24,7 +24,6 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.read<ProfileBloc>().add(GetInfoEvent());
-    print('TEST');
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -145,7 +144,7 @@ class ProfileScreen extends StatelessWidget {
                     return SizedBox(
                         height: MediaQuery.sizeOf(context).height * 0.26,
                         child:
-                            const Center(child: CircularProgressIndicator()));
+                            const Center(child: CircularProgressIndicator(color: Color(0xff023047))));
                   } else if (state is GetInfoState) {
                     return Container(
                       padding: const EdgeInsets.all(20),
@@ -177,7 +176,6 @@ class ProfileScreen extends StatelessWidget {
                             ],
                           ),
 
-
 ////
                           Padding(
                             padding: const EdgeInsets.only(left: 130.0),
@@ -192,9 +190,9 @@ class ProfileScreen extends StatelessWidget {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                               FollowingUsersScreen(
-                                                  user: state.user,
-                                                  dirction: 0)));
+                                                FollowingUsersScreen(
+                                                    user: state.user,
+                                                    dirction: 0)));
                                   },
                                 ),
                                 const SizedBox(width: 20),
@@ -207,8 +205,8 @@ class ProfileScreen extends StatelessWidget {
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 FollowersUsersScreen(
-                                                  user: state.user,
-                                                  dirction: 0)));
+                                                    user: state.user,
+                                                    dirction: 0)));
                                   },
                                 ),
                               ],
