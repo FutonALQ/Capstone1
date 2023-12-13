@@ -10,8 +10,22 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     on<SearchRequestEvent>((event, emit) async {
       emit(LoadingState());
       final List<UserModel> usersList = await getSearchUser(event.query);
+      final currentUserId = Supabase.instance.client.auth.currentUser!.id;
+      for (var element in usersList) {
+        var check =
+            await isFollowed(currentUserId, element.user_uuid.toString());
+        if (check == false) {
+          print('===============IM HERE 1===============');
+          element.followState = false;
+        } else if (check == true) {
+          print('===============IM HERE 2===============');
+          element.followState = true;
+        }
+        await Future.delayed(const Duration(seconds: 2));
+      }
       emit(ResultResponseState(response: usersList));
     });
+
     on<ClearSearchEvent>((event, emit) async {
       emit(ClearSearchState());
     });
@@ -20,13 +34,23 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       final currentUserId = Supabase.instance.client.auth.currentUser!.id;
       final check =
           await isFollowed(currentUserId, event.user.user_uuid.toString());
+      final List<UserModel> usersList = await getSearchUser(event.query);
       if (check == false) {
         await follow(currentUserId, event.user.user_uuid.toString());
-        final List<UserModel> usersList = await getSearchUser(event.query);
-        emit(FollowState(users: usersList, followState: false));
+        for (var element in usersList) {
+          if (element.user_uuid == event.user.user_uuid) {
+            element.followState = false;
+          }
+        }
       } else {
-        return;
+        await unfollow(event.user.user_uuid.toString());
+        for (var element in usersList) {
+          if (element.user_uuid == event.user.user_uuid) {
+            element.followState = true;
+          }
+        }
       }
+      emit(FollowState(users: usersList));
     });
   }
 }

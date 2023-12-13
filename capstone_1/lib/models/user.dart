@@ -9,19 +9,20 @@ class UserModel {
   String? user_uuid;
   String? gender;
   String? imageUrl;
+  bool? followState;
 
-  UserModel({
-    this.id,
-    this.name,
-    this.email,
-    this.phone,
-    this.age,
-    this.city,
-    this.password,
-    this.user_uuid,
-    this.gender,
-    this.imageUrl,
-  });
+  UserModel(
+      {this.id,
+      this.name,
+      this.email,
+      this.phone,
+      this.age,
+      this.city,
+      this.password,
+      this.user_uuid,
+      this.gender,
+      this.imageUrl,
+      this.followState});
 
   UserModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];

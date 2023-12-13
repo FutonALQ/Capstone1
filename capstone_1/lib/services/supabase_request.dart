@@ -72,14 +72,26 @@ Future<void> follow(String userId, String followUserId) async {
   await supabase
       .from('followers')
       .insert({'user_uuid': followUserId, 'followed_uuid': userId});
-  print('DONE');
 }
 
 Future<void> unfollow(String unFollowUserId) async {
   final supabase = Supabase.instance.client;
-  await supabase.from('following').delete().eq('follows_uuid', unFollowUserId);
+  final currentUserId = Supabase.instance.client.auth.currentUser!.id;
+  final List followingList = await supabase.from('following').select('*');
+  final List followersList = await supabase.from('followers').select('*');
+
+  for (var i = 0; i < followersList.length; i++) {
+    if (currentUserId == followingList[i]['user_uuid'] &&
+        unFollowUserId == followingList[i]['follows_uuid']) {
+      await supabase
+          .from('following')
+          .delete()
+          .eq('follows_uuid', unFollowUserId);
+      await supabase.from('followers').delete().eq('user_uuid', unFollowUserId);
+    }
+  }
+
   await supabase.from('followers').delete().eq('user_uuid', unFollowUserId);
-  print('DONE');
 }
 
 Future<bool> isFollowed(String currentUser, String checkUser) async {

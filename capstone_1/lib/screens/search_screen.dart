@@ -82,7 +82,7 @@ class SearchScreen extends StatelessWidget {
                                                 builder: (contsex) =>
                                                     const ProfileScreen()));
                                       },
-                                      user: state.response[i]!,
+                                      user: state.response[i],
                                       followOnPressed: () {
                                         context.read<SearchBloc>().add(
                                             FollowEvent(
@@ -91,25 +91,66 @@ class SearchScreen extends StatelessWidget {
                                       },
                                     );
                                   } else {
-                                    return UsersCard(
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (contsex) =>
-                                                    UsersProfileScreen(
-                                                        user: state.response[i],
-                                                        identity: state
-                                                            .response[i])));
-                                      },
-                                      user: state.response[i]!,
-                                      followOnPressed: () {
-                                        context.read<SearchBloc>().add(
-                                            FollowEvent(
-                                                user: state.response[i],
-                                                query: aQuery));
-                                      },
-                                    );
+                                    return state.response[i].followState ==
+                                            false
+                                        ? UsersCard(
+                                            onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (contsex) =>
+                                                          UsersProfileScreen(
+                                                              user: state
+                                                                  .response[i],
+                                                              identity: state
+                                                                      .response[
+                                                                  i])));
+                                            },
+                                            user: state.response[i],
+                                            buttonText:
+                                                state.followState == false
+                                                    ? 'Unfollow'
+                                                    : 'Follow',
+                                            buttonTextColor:
+                                                state.followState == false
+                                                    ? Colors.red
+                                                    : const Color(0xff023047),
+                                            followOnPressed: () {
+                                              context.read<SearchBloc>().add(
+                                                  FollowEvent(
+                                                      user: state.response[i],
+                                                      query: aQuery));
+                                            },
+                                          )
+                                        : UsersCard(
+                                            onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (contsex) =>
+                                                          UsersProfileScreen(
+                                                              user: state
+                                                                  .response[i],
+                                                              identity: state
+                                                                      .response[
+                                                                  i])));
+                                            },
+                                            user: state.response[i],
+                                            buttonText:
+                                                state.followState == true
+                                                    ? 'Unfollow'
+                                                    : 'Follow',
+                                            buttonTextColor:
+                                                state.followState == true
+                                                    ? Colors.red
+                                                    : const Color(0xff023047),
+                                            followOnPressed: () {
+                                              context.read<SearchBloc>().add(
+                                                  FollowEvent(
+                                                      user: state.response[i],
+                                                      query: aQuery));
+                                            },
+                                          );
                                   }
                                 },
                                 separatorBuilder: (context, i) {
@@ -139,40 +180,68 @@ class SearchScreen extends StatelessWidget {
                                               const ProfileScreen()));
                                 },
                                 user: state.users[i],
-                                buttonText: state.followState == false
+                                buttonText: state.users[i].followState == false
                                     ? 'Unfollow'
                                     : 'Follow',
-                                buttonTextColor: state.followState == false
-                                    ? Colors.red
-                                    : const Color(0xff023047),
-                                followOnPressed: () {
-                                  context.read<SearchBloc>().add(FollowEvent(
-                                      user: state.users[i], query: aQuery));
-                                },
+                                buttonTextColor:
+                                    state.users[i].followState == false
+                                        ? Colors.red
+                                        : const Color(0xff023047),
+                                followOnPressed: () {},
                               );
                             } else {
-                              return UsersCard(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (contsex) =>
-                                              UsersProfileScreen(
-                                                  user: state.users[i],
-                                                  identity: state.users[i])));
-                                },
-                                user: state.users[i],
-                                buttonText: state.followState == false
-                                    ? 'Unfollow'
-                                    : 'Follow',
-                                buttonTextColor: state.followState == false
-                                    ? Colors.red
-                                    : const Color(0xff023047),
-                                followOnPressed: () {
-                                  context.read<SearchBloc>().add(FollowEvent(
-                                      user: state.users[i], query: aQuery));
-                                },
-                              );
+                              return state.users[i].followState == false
+                                  ? UsersCard(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (contsex) =>
+                                                    UsersProfileScreen(
+                                                        user: state.users[i],
+                                                        identity:
+                                                            state.users[i])));
+                                      },
+                                      user: state.users[i],
+                                      buttonText: state.followState == false
+                                          ? 'Unfollow'
+                                          : 'Follow',
+                                      buttonTextColor:
+                                          state.followState == false
+                                              ? Colors.red
+                                              : const Color(0xff023047),
+                                      followOnPressed: () {
+                                        context.read<SearchBloc>().add(
+                                            FollowEvent(
+                                                user: state.users[i],
+                                                query: aQuery));
+                                      },
+                                    )
+                                  : UsersCard(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (contsex) =>
+                                                    UsersProfileScreen(
+                                                        user: state.users[i],
+                                                        identity:
+                                                            state.users[i])));
+                                      },
+                                      user: state.users[i],
+                                      buttonText: state.followState == true
+                                          ? 'Unfollow'
+                                          : 'Follow',
+                                      buttonTextColor: state.followState == true
+                                          ? Colors.red
+                                          : const Color(0xff023047),
+                                      followOnPressed: () {
+                                        context.read<SearchBloc>().add(
+                                            FollowEvent(
+                                                user: state.users[i],
+                                                query: aQuery));
+                                      },
+                                    );
                             }
                           },
                           separatorBuilder: (context, i) {

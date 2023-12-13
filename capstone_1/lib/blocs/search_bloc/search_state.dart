@@ -12,8 +12,9 @@ class EmptyResponseState extends SearchState {
 }
 
 class ResultResponseState extends SearchState {
-  List response;
-  ResultResponseState({required this.response});
+  List<UserModel> response;
+  bool followState;
+  ResultResponseState({required this.response, this.followState = false});
 }
 
 class ClearSearchState extends SearchState {}
@@ -21,5 +22,5 @@ class ClearSearchState extends SearchState {}
 class FollowState extends SearchState {
   List<UserModel> users;
   bool followState;
-  FollowState({required this.users, required this.followState});
+  FollowState({required this.users, this.followState = false});
 }
