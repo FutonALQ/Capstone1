@@ -7,19 +7,9 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
   EditProfileBloc() : super(EditProfileInitial()) {
     on<UpdateProfileEvent>((event, emit) {
       if (event.name.isNotEmpty &&
-          event.email.isNotEmpty &&
           event.phone.isNotEmpty &&
-          event.age.isNotEmpty &&
-          event.password.isNotEmpty) {
-        if (RegExp(
-                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-            .hasMatch(event.email)) {
-          currentUser!.name = 'AMAM';
-          currentUser!.age = 27;
-          print('====== TEST ======');
-          print(currentUser!.name);
-          print(currentUser!.age);
-        }
+          event.age.isNotEmpty) {
+        print('object');
       } else {
         emit(EmptyState(message: 'All fileds are required'));
       }

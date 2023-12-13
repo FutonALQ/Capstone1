@@ -89,30 +89,6 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 onTap: () {},
               ),
-              language: PopupMenuItem(
-                child: ListTile(
-                  leading: const Icon(Icons.language, color: Color(0xff023047)),
-                  title: const Row(
-                    children: [
-                      Text(
-                        'EN | ',
-                        style: TextStyle(color: Color(0xff023047)),
-                      ),
-                      Text(
-                        'عربي',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xff023047)),
-                      ),
-                    ],
-                  ),
-                  trailing: Switch(
-                    value: false,
-                    onChanged: (value) {},
-                  ),
-                ),
-                onTap: () {},
-              ),
             ),
           ],
         ),

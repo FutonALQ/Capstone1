@@ -6,6 +6,8 @@ class GetCurrentInfoState extends EditProfileState {}
 
 class UpdateProfileState extends EditProfileState {}
 
+class LoadingState extends EditProfileState {}
+
 class EmptyState extends EditProfileState {
   String message;
   EmptyState({required this.message});

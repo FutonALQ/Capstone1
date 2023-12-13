@@ -20,10 +20,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     TextEditingController nameController =
         TextEditingController(text: currentUser!.name);
-    TextEditingController emailController =
-        TextEditingController(text: 'kodilas487@gyxmz.com');
-    TextEditingController passwordController =
-        TextEditingController(text: '000000');
+    // TextEditingController emailController =
+    //     TextEditingController(text: 'kodilas487@gyxmz.com');
+    // TextEditingController passwordController =
+    //     TextEditingController(text: '000000');
     TextEditingController phoneController =
         TextEditingController(text: '0547893510');
     TextEditingController ageController =
@@ -54,15 +54,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               isAge: false,
             ),
             const SizedBox(height: 30),
-            AddTextField(
-              label: 'Email Adress',
-              hint: 'your email',
-              isPassword: false,
-              controller: emailController,
-              icon: Icons.email,
-              isAge: false,
-            ),
-            const SizedBox(height: 30),
+            // AddTextField(
+            //   label: 'Email Adress',
+            //   hint: 'your email',
+            //   isPassword: false,
+            //   controller: emailController,
+            //   icon: Icons.email,
+            //   isAge: false,
+            // ),
+            // const SizedBox(height: 30),
             AddTextField(
               label: 'Phone',
               hint: 'your phone number',
@@ -81,15 +81,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               isAge: true,
             ),
             const SizedBox(height: 30),
-            AddTextField(
-              label: 'Change Password',
-              hint: 'your password',
-              isPassword: true,
-              controller: passwordController,
-              icon: Icons.password,
-              isAge: false,
-            ),
-            const SizedBox(height: 30),
+            // AddTextField(
+            //   label: 'Change Password',
+            //   hint: 'your password',
+            //   isPassword: true,
+            //   controller: passwordController,
+            //   icon: Icons.password,
+            //   isAge: false,
+            // ),
+            // const SizedBox(height: 30),
             Padding(
               padding: const EdgeInsets.only(left: 8),
               child: Column(
@@ -146,10 +146,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 context.read<EditProfileBloc>().add(UpdateProfileEvent(
                     imageUrl: imageUrl.trim(),
                     name: nameController.text.trim(),
-                    email: emailController.text.trim(),
+                    // email: emailController.text.trim(),
                     phone: phoneController.text.trim(),
                     age: ageController.text.trim(),
-                    password: passwordController.text.trim(),
+                    // password: passwordController.text.trim(),
                     city: selectedCity.trim()));
               },
               child: Container(
