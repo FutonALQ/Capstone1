@@ -16,7 +16,7 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  String selectedCity = currentUser!.city.toString();
+  String city = currentUser!.city.toString();
   String imageUrl = currentUser!.imageUrl.toString();
   TextEditingController nameController =
       TextEditingController(text: currentUser!.name);
@@ -70,6 +70,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     'Your changes updated succesfully',
                     style: TextStyle(color: Colors.white),
                   )));
+              context.read<ProfileBloc>().add(GetInfoEvent());
               Navigator.pop(context);
             }
           },
@@ -134,10 +135,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           color: Colors.grey[200],
                         ),
                         child: DropdownButton<String>(
-                          value: selectedCity,
+                          value: city,
                           onChanged: (String? newValue) {
                             setState(() {
-                              selectedCity = newValue!;
+                              city = newValue!;
                             });
                           },
                           items: <String>['Riyadh', 'Jeddah', 'Dammam']
@@ -172,7 +173,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         name: nameController.text.trim(),
                         phone: phoneController.text.trim(),
                         age: ageController.text.trim(),
-                        city: selectedCity.trim()));
+                        city: city.trim()));
                   },
                   child: Container(
                     width: 330,
