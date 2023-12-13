@@ -1,33 +1,50 @@
 import 'package:capstone_1/blocs/edit_profile_bloc/edit_profile_event.dart';
 import 'package:capstone_1/blocs/edit_profile_bloc/edit_profile_state.dart';
 import 'package:capstone_1/globals/global_user.dart';
+import 'package:capstone_1/services/supabase_request.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
   EditProfileBloc() : super(EditProfileInitial()) {
-    on<UpdateProfileEvent>((event, emit) {
-      if (event.name.isNotEmpty &&
-          event.email.isNotEmpty &&
-          event.phone.isNotEmpty &&
-          event.age.isNotEmpty &&
-          event.password.isNotEmpty) {
-        if (RegExp(
-                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-            .hasMatch(event.email)) {
-          currentUser!.name = 'AMAM';
-          currentUser!.age = 27;
-          print('====== TEST ======');
-          print(currentUser!.name);
-          print(currentUser!.age);
+    on<UpdateProfileEvent>((event, emit) async {
+      try {
+        emit(LoadingState());
+        if (event.name.isNotEmpty &&
+            event.phone.isNotEmpty &&
+            event.age.isNotEmpty) {
+          try {
+            int.parse(event.age);
+          } catch (e) {
+            emit(ErrorState(message: 'The age must be integer only'));
+            print('=================AGE NOT INT=================');
+          }
+          if (event.phone.length != 10) {
+            emit(ErrorState(message: 'The phone number should be 10 numbers'));
+            print('=================PHONE NOT CURRECT=================');
+          } else {
+            await updateUser(
+                imageUrl:
+                    'https://hips.hearstapps.com/hmg-prod/images/2022-ford-mustang-shelby-gt500-02-1636734552.jpg',
+                name: event.name,
+                phone: event.phone,
+                age: int.parse(event.age),
+                city: event.city);
+            currentUser!.imageUrl =
+                'https://hips.hearstapps.com/hmg-prod/images/2022-ford-mustang-shelby-gt500-02-1636734552.jpg';
+            currentUser!.name = event.name;
+            currentUser!.phone = event.phone;
+            currentUser!.age = int.parse(event.age);
+            currentUser!.city = event.city;
+            print('=================SUCCESS=================');
+            emit(UpdateProfileState());
+          }
+        } else {
+          print('=================EMPTY=================');
+          emit(EmptyState(message: 'All fileds are required'));
         }
-      } else {
-        emit(EmptyState(message: 'All fileds are required'));
+      } catch (e) {
+        emit(ErrorState(message: 'Error!'));
       }
     });
   }
 }
-
-
-// if (RegExp(
-              //     r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-              // .hasMatch(event.email))

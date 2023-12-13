@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class ProfilePopUpMenu extends StatelessWidget {
-  ProfilePopUpMenu(
-      {super.key,
-      required this.editProfile,
-      required this.signout,
-      required this.mode,
-      required this.language});
+  ProfilePopUpMenu({
+    super.key,
+    required this.editProfile,
+    required this.signout,
+    required this.mode,
+    // required this.language,
+  });
   PopupMenuItem editProfile;
   PopupMenuItem signout;
   PopupMenuItem mode;
-  PopupMenuItem language;
+  // PopupMenuItem language;
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
@@ -19,6 +20,6 @@ class ProfilePopUpMenu extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         elevation: 2,
         surfaceTintColor: Colors.white,
-        itemBuilder: (context) => [editProfile, mode, language, signout]);
+        itemBuilder: (context) => [editProfile, mode, signout]);
   }
 }

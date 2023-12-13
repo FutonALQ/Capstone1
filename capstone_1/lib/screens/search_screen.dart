@@ -57,8 +57,9 @@ class SearchScreen extends StatelessWidget {
                     if (state is LoadingState) {
                       showDialog(
                           context: context,
-                          builder: (context) =>
-                              const Center(child: CircularProgressIndicator(color: Color(0xff023047))));
+                          builder: (context) => const Center(
+                              child: CircularProgressIndicator(
+                                  color: Color(0xff023047))));
                     }
                   },
                   builder: (context, state) {
@@ -83,12 +84,7 @@ class SearchScreen extends StatelessWidget {
                                                     const ProfileScreen()));
                                       },
                                       user: state.response[i],
-                                      followOnPressed: () {
-                                        context.read<SearchBloc>().add(
-                                            FollowEvent(
-                                                user: state.response[i],
-                                                query: aQuery));
-                                      },
+                                      followOnPressed: () {},
                                     );
                                   } else {
                                     return state.response[i].followState ==
@@ -107,14 +103,9 @@ class SearchScreen extends StatelessWidget {
                                                                   i])));
                                             },
                                             user: state.response[i],
-                                            buttonText:
-                                                state.followState == false
-                                                    ? 'Unfollow'
-                                                    : 'Follow',
+                                            buttonText: 'Follow',
                                             buttonTextColor:
-                                                state.followState == false
-                                                    ? Colors.red
-                                                    : const Color(0xff023047),
+                                                const Color(0xff023047),
                                             followOnPressed: () {
                                               context.read<SearchBloc>().add(
                                                   FollowEvent(
@@ -136,14 +127,8 @@ class SearchScreen extends StatelessWidget {
                                                                   i])));
                                             },
                                             user: state.response[i],
-                                            buttonText:
-                                                state.followState == true
-                                                    ? 'Unfollow'
-                                                    : 'Follow',
-                                            buttonTextColor:
-                                                state.followState == true
-                                                    ? Colors.red
-                                                    : const Color(0xff023047),
+                                            buttonText: 'Unfollow',
+                                            buttonTextColor: Colors.red,
                                             followOnPressed: () {
                                               context.read<SearchBloc>().add(
                                                   FollowEvent(
@@ -170,6 +155,8 @@ class SearchScreen extends StatelessWidget {
                           itemCount: state.users.length,
                           itemBuilder: (context, i) {
                             if (state.users[i].user_uuid == currentUserId) {
+                              print(
+                                  '===============IM FALSE IN SEARCH===============');
                               return UsersCard(
                                 isVisible: false,
                                 onTap: () {
@@ -181,12 +168,12 @@ class SearchScreen extends StatelessWidget {
                                 },
                                 user: state.users[i],
                                 buttonText: state.users[i].followState == false
-                                    ? 'Unfollow'
-                                    : 'Follow',
+                                    ? 'Follow'
+                                    : 'Unfollow',
                                 buttonTextColor:
                                     state.users[i].followState == false
-                                        ? Colors.red
-                                        : const Color(0xff023047),
+                                        ? const Color(0xff023047)
+                                        : Colors.red,
                                 followOnPressed: () {},
                               );
                             } else {
@@ -203,14 +190,11 @@ class SearchScreen extends StatelessWidget {
                                                             state.users[i])));
                                       },
                                       user: state.users[i],
-                                      buttonText: state.followState == false
-                                          ? 'Unfollow'
-                                          : 'Follow',
-                                      buttonTextColor:
-                                          state.followState == false
-                                              ? Colors.red
-                                              : const Color(0xff023047),
+                                      buttonText: 'Unfollow',
+                                      buttonTextColor: Colors.red,
                                       followOnPressed: () {
+                                        print(
+                                            '===============IM FALSE IN SEARCH===============');
                                         context.read<SearchBloc>().add(
                                             FollowEvent(
                                                 user: state.users[i],
@@ -229,13 +213,11 @@ class SearchScreen extends StatelessWidget {
                                                             state.users[i])));
                                       },
                                       user: state.users[i],
-                                      buttonText: state.followState == true
-                                          ? 'Unfollow'
-                                          : 'Follow',
-                                      buttonTextColor: state.followState == true
-                                          ? Colors.red
-                                          : const Color(0xff023047),
+                                      buttonText: 'Follow',
+                                      buttonTextColor: const Color(0xff023047),
                                       followOnPressed: () {
+                                        print(
+                                            '===============IM TRUE IN SEARCH===============');
                                         context.read<SearchBloc>().add(
                                             FollowEvent(
                                                 user: state.users[i],

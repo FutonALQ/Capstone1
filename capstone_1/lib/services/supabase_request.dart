@@ -132,6 +132,23 @@ Future<List<Trip>> getOwnerTrips(String userID) async {
   return tripsObjectList;
 }
 
+Future updateUser({
+  required String imageUrl,
+  required String name,
+  required String phone,
+  required int age,
+  required String city,
+}) async {
+  final supabase = Supabase.instance.client;
+  await supabase.from('users').update({
+    'image_url': imageUrl,
+    'name': name,
+    'phone': phone,
+    'city': city,
+    'age': age,
+  }).eq('user_uuid', supabase.auth.currentUser!.id);
+}
+
 /// ____________________________________________________________
 
 Future<UserModel> getUser() async {
