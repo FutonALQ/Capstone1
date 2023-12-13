@@ -48,8 +48,9 @@ class WelcomeScreen extends StatelessWidget {
                       final supabaseClint = Supabase.instance.client;
                       showDialog(
                           context: context,
-                          builder: (context) =>
-                              const Center(child: CircularProgressIndicator(color: Color(0xff023047))));
+                          builder: (context) => const Center(
+                              child: CircularProgressIndicator(
+                                  color: Color(0xff023047))));
                       await Future.delayed(const Duration(seconds: 1),
                           () async {
                         final token =

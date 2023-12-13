@@ -343,6 +343,7 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                                 );
 
                                 if (deleteConfirmed == true) {
+                                  
                                   await deleteTrip(id: widget.trip.id!);
                                   context.read<HomeBloc>().add(GetTripsEvent());
                                   context.read<ProfileTripsBloc>().add(
