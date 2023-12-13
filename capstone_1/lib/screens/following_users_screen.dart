@@ -44,9 +44,10 @@ class FollowingUsersScreen extends StatelessWidget {
         child: BlocBuilder<ProfileBloc, ProfileState>(
           builder: (context, state) {
             if (state is LoadingFollowingState) {
-              return const Center(child: CircularProgressIndicator(color: Color(0xff023047)));
+              return const Center(
+                  child: CircularProgressIndicator(color: Color(0xff023047)));
             } else if (state is EmptyFollowingState) {
-              return const Center(child: Text('You have no following'));
+              return const Center(child: Text('No following'));
             } else if (state is GetFollowingState) {
               return Padding(
                 padding: const EdgeInsets.only(top: 24),

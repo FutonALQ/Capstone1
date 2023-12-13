@@ -1,6 +1,7 @@
 import 'package:capstone_1/blocs/addtrip_bloc/addtrip_bloc.dart';
 import 'package:capstone_1/blocs/auth_bloc/auth_bloc.dart';
 import 'package:capstone_1/blocs/chat_bloc/chat_bloc.dart';
+import 'package:capstone_1/blocs/edit_profile_bloc/edit_profile_bloc.dart';
 import 'package:capstone_1/blocs/home_bloc/home_bloc.dart';
 import 'package:capstone_1/blocs/profile_bloc/profile_bloc.dart';
 import 'package:capstone_1/blocs/profile_trips_bloc/profile_trips_bloc.dart';
@@ -52,6 +53,9 @@ class MainApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ProfileTripsBloc(),
+        ),
+        BlocProvider(
+          create: (context) => EditProfileBloc(),
         ),
       ],
       child: MaterialApp(

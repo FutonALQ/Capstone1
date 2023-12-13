@@ -47,7 +47,7 @@ class ProfileScreen extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const EditProfileScreen()));
+                          builder: (context) => EditProfileScreen()));
                 },
               ),
               signout: PopupMenuItem(
@@ -143,8 +143,9 @@ class ProfileScreen extends StatelessWidget {
                   if (state is LoadingInfoState) {
                     return SizedBox(
                         height: MediaQuery.sizeOf(context).height * 0.26,
-                        child:
-                            const Center(child: CircularProgressIndicator(color: Color(0xff023047))));
+                        child: const Center(
+                            child: CircularProgressIndicator(
+                                color: Color(0xff023047))));
                   } else if (state is GetInfoState) {
                     return Container(
                       padding: const EdgeInsets.all(20),

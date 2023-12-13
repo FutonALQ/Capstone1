@@ -38,7 +38,6 @@ class _EditTripScreenState extends State<EditTripScreen> {
   @override
   void initState() {
     super.initState();
-
     selectedDate = DateTime.now();
     selectedTime = TimeOfDay.now();
     picker = ImagePicker();
