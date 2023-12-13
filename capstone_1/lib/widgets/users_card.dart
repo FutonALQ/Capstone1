@@ -82,7 +82,7 @@ class UsersCard extends StatelessWidget {
                           style: TextStyle(
                             color: buttonText == 'Unfollow'
                                 ? const Color.fromARGB(196, 244, 67, 54)
-                                : buttonTextColor,
+                                : const Color(0xff023047),
                             fontWeight: FontWeight.bold,
                           ),
                         ),

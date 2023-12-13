@@ -47,7 +47,7 @@ class ProfileScreen extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => EditProfileScreen()));
+                          builder: (context) => const EditProfileScreen()));
                 },
               ),
               signout: PopupMenuItem(
@@ -82,33 +82,16 @@ class ProfileScreen extends StatelessWidget {
                     'Mode',
                     style: TextStyle(color: Color(0xff023047)),
                   ),
-                  trailing: Switch(
-                    value: false,
-                    onChanged: (value) {},
-                  ),
-                ),
-                onTap: () {},
-              ),
-              language: PopupMenuItem(
-                child: ListTile(
-                  leading: const Icon(Icons.language, color: Color(0xff023047)),
-                  title: const Row(
-                    children: [
-                      Text(
-                        'EN | ',
-                        style: TextStyle(color: Color(0xff023047)),
+                  trailing: Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: SizedBox(
+                      height: 15,
+                      width: 15,
+                      child: Switch(
+                        value: false,
+                        onChanged: (value) {},
                       ),
-                      Text(
-                        'عربي',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xff023047)),
-                      ),
-                    ],
-                  ),
-                  trailing: Switch(
-                    value: false,
-                    onChanged: (value) {},
+                    ),
                   ),
                 ),
                 onTap: () {},
