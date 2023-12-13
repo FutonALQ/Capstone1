@@ -6,7 +6,6 @@ import 'package:capstone_1/blocs/trip_details_bloc/tripdetails_state.dart';
 import 'package:capstone_1/globals/global_user.dart';
 import 'package:capstone_1/models/trip.dart';
 import 'package:capstone_1/screens/nav_bar.dart';
-import 'package:capstone_1/screens/trip_details_screen.dart';
 import 'package:capstone_1/widgets/form_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -95,10 +94,10 @@ class _EditTripScreenState extends State<EditTripScreen> {
         return Theme(
           data: ThemeData.light().copyWith(
             primaryColor: const Color(0xff8ECAE6),
-            colorScheme: ColorScheme.light(
-              primary: const Color(0xff8ECAE6),
+            colorScheme: const ColorScheme.light(
+              primary: Color(0xff8ECAE6),
             ),
-            buttonTheme: ButtonThemeData(
+            buttonTheme: const ButtonThemeData(
               textTheme: ButtonTextTheme.primary,
             ),
           ),
