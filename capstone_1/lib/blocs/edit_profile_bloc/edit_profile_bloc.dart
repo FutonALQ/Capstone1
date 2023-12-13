@@ -23,8 +23,8 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
             print('=================PHONE NOT CURRECT=================');
           } else {
             await updateUser(
-                imageUrl:
-                    'https://hips.hearstapps.com/hmg-prod/images/2022-ford-mustang-shelby-gt500-02-1636734552.jpg',
+                // imageUrl:
+                //     'https://hips.hearstapps.com/hmg-prod/images/2022-ford-mustang-shelby-gt500-02-1636734552.jpg',
                 name: event.name,
                 phone: event.phone,
                 age: int.parse(event.age),
