@@ -1,5 +1,8 @@
 import 'package:capstone_1/blocs/edit_profile_bloc/edit_profile_bloc.dart';
 import 'package:capstone_1/blocs/edit_profile_bloc/edit_profile_event.dart';
+import 'package:capstone_1/blocs/edit_profile_bloc/edit_profile_state.dart';
+import 'package:capstone_1/blocs/profile_bloc/profile_bloc.dart';
+import 'package:capstone_1/blocs/profile_bloc/profile_event.dart';
 import 'package:capstone_1/globals/global_user.dart';
 import 'package:capstone_1/widgets/text_field.dart';
 import 'package:capstone_1/widgets/user_avtar.dart';
@@ -13,164 +16,185 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  String selectedCity = 'Riyadh';
-  String imageUrl =
-      'https://hips.hearstapps.com/hmg-prod/images/2022-ford-mustang-shelby-gt500-02-1636734552.jpg';
+  String selectedCity = currentUser!.city.toString();
+  String imageUrl = currentUser!.imageUrl.toString();
+  TextEditingController nameController =
+      TextEditingController(text: currentUser!.name);
+  TextEditingController phoneController =
+      TextEditingController(text: currentUser!.phone);
+  TextEditingController ageController =
+      TextEditingController(text: currentUser!.age.toString());
   @override
   Widget build(BuildContext context) {
-    TextEditingController nameController =
-        TextEditingController(text: currentUser!.name);
-    // TextEditingController emailController =
-    //     TextEditingController(text: 'kodilas487@gyxmz.com');
-    // TextEditingController passwordController =
-    //     TextEditingController(text: '000000');
-    TextEditingController phoneController =
-        TextEditingController(text: '0547893510');
-    TextEditingController ageController =
-        TextEditingController(text: currentUser!.age.toString());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Text('Edit Profile'),
+        leading: IconButton(
+          onPressed: () {
+            context.read<ProfileBloc>().add(GetInfoEvent());
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 32),
-        child: ListView(
-          children: [
-            const SizedBox(height: 30),
-            UserAvatar(
-              height: 0.19,
-              src:
-                  'https://hips.hearstapps.com/hmg-prod/images/2022-ford-mustang-shelby-gt500-02-1636734552.jpg',
-            ),
-            const SizedBox(height: 30),
-            AddTextField(
-              label: 'Name',
-              hint: 'your name',
-              isPassword: false,
-              controller: nameController,
-              icon: Icons.person,
-              isAge: false,
-            ),
-            const SizedBox(height: 30),
-            // AddTextField(
-            //   label: 'Email Adress',
-            //   hint: 'your email',
-            //   isPassword: false,
-            //   controller: emailController,
-            //   icon: Icons.email,
-            //   isAge: false,
-            // ),
-            // const SizedBox(height: 30),
-            AddTextField(
-              label: 'Phone',
-              hint: 'your phone number',
-              isPassword: false,
-              controller: phoneController,
-              icon: Icons.phone,
-              isAge: true,
-            ),
-            const SizedBox(height: 30),
-            AddTextField(
-              label: 'Age',
-              hint: 'your age',
-              isPassword: false,
-              controller: ageController,
-              icon: Icons.numbers,
-              isAge: true,
-            ),
-            const SizedBox(height: 30),
-            // AddTextField(
-            //   label: 'Change Password',
-            //   hint: 'your password',
-            //   isPassword: true,
-            //   controller: passwordController,
-            //   icon: Icons.password,
-            //   isAge: false,
-            // ),
-            // const SizedBox(height: 30),
-            Padding(
-              padding: const EdgeInsets.only(left: 8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Select City:",
-                    style: TextStyle(fontSize: 16, color: Color(0xff219EBC)),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.0),
-                      color: Colors.grey[200],
-                    ),
-                    child: DropdownButton<String>(
-                      value: selectedCity,
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          selectedCity = newValue!;
-                          print(selectedCity);
-                        });
-                      },
-                      items: <String>['Riyadh', 'Jeddah', 'Dammam']
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(
-                            value,
-                            style: const TextStyle(fontSize: 14),
+        child: BlocConsumer<EditProfileBloc, EditProfileState>(
+          listener: (context, state) {
+            if (state is ErrorState) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text(state.message)));
+
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  duration: const Duration(seconds: 2),
+                  backgroundColor: Colors.red,
+                  content: Text(
+                    state.message,
+                    style: const TextStyle(color: Colors.white),
+                  )));
+            } else if (state is EmptyState) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  duration: const Duration(seconds: 2),
+                  backgroundColor: Colors.red,
+                  content: Text(
+                    state.message,
+                    style: const TextStyle(color: Colors.white),
+                  )));
+            } else if (state is UpdateProfileState) {
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  duration: Duration(seconds: 2),
+                  backgroundColor: Colors.green,
+                  content: Text(
+                    'Your changes updated succesfully',
+                    style: TextStyle(color: Colors.white),
+                  )));
+              Navigator.pop(context);
+            }
+          },
+          builder: (context, state) {
+            if (state is LoadingState) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            return ListView(
+              children: [
+                const SizedBox(height: 30),
+                UserAvatar(
+                  height: 0.19,
+                  src:
+                      'https://hips.hearstapps.com/hmg-prod/images/2022-ford-mustang-shelby-gt500-02-1636734552.jpg',
+                ),
+                const SizedBox(height: 30),
+                AddTextField(
+                  label: 'Name',
+                  hint: 'your name',
+                  isPassword: false,
+                  controller: nameController,
+                  icon: Icons.person,
+                  isAge: false,
+                ),
+                const SizedBox(height: 30),
+                AddTextField(
+                  label: 'Phone',
+                  hint: 'your phone number',
+                  isPassword: false,
+                  controller: phoneController,
+                  icon: Icons.phone,
+                  isAge: true,
+                ),
+                const SizedBox(height: 30),
+                AddTextField(
+                  label: 'Age',
+                  hint: 'your age',
+                  isPassword: false,
+                  controller: ageController,
+                  icon: Icons.numbers,
+                  isAge: true,
+                ),
+                const SizedBox(height: 30),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "Select City:",
+                        style:
+                            TextStyle(fontSize: 16, color: Color(0xff219EBC)),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8.0),
+                          color: Colors.grey[200],
+                        ),
+                        child: DropdownButton<String>(
+                          value: selectedCity,
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              selectedCity = newValue!;
+                            });
+                          },
+                          items: <String>['Riyadh', 'Jeddah', 'Dammam']
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(
+                                value,
+                                style: const TextStyle(fontSize: 14),
+                              ),
+                            );
+                          }).toList(),
+                          icon: const Icon(Icons.arrow_drop_down,
+                              color: Color(0xff219EBC)),
+                          iconSize: 36,
+                          elevation: 16,
+                          style: const TextStyle(color: Colors.black),
+                          underline: Container(
+                            height: 2,
+                            color: const Color(0xff219EBC),
                           ),
-                        );
-                      }).toList(),
-                      icon: const Icon(Icons.arrow_drop_down,
-                          color: Color(0xff219EBC)),
-                      iconSize: 36,
-                      elevation: 16,
-                      style: const TextStyle(color: Colors.black),
-                      underline: Container(
-                        height: 2,
-                        color: const Color(0xff219EBC),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 30),
+                InkWell(
+                  onTap: () {
+                    context.read<EditProfileBloc>().add(UpdateProfileEvent(
+                        imageUrl: imageUrl.trim(),
+                        name: nameController.text.trim(),
+                        phone: phoneController.text.trim(),
+                        age: ageController.text.trim(),
+                        city: selectedCity.trim()));
+                  },
+                  child: Container(
+                    width: 330,
+                    height: 50,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: const Color(0xff8ECAE6)),
+                    child: const Center(
+                      child: Text(
+                        "Update",
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 30),
-            InkWell(
-              onTap: () {
-                context.read<EditProfileBloc>().add(UpdateProfileEvent(
-                    imageUrl: imageUrl.trim(),
-                    name: nameController.text.trim(),
-                    // email: emailController.text.trim(),
-                    phone: phoneController.text.trim(),
-                    age: ageController.text.trim(),
-                    // password: passwordController.text.trim(),
-                    city: selectedCity.trim()));
-              },
-              child: Container(
-                width: 330,
-                height: 50,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: const Color(0xff8ECAE6)),
-                child: const Center(
-                  child: Text(
-                    "Update",
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
-                  ),
                 ),
-              ),
-            ),
-            const SizedBox(height: 30),
-          ],
+                const SizedBox(height: 30),
+              ],
+            );
+          },
         ),
       ),
     );
