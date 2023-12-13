@@ -17,7 +17,6 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   String city = currentUser!.city.toString();
-  String imageUrl = currentUser!.imageUrl.toString();
   TextEditingController nameController =
       TextEditingController(text: currentUser!.name);
   TextEditingController phoneController =
@@ -169,7 +168,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 InkWell(
                   onTap: () {
                     context.read<EditProfileBloc>().add(UpdateProfileEvent(
-                        imageUrl: imageUrl.trim(),
                         name: nameController.text.trim(),
                         phone: phoneController.text.trim(),
                         age: ageController.text.trim(),
