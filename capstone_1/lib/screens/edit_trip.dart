@@ -117,14 +117,16 @@ class _EditTripScreenState extends State<EditTripScreen> {
     }
   }
 
-  Future getImage() async {
+  Future<String?> getImage() async {
     XFile? image = await picker.pickImage(source: ImageSource.gallery);
 
     if (image != null) {
       setState(() {
         imageFile = File(image.path);
       });
+      return imageFile!.path;
     }
+    return null;
   }
 
   @override
