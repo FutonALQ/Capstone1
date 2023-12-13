@@ -43,9 +43,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         child: BlocConsumer<EditProfileBloc, EditProfileState>(
           listener: (context, state) {
             if (state is ErrorState) {
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(SnackBar(content: Text(state.message)));
-
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   duration: const Duration(seconds: 2),
                   backgroundColor: Colors.red,
@@ -81,10 +78,33 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             return ListView(
               children: [
                 const SizedBox(height: 30),
-                UserAvatar(
-                  height: 0.19,
-                  src:
-                      'https://hips.hearstapps.com/hmg-prod/images/2022-ford-mustang-shelby-gt500-02-1636734552.jpg',
+                InkWell(
+                  onTap: () {},
+                  child: Center(
+                    child: Stack(
+                      children: [
+                        UserAvatar(
+                          height: 0.19,
+                          src: currentUser!.imageUrl!,
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          child: Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              // color: Color.fromARGB(255, 255, 184, 3),
+                              color: Colors.amber[300],
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(
+                              Icons.edit_document,
+                              color: Colors.grey[800],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 30),
                 AddTextField(
