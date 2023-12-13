@@ -86,7 +86,7 @@ class UsersProfileScreen extends StatelessWidget {
                     return SizedBox(
                         height: MediaQuery.sizeOf(context).height * 0.26,
                         child:
-                            const Center(child: CircularProgressIndicator()));
+                            const Center(child: CircularProgressIndicator(color: Color(0xff023047))));
                   } else if (state is GetUsersInfoState) {
                     return Container(
                       padding: const EdgeInsets.all(20),

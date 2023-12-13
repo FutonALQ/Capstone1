@@ -44,7 +44,7 @@ class FollowersUsersScreen extends StatelessWidget {
           child: BlocBuilder<ProfileBloc, ProfileState>(
             builder: (context, state) {
               if (state is LoadingFollowersState) {
-                return const Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator(color: Color(0xff023047)));
               } else if (state is EmptyFollowersState) {
                 return const Center(child: Text('You have no followers'));
               } else if (state is GetFollowersState) {

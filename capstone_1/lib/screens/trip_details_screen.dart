@@ -305,12 +305,51 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                             ),
                             InkWell(
                               onTap: () async {
-                                await deleteTrip(id: widget.trip.id!);
-                                context.read<HomeBloc>().add(GetTripsEvent());
-                                context.read<ProfileTripsBloc>().add(
-                                    GetProfileTripsEvent(
-                                        currentUser!.user_uuid!));
-                                Navigator.pop(context, "back");
+                                bool deleteConfirmed = await showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog.adaptive(
+                                      title: const Text('Delete Confirmation'),
+                                      content: const Text(
+                                          'Are you sure you want to delete this trip?'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop(false);
+                                          },
+                                          child: const Text(
+                                            'Cancel',
+                                            style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  168, 255, 102, 0),
+                                            ),
+                                          ),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop(true);
+                                          },
+                                          child: const Text(
+                                            'Confirm',
+                                            style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  168, 255, 102, 0),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+
+                                if (deleteConfirmed == true) {
+                                  await deleteTrip(id: widget.trip.id!);
+                                  context.read<HomeBloc>().add(GetTripsEvent());
+                                  context.read<ProfileTripsBloc>().add(
+                                      GetProfileTripsEvent(
+                                          currentUser!.user_uuid!));
+                                  Navigator.pop(context, "back");
+                                }
                               },
                               child: Container(
                                 width: 50,
@@ -345,7 +384,7 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                               showDialog(
                                   context: context,
                                   builder: (context) => const Center(
-                                      child: CircularProgressIndicator()));
+                                      child: CircularProgressIndicator(color: Color(0xff023047))));
                             }
                             if (state is GetUserSuccessedState) {
                               Navigator.pop(context);

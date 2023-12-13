@@ -78,11 +78,16 @@ class ProfileRightWidget extends StatelessWidget {
                                 ],
                               ),
                             )
-                          : const Text("no joining trip");
+                          : Center(
+                              child: Lottie.asset(
+                                  'lib/assets/Animation - 1702414059341.json',
+                                  height: 100,
+                                  width: 100),
+                            );
                 } else if (snapshot.hasError) {
                   return const Center(child: Text("error"));
                 }
-                return const Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator(color: Color(0xff023047)));
               }),
         );
       }
@@ -144,11 +149,16 @@ class ProfileRightWidget extends StatelessWidget {
                               ],
                             ),
                           )
-                        : const Text("no joining trip");
+                        : Center(
+                            child: Lottie.asset(
+                                'lib/assets/Animation - 1702414059341.json',
+                                height: 100,
+                                width: 100),
+                          );
               } else if (snapshot.hasError) {
                 return const Center(child: Text("error"));
               }
-              return const Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator(color: Color(0xff023047)));
             }),
       );
     });

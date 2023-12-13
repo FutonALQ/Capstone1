@@ -185,7 +185,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     showDialog(
                         context: context,
                         builder: (context) =>
-                            const Center(child: CircularProgressIndicator()));
+                            const Center(child: CircularProgressIndicator(color: Color(0xff023047))));
                   } else if (state is ErrorSignUpState) {
                     Navigator.pop(context);
                     ScaffoldMessenger.of(context)

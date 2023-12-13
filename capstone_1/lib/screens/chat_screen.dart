@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ChatScreen extends StatelessWidget {
-  ChatScreen({super.key, required this.user});
+  ChatScreen({Key? key, required this.user}) : super(key: key);
   final UserModel user;
   final TextEditingController messageController = TextEditingController();
 
@@ -17,7 +17,21 @@ class ChatScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text(user.name ?? ""),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: Row(
+          children: [
+            CircleAvatar(
+              backgroundImage: NetworkImage(user.imageUrl ?? ""),
+            ),
+            SizedBox(width: 6), 
+            Text(user.name ?? ""),
+          ],
+        ),
       ),
       bottomSheet: ChatTextField(
         controller: messageController,
@@ -32,26 +46,28 @@ class ChatScreen extends StatelessWidget {
 
             Future.delayed(const Duration(milliseconds: 100 ~/ 60), () {
               scrollController.animateTo(
-                  scrollController.position.maxScrollExtent,
-                  duration: const Duration(milliseconds: 100),
-                  curve: Curves.linear);
+                scrollController.position.maxScrollExtent,
+                duration: const Duration(milliseconds: 100),
+                curve: Curves.linear,
+              );
             });
 
             return ListView.builder(
-                padding: const EdgeInsets.only(bottom: 100),
-                shrinkWrap: true,
-                controller: scrollController,
-                itemCount: messages.length,
-                itemBuilder: (context, index) {
-                  return ChatBubble(
-                    message: messages[index].message ?? "",
-                    isMine: messages[index].isMine ?? true,
-                    // createdAt: messages[index].createdAt ?? "",
-                  );
-                });
+              padding: const EdgeInsets.only(bottom: 100),
+              shrinkWrap: true,
+              controller: scrollController,
+              itemCount: messages.length,
+              itemBuilder: (context, index) {
+                return ChatBubble(
+                  message: messages[index].message ?? "",
+                  isMine: messages[index].isMine ?? true,
+                  // createdAt: messages[index].createdAt ?? "",
+                );
+              },
+            );
           } else {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(color: Color(0xff023047),),
             );
           }
         },
