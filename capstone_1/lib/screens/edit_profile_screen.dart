@@ -21,7 +21,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     TextEditingController nameController =
         TextEditingController(text: currentUser!.name);
     TextEditingController emailController =
-        TextEditingController(text: 'khmcnybcgykstpb@wireconnected.com');
+        TextEditingController(text: 'kodilas487@gyxmz.com');
     TextEditingController passwordController =
         TextEditingController(text: '000000');
     TextEditingController phoneController =

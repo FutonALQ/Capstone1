@@ -132,6 +132,10 @@ Future<List<Trip>> getOwnerTrips(String userID) async {
   return tripsObjectList;
 }
 
+updateUser(Map post) {
+  final supabase = Supabase.instance.client;
+}
+
 /// ____________________________________________________________
 
 Future<UserModel> getUser() async {
