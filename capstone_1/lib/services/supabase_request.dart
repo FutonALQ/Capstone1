@@ -273,11 +273,29 @@ Future<Trip> getTripDetails(String tripId) async {
 }
 
 // Function to update trip details
-Future<void> updateTrip(String tripId, Map<String, dynamic> body) async {
+// Future<void> updateTrip(String tripId, Map<String, dynamic> body) async {
+//   final supabase = Supabase.instance.client;
+
+//   await supabase.from("trips").update(body).eq('id', tripId);
+// }
+Future<void> updateTrip(String tripId, Map<String, dynamic> body, File? image) async {
   final supabase = Supabase.instance.client;
+
+  if (image != null) {
+    final timestamp = DateTime.now().millisecondsSinceEpoch;
+    final imageName = '$timestamp.png';
+
+    await supabase.storage.from("image_project").upload(imageName, image);
+
+    final imageUrl =
+        supabase.storage.from("image_project").getPublicUrl(imageName);
+
+    body["image"] = imageUrl;
+  }
 
   await supabase.from("trips").update(body).eq('id', tripId);
 }
+
 
 
 // Future<void> addTrip(Map<String, dynamic> body, File image) async {

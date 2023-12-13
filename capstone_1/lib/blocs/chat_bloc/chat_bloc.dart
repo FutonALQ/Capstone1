@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:capstone_1/models/chat.dart';
 import 'package:capstone_1/models/user.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -17,7 +18,6 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
   String get getCurrentUserId => supabase.auth.currentUser!.id;
 
-// GetUsersEvent :
   getUsers(GetUsersEvent event, Emitter<ChatState> emit) async {
     try {
       final List allUsers = await supabase
@@ -42,7 +42,6 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     }
   }
 
-// SendMessageEvent :
   sendMessage(SendMessageEvent event, emit) async {
     try {
       final Chat message = Chat(
@@ -56,22 +55,24 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   }
 
   Stream getMessages(String toUserId) {
-    // -- listen to stream from (messages) table ,
-    //    and get messages just between (current user) and (selected user)
-    final allMesaages = supabase
-        .from("chat")
-        .stream(primaryKey: ['id'])
-        .order('created_at', ascending: true)
-        .map((items) => items.where((element) =>
-            element["from_user"] == getCurrentUserId &&
-                element["to_user"] == toUserId ||
-            element["from_user"] == toUserId &&
-                element["to_user"] == getCurrentUserId));
+    try {
+      final allMesaages = supabase
+          .from("chat")
+          .stream(primaryKey: ['id'])
+          .order('created_at', ascending: true)
+          .map((items) => items.where((element) =>
+              element["from_user"] == getCurrentUserId &&
+                  element["to_user"] == toUserId ||
+              element["from_user"] == toUserId &&
+                  element["to_user"] == getCurrentUserId));
 
-// -- convert List<Map> to List<Message>
-    final messages = allMesaages.map((items) =>
-        items.map((item) => Chat.fromJson(item, getCurrentUserId)).toList());
-
-    return messages;
+      final messages = allMesaages.map((items) =>
+          items.map((item) => Chat.fromJson(item, getCurrentUserId)).toList());
+      print("i sm here ---------");
+      return messages;
+    } catch (error) {
+      print(error);
+      throw FormatException("Ffff");
+    }
   }
 }

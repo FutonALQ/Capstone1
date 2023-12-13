@@ -6,6 +6,7 @@ import 'package:capstone_1/blocs/trip_details_bloc/tripdetails_state.dart';
 import 'package:capstone_1/globals/global_user.dart';
 import 'package:capstone_1/models/trip.dart';
 import 'package:capstone_1/screens/nav_bar.dart';
+import 'package:capstone_1/screens/trip_details_screen.dart';
 import 'package:capstone_1/widgets/form_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,6 +32,7 @@ class _EditTripScreenState extends State<EditTripScreen> {
   late TextEditingController dateController;
   late final ImagePicker picker;
   File? imageFile;
+  String? imagePath;
 
   late DateTime selectedDate;
   late TimeOfDay selectedTime;
@@ -145,15 +147,20 @@ class _EditTripScreenState extends State<EditTripScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   GestureDetector(
-                    onTap: getImage,
+                    onTap: () async {
+                      imagePath = await getImage();
+                      setState(() {});
+                    },
                     child: Center(
                       child: CircleAvatar(
                           backgroundColor: const Color(0xff8ECAE6),
                           radius: 50,
-                          backgroundImage: widget.existingTrip.image != null
-                              ? NetworkImage(widget.existingTrip.image!)
-                              : const NetworkImage(
-                                  "https://t4.ftcdn.net/jpg/01/07/57/91/360_F_107579101_QVlTG43Fwg9Q6ggwF436MPIBTVpaKKtb.jpg")),
+                          backgroundImage: imagePath != null
+                              ? Image.file(File(imagePath!)).image
+                              : widget.existingTrip.image != null
+                                  ? NetworkImage(widget.existingTrip.image!)
+                                  : const NetworkImage(
+                                      "https://t4.ftcdn.net/jpg/01/07/57/91/360_F_107579101_QVlTG43Fwg9Q6ggwF436MPIBTVpaKKtb.jpg")),
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -218,7 +225,7 @@ class _EditTripScreenState extends State<EditTripScreen> {
                       elevation: 16,
                       style: const TextStyle(color: Color(0xff023047)),
                       underline: Container(
-                        height: 2,
+                        // height: 1,
                         color: const Color(0xff8ECAE6),
                       ),
                       dropdownColor: const Color(0xff8ECAE6)),
@@ -260,7 +267,7 @@ class _EditTripScreenState extends State<EditTripScreen> {
                     elevation: 16,
                     style: const TextStyle(color: Color(0xff023047)),
                     underline: Container(
-                      height: 2,
+                      // height: 1,
                       color: const Color(0xff8ECAE6),
                     ),
                     dropdownColor: const Color(0xff8ECAE6),
@@ -308,18 +315,21 @@ class _EditTripScreenState extends State<EditTripScreen> {
 
                             context.read<TripDetailsBloc>().add(
                                   UpdateTripEvent(
-                                    tripId: widget.existingTrip.id.toString(),
-                                    body: {
-                                      'title': titleController.text,
-                                      'time': timeController.text,
-                                      'date': dateController.text,
-                                      'category': selectedCategory,
-                                      'location': selecteCity,
-                                      'description': descriptionController.text,
-                                      'cost': int.parse(costController.text),
-                                      'creator_id': currentUser!.user_uuid,
-                                    },
-                                  ),
+                                      tripId: widget.existingTrip.id.toString(),
+                                      body: {
+                                        'title': titleController.text,
+                                        'time': timeController.text,
+                                        'date': dateController.text,
+                                        'category': selectedCategory,
+                                        'location': selecteCity,
+                                        'description':
+                                            descriptionController.text,
+                                        'cost': int.parse(costController.text),
+                                        'creator_id': currentUser!.user_uuid,
+                                      },
+                                      imagePath != null
+                                          ? File(imagePath!)
+                                          : null),
                                 );
                           },
                           child: const Center(

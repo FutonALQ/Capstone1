@@ -20,8 +20,9 @@ class TripDetailsBloc extends Bloc<TripDetailsEvent, TripDetailsState> {
 
     on<UpdateTripEvent>((event, emit) async {
       try {
-        await updateTrip(event.tripId, event.body);
+        await updateTrip(event.tripId, event.body,event.image);
         emit(TripUpdateSuccessState());
+        
       } catch (error) {
         print('Failed to update trip: $error');
         emit(TripDetailsErrorState(

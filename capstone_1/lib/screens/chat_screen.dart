@@ -28,7 +28,7 @@ class ChatScreen extends StatelessWidget {
             CircleAvatar(
               backgroundImage: NetworkImage(user.imageUrl ?? ""),
             ),
-            SizedBox(width: 6), 
+            SizedBox(width: 6),
             Text(user.name ?? ""),
           ],
         ),
@@ -40,6 +40,7 @@ class ChatScreen extends StatelessWidget {
       body: StreamBuilder(
         stream: bloc.getMessages(user.user_uuid!),
         builder: (context, snapshot) {
+          print("StreamBuilder rebuilding");
           if (snapshot.hasData) {
             final List<Chat> messages = snapshot.data!;
             ScrollController scrollController = ScrollController();
@@ -67,7 +68,9 @@ class ChatScreen extends StatelessWidget {
             );
           } else {
             return const Center(
-              child: CircularProgressIndicator(color: Color(0xff023047),),
+              child: CircularProgressIndicator(
+                color: Color(0xff023047),
+              ),
             );
           }
         },

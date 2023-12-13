@@ -1,3 +1,5 @@
+import 'dart:io';
+
 abstract class TripDetailsEvent {}
 
 class FetchTripDetailsEvent extends TripDetailsEvent {
@@ -9,6 +11,7 @@ class FetchTripDetailsEvent extends TripDetailsEvent {
 class UpdateTripEvent extends TripDetailsEvent {
   final String tripId;
   final Map<String, dynamic> body;
+  final File?image;
 
-  UpdateTripEvent({required this.tripId, required this.body});
+  UpdateTripEvent(this.image, {required this.tripId, required this.body});
 }
