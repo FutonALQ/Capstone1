@@ -148,6 +148,7 @@ class SearchScreen extends StatelessWidget {
                             )
                           : Container();
                     } else if (state is FollowState) {
+                      Navigator.maybePop(context);
                       return SizedBox(
                         height: MediaQuery.of(context).size.height * 0.6,
                         child: ListView.separated(

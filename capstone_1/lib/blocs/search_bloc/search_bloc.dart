@@ -28,6 +28,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     });
 
     on<FollowEvent>((event, emit) async {
+      emit(LoadingState());
       final currentUserId = Supabase.instance.client.auth.currentUser!.id;
       final check =
           await isFollowed(currentUserId, event.user.user_uuid.toString());
