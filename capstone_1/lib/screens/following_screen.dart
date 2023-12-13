@@ -37,7 +37,7 @@ class _TripListScreenState extends State<TripListScreen> {
       child: ListView(
         children: [
           const Text(
-            'Discover Followers Trips ',
+            'Discover Your Friends\' Trips ',
             style: TextStyle(
               color: Color.fromARGB(208, 2, 48, 71),
               fontSize: 20,
