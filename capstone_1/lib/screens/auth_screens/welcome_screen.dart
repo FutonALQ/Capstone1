@@ -2,7 +2,7 @@
 
 import 'package:capstone_1/globals/global_user.dart';
 import 'package:capstone_1/screens/nav_bar.dart';
-import 'package:capstone_1/screens/signup_screen.dart';
+import 'package:capstone_1/screens/auth_screens/signup_screen.dart';
 import 'package:capstone_1/services/supabase_request.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';

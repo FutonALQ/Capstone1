@@ -10,7 +10,7 @@ import 'package:capstone_1/blocs/theme_bloc/theme_bloc.dart';
 import 'package:capstone_1/blocs/theme_bloc/theme_state.dart';
 import 'package:capstone_1/blocs/trip_bloc/trip_bloc.dart';
 import 'package:capstone_1/blocs/trip_details_bloc/tripdetails_bloc.dart';
-import 'package:capstone_1/screens/welcome_screen.dart';
+import 'package:capstone_1/screens/auth_screens/welcome_screen.dart';
 import 'package:capstone_1/services/supabase_service.dart';
 import 'package:capstone_1/themes/app_theme.dart';
 import 'package:flutter/material.dart';

@@ -1,8 +1,8 @@
 import 'package:capstone_1/screens/following_screen.dart';
 import 'package:capstone_1/screens/home_screen.dart';
-import 'package:capstone_1/screens/profile_screen.dart';
+import 'package:capstone_1/screens/profile_screens/profile_screen.dart';
 import 'package:capstone_1/screens/search_screen.dart';
-import 'package:capstone_1/screens/users_screen.dart';
+import 'package:capstone_1/screens/chat_screen/users_screen.dart';
 import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
 

@@ -1,8 +1,8 @@
 import 'package:capstone_1/blocs/search_bloc/search_bloc.dart';
 import 'package:capstone_1/blocs/search_bloc/search_event.dart';
 import 'package:capstone_1/blocs/search_bloc/search_state.dart';
-import 'package:capstone_1/screens/profile_screen.dart';
-import 'package:capstone_1/screens/users_profile_screen.dart';
+import 'package:capstone_1/screens/profile_screens/profile_screen.dart';
+import 'package:capstone_1/screens/profile_screens/users_profile_screen.dart';
 import 'package:capstone_1/widgets/search_text_field.dart';
 import 'package:capstone_1/widgets/users_card.dart';
 import 'package:flutter/material.dart';

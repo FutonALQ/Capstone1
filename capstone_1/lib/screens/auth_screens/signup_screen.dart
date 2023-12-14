@@ -1,8 +1,8 @@
 import 'package:capstone_1/blocs/auth_bloc/auth_bloc.dart';
 import 'package:capstone_1/blocs/auth_bloc/auth_events.dart';
 import 'package:capstone_1/blocs/auth_bloc/auth_states.dart';
-import 'package:capstone_1/screens/signin_screen.dart';
-import 'package:capstone_1/screens/verification_screen.dart';
+import 'package:capstone_1/screens/auth_screens/signin_screen.dart';
+import 'package:capstone_1/screens/auth_screens/verification_screen.dart';
 import 'package:capstone_1/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -1,6 +1,6 @@
 import 'package:capstone_1/blocs/home_bloc/home_bloc.dart';
 import 'package:capstone_1/globals/global_user.dart';
-import 'package:capstone_1/screens/profile_screen.dart';
+import 'package:capstone_1/screens/profile_screens/profile_screen.dart';
 import 'package:capstone_1/widgets/trip_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

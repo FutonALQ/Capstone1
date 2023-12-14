@@ -1,6 +1,5 @@
 import 'package:capstone_1/blocs/profile_bloc/profile_event.dart';
 import 'package:capstone_1/blocs/profile_bloc/profile_state.dart';
-import 'package:capstone_1/models/user.dart';
 import 'package:capstone_1/services/supabase_request.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
