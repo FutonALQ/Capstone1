@@ -1,5 +1,6 @@
 import 'package:capstone_1/blocs/profile_bloc/profile_event.dart';
 import 'package:capstone_1/blocs/profile_bloc/profile_state.dart';
+import 'package:capstone_1/models/user.dart';
 import 'package:capstone_1/services/supabase_request.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -36,15 +37,24 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       if (followersUsers.isEmpty) {
         emit(EmptyFollowersState());
       } else {
+        for (var element in followersUsers) {
+          var check = await isFollowed(
+              Supabase.instance.client.auth.currentUser!.id,
+              element.user_uuid.toString());
+          if (check == false) {
+            element.followState = false;
+          } else if (check == true) {
+            element.followState = true;
+          }
+        }
         emit(GetFollowersState(followersUsers: followersUsers));
       }
     });
-
+//******************************************/
     on<FollowEvent>((event, emit) async {
       final currentUserId = Supabase.instance.client.auth.currentUser!.id;
       final check =
           await isFollowed(currentUserId, event.user.user_uuid.toString());
-
       if (check == false) {
         emit(LoadingFollowersState());
         await follow(currentUserId, event.user.user_uuid.toString());
@@ -54,7 +64,34 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       } else {
         return;
       }
+      // final currentUserId = Supabase.instance.client.auth.currentUser!.id;
+      // final check =
+      //     await isFollowed(currentUserId, event.user.user_uuid.toString());
+      // final List<UserModel> followersUsers = await getFollowers(currentUserId);
+      // if (check == false) {
+      //   // await follow(currentUserId, event.user.user_uuid.toString());
+      //   for (var element in followersUsers) {
+      //     if (element.user_uuid == event.user.user_uuid) {
+      //       await follow(currentUserId, event.user.user_uuid.toString());
+      //       element.followState = false;
+      //       print(
+      //           '===============FROM BLOC ${element.followState}===============');
+      //     }
+      //   }
+      // } else if (check == true) {
+      //   // await unfollow(event.user.user_uuid.toString());
+      //   for (var element in followersUsers) {
+      //     if (element.user_uuid == event.user.user_uuid) {
+      //       await unfollow(event.user.user_uuid.toString());
+      //       element.followState = true;
+      //       print(
+      //           '===============FROM BLOC ${element.followState}===============');
+      //     }
+      //   }
+      // }
+      // emit(GetFollowersState(followersUsers: followersUsers));
     });
+
     on<UnFollowEvent>((event, emit) async {
       emit(LoadingFollowingState());
       await unfollow(event.user.user_uuid.toString());
@@ -66,7 +103,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         emit(GetFollowingState(followingUsers: followingUsers));
       }
     });
-
+//******************************************/
     on<GetUsersInfoEvent>((event, emit) async {
       emit(LoadingUsersInfoState());
       final user = await getUserById(event.user.user_uuid.toString());

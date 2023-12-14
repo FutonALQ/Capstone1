@@ -75,25 +75,47 @@ class FollowersUsersScreen extends StatelessWidget {
                         },
                       );
                     } else {
-                      return UsersCard(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (contsex) => UsersProfileScreen(
-                                        user: state.followersUsers[i],
-                                        direction: 'followers',
-                                        identity: state.followersUsers[i],
-                                      )));
-                        },
-                        user: state.followersUsers[i],
-                        buttonTextColor: const Color(0xff219EBC),
-                        followOnPressed: () {
-                          context
-                              .read<ProfileBloc>()
-                              .add(FollowEvent(user: state.followersUsers[i]));
-                        },
-                      );
+                      return state.followersUsers[i].followState == false
+                          ? UsersCard(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (contsex) =>
+                                            UsersProfileScreen(
+                                              user: state.followersUsers[i],
+                                              direction: 'followers',
+                                              identity: state.followersUsers[i],
+                                            )));
+                              },
+                              user: state.followersUsers[i],
+                              buttonTextColor: const Color(0xff219EBC),
+                              buttonText: 'Follow',
+                              followOnPressed: () {
+                                context.read<ProfileBloc>().add(
+                                    FollowEvent(user: state.followersUsers[i]));
+                              },
+                            )
+                          : UsersCard(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (contsex) =>
+                                            UsersProfileScreen(
+                                              user: state.followersUsers[i],
+                                              direction: 'followers',
+                                              identity: state.followersUsers[i],
+                                            )));
+                              },
+                              user: state.followersUsers[i],
+                              buttonTextColor: Colors.red,
+                              buttonText: 'Unfollow',
+                              followOnPressed: () {
+                                context.read<ProfileBloc>().add(
+                                    FollowEvent(user: state.followersUsers[i]));
+                              },
+                            );
                     }
                   },
                   separatorBuilder: (context, i) {
@@ -128,27 +150,45 @@ class FollowersUsersScreen extends StatelessWidget {
                         },
                       );
                     } else {
-                      return UsersCard(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (contsex) => UsersProfileScreen(
-                                      user: state.followersUsers[i],
-                                      identity: state.followersUsers[i])));
-                        },
-                        user: state.followersUsers[i],
-                        buttonText:
-                            state.check == false ? 'Unfollow' : 'Follow',
-                        buttonTextColor: state.check == false
-                            ? Colors.red
-                            : const Color(0xff023047),
-                        followOnPressed: () {
-                          context
-                              .read<ProfileBloc>()
-                              .add(FollowEvent(user: state.followersUsers[i]));
-                        },
-                      );
+                      return state.followersUsers[i].followState == false
+                          ? UsersCard(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (contsex) =>
+                                            UsersProfileScreen(
+                                                user: state.followersUsers[i],
+                                                identity:
+                                                    state.followersUsers[i])));
+                              },
+                              user: state.followersUsers[i],
+                              buttonText: 'Follow',
+                              buttonTextColor: const Color(0xff023047),
+                              followOnPressed: () {
+                                context.read<ProfileBloc>().add(
+                                    FollowEvent(user: state.followersUsers[i]));
+                              },
+                            )
+                          : UsersCard(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (contsex) =>
+                                            UsersProfileScreen(
+                                                user: state.followersUsers[i],
+                                                identity:
+                                                    state.followersUsers[i])));
+                              },
+                              user: state.followersUsers[i],
+                              buttonText: 'Unfollow',
+                              buttonTextColor: Colors.red,
+                              followOnPressed: () {
+                                context.read<ProfileBloc>().add(
+                                    FollowEvent(user: state.followersUsers[i]));
+                              },
+                            );
                     }
                   },
                   separatorBuilder: (context, i) {
