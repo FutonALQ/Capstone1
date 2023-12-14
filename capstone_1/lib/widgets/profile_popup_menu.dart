@@ -20,6 +20,7 @@ class ProfilePopUpMenu extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         elevation: 2,
         surfaceTintColor: Colors.white,
+        clipBehavior: Clip.antiAlias,
         itemBuilder: (context) => [editProfile, mode, signout]);
   }
 }

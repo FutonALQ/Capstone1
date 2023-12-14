@@ -6,6 +6,8 @@ import 'package:capstone_1/blocs/home_bloc/home_bloc.dart';
 import 'package:capstone_1/blocs/profile_bloc/profile_bloc.dart';
 import 'package:capstone_1/blocs/profile_trips_bloc/profile_trips_bloc.dart';
 import 'package:capstone_1/blocs/search_bloc/search_bloc.dart';
+import 'package:capstone_1/blocs/theme_bloc/theme_bloc.dart';
+import 'package:capstone_1/blocs/theme_bloc/theme_state.dart';
 import 'package:capstone_1/blocs/trip_bloc/trip_bloc.dart';
 import 'package:capstone_1/blocs/trip_details_bloc/tripdetails_bloc.dart';
 import 'package:capstone_1/screens/welcome_screen.dart';
@@ -57,11 +59,26 @@ class MainApp extends StatelessWidget {
         BlocProvider(
           create: (context) => EditProfileBloc(),
         ),
+        BlocProvider(
+          create: (context) => ThemeBloc(),
+        ),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: appThemme['light'],
-        home: const WelcomeScreen(),
+      child: BlocBuilder<ThemeBloc, ThemeState>(
+        builder: (context, state) {
+          if (state is ChangeModeState) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: state.theme,
+              home: const WelcomeScreen(),
+            );
+          } else {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: appThemme['light'],
+              home: const WelcomeScreen(),
+            );
+          }
+        },
       ),
     );
   }

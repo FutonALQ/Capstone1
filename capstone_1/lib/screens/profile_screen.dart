@@ -1,6 +1,9 @@
 import 'package:capstone_1/blocs/profile_bloc/profile_bloc.dart';
 import 'package:capstone_1/blocs/profile_bloc/profile_event.dart';
 import 'package:capstone_1/blocs/profile_bloc/profile_state.dart';
+import 'package:capstone_1/blocs/theme_bloc/theme_bloc.dart';
+import 'package:capstone_1/blocs/theme_bloc/theme_event.dart';
+import 'package:capstone_1/blocs/theme_bloc/theme_state.dart';
 import 'package:capstone_1/globals/global_user.dart';
 import 'package:capstone_1/screens/edit_profile_screen.dart';
 import 'package:capstone_1/screens/followers_users_screen.dart';
@@ -23,6 +26,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = context.read<ThemeBloc>();
     context.read<ProfileBloc>().add(GetInfoEvent());
     return DefaultTabController(
       length: 2,
@@ -34,68 +38,86 @@ class ProfileScreen extends StatelessWidget {
               style: TextStyle(
                   color: Color(0xff023047), fontWeight: FontWeight.bold)),
           actions: [
-            ProfilePopUpMenu(
-              editProfile: PopupMenuItem(
-                child: const ListTile(
-                  leading: Icon(Icons.edit, color: Color(0xff023047)),
-                  title: Text(
-                    'Edit Profile',
-                    style: TextStyle(color: Color(0xff023047)),
-                  ),
-                ),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const EditProfileScreen()));
-                },
-              ),
-              signout: PopupMenuItem(
-                child: const ListTile(
-                  leading: Icon(
-                    Icons.logout_outlined,
-                    color: Color(0xffFB8500),
-                  ),
-                  title: Text(
-                    'Sign Out',
-                    style: TextStyle(
-                      color: Color(0xffFB8500),
-                    ),
-                  ),
-                ),
-                onTap: () {
-                  final supabase = Supabase.instance.client;
-                  supabase.auth.signOut();
-                  currentUser = null;
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SigninScreen()),
-                      (route) => false);
-                },
-              ),
-              mode: PopupMenuItem(
-                child: ListTile(
-                  leading:
-                      const Icon(Icons.dark_mode, color: Color(0xff023047)),
-                  title: const Text(
-                    'Mode',
-                    style: TextStyle(color: Color(0xff023047)),
-                  ),
-                  trailing: Padding(
-                    padding: const EdgeInsets.only(right: 20),
-                    child: SizedBox(
-                      height: 15,
-                      width: 15,
-                      child: Switch(
-                        value: false,
-                        onChanged: (value) {},
+            BlocBuilder<ThemeBloc, ThemeState>(
+              builder: (context, state) {
+                return ProfilePopUpMenu(
+                  editProfile: PopupMenuItem(
+                    child: const ListTile(
+                      leading: Icon(Icons.edit, color: Color(0xff023047)),
+                      title: Text(
+                        'Edit Profile',
+                        style: TextStyle(color: Color(0xff023047)),
                       ),
                     ),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const EditProfileScreen()));
+                    },
                   ),
-                ),
-                onTap: () {},
-              ),
+                  signout: PopupMenuItem(
+                    child: const ListTile(
+                      leading: Icon(
+                        Icons.logout_outlined,
+                        color: Color(0xffFB8500),
+                      ),
+                      title: Text(
+                        'Sign Out',
+                        style: TextStyle(
+                          color: Color(0xffFB8500),
+                        ),
+                      ),
+                    ),
+                    onTap: () {
+                      final supabase = Supabase.instance.client;
+                      supabase.auth.signOut();
+                      currentUser = null;
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SigninScreen()),
+                          (route) => false);
+                    },
+                  ),
+                  mode: PopupMenuItem(
+                    child: ListTile(
+                      leading:
+                          const Icon(Icons.dark_mode, color: Color(0xff023047)),
+                      title: const Text(
+                        'Mode',
+                        style: TextStyle(color: Color(0xff023047)),
+                      ),
+                      trailing: Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: SizedBox(
+                          height: 15,
+                          width: 15,
+                          child: BlocBuilder<ThemeBloc, ThemeState>(
+                            buildWhen: (oldState, newState) {
+                              if (newState is ChangeModeState) {
+                                return true;
+                              }
+                              return false;
+                            },
+                            builder: (context, state) {
+                              return Switch(
+                                value: bloc.dark,
+                                onChanged: (value) {
+                                  context
+                                      .read<ThemeBloc>()
+                                      .add(ChangeModeEvent(mode: value));
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                    onTap: () {},
+                  ),
+                );
+              },
             ),
           ],
         ),
