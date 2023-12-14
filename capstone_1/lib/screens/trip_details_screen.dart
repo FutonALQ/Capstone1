@@ -266,14 +266,13 @@ class _TripDetailsScreenState extends State<TripDetailsScreen> {
                           children: [
                             InkWell(
                               onTap: () {
-                                //-----------
-                                //------------EDIT--------------------
+                            
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => EditTripScreen(
                                             existingTrip: widget.trip)));
-                                //-------------------EDIT-------------------------
+                               
                               },
                               child: Container(
                                 width: 50,

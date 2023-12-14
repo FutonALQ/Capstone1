@@ -171,30 +171,7 @@ class _TripFormScreenState extends State<TripFormScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  // ElevatedButton(
-                  //   style: ElevatedButton.styleFrom(
-                  //     primary: Color(0xff8ECAE6),
-                  //   ),
-                  //   onPressed: () {
-                  //     _selectTime(context);
-                  //   },
-                  //   child: Padding(
-                  //     padding: const EdgeInsets.symmetric(vertical: 15.0),
-                  //     child: Row(
-                  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //       children: [
-                  //         Text(
-                  //           'Time: ${selectedTime.format(context)}',
-                  //           style: TextStyle(fontSize: 16),
-                  //         ),
-                  //         Icon(
-                  //           Icons.access_time,
-                  //           color: Color(0xff219EBC),
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
+    
                   const SizedBox(height: 9),
                   Padding(
                     padding: const EdgeInsets.only(left: 10),
@@ -303,21 +280,7 @@ class _TripFormScreenState extends State<TripFormScreen> {
                           ),
                         );
                       }
-                      // else if (state is AddTripValidationErrorState) {
-                      //   ScaffoldMessenger.of(context).showSnackBar(
-                      //     SnackBar(
-                      //       content: Text(
-                      //         'Validation Error: ${state.errorMessage}',
-                      //         style: TextStyle(
-                      //           fontWeight: FontWeight.bold,
-                      //           color: Colors.black,
-                      //         ),
-                      //       ),
-                      //       duration: const Duration(seconds: 2),
-                      //       backgroundColor: Color(0xff8ECAE6),
-                      //     ),
-                      //   );
-                      // }
+
                     },
                     builder: (context, state) {
                       return Container(
@@ -329,12 +292,7 @@ class _TripFormScreenState extends State<TripFormScreen> {
                         ),
                         child: TextButton(
                           onPressed: () {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) => const AppNavigationBar(),
-                            //   ),
-                            // );
+                
 
                             context.read<AddTripBloc>().add(
                                   AddTripEvent(

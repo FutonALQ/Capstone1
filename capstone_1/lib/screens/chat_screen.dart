@@ -28,7 +28,7 @@ class ChatScreen extends StatelessWidget {
             CircleAvatar(
               backgroundImage: NetworkImage(user.imageUrl ?? ""),
             ),
-            SizedBox(width: 6),
+            const SizedBox(width: 6),
             Text(user.name ?? ""),
           ],
         ),
@@ -40,7 +40,6 @@ class ChatScreen extends StatelessWidget {
       body: StreamBuilder(
         stream: bloc.getMessages(user.user_uuid!),
         builder: (context, snapshot) {
-          print("StreamBuilder rebuilding");
           if (snapshot.hasData) {
             final List<Chat> messages = snapshot.data!;
             ScrollController scrollController = ScrollController();
@@ -62,7 +61,7 @@ class ChatScreen extends StatelessWidget {
                 return ChatBubble(
                   message: messages[index].message ?? "",
                   isMine: messages[index].isMine ?? true,
-                  // createdAt: messages[index].createdAt ?? "",
+                 
                 );
               },
             );

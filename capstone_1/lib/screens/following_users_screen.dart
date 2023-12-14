@@ -26,12 +26,12 @@ class FollowingUsersScreen extends StatelessWidget {
             currentUserId == user.user_uuid ? 'My Following' : 'Following'),
         leading: IconButton(
           onPressed: () {
-            /// ********CHECK************
+           
             if (dirction == 0) {
               context.read<ProfileBloc>().add(GetInfoEvent());
               Navigator.pop(context);
             } else {
-              ///*********SCRIPT**********
+              
               context.read<ProfileBloc>().add(GetUsersInfoEvent(user: user));
               Navigator.pop(context);
             }

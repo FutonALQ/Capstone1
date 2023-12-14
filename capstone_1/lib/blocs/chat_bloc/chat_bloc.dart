@@ -10,7 +10,6 @@ part 'chat_state.dart';
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
   ChatBloc() : super(ChatInitial()) {
-    print("ChatBloc initialized");
     on<GetUsersEvent>(getUsers);
     on<SendMessageEvent>(sendMessage);
   }
@@ -24,20 +23,15 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           .from("users")
           .select()
           .neq("user_uuid", getCurrentUserId);
-      print("All Users: $allUsers");
 
-      // final List<UserModel> users =
-      //     allUsers.map((user) => UserModel.fromJson(user)).toList();
-      //     print("Parsed User: $users");
       final List<UserModel> users = allUsers.map((user) {
         final userModel = UserModel.fromJson(user);
-        // print("Parsed User: $userModel");
+
         return userModel;
       }).toList();
 
       emit(GetUsersSuccessedState(users));
     } catch (e) {
-      print(e);
       emit(ErrorGetUsersState());
     }
   }
@@ -68,11 +62,11 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
       final messages = allMesaages.map((items) =>
           items.map((item) => Chat.fromJson(item, getCurrentUserId)).toList());
-      print("i sm here ---------");
+
       return messages;
     } catch (error) {
       print(error);
-      throw FormatException("Ffff");
+      throw FormatException("Errorr");
     }
   }
 }

@@ -122,7 +122,7 @@ class ProfileScreen extends StatelessWidget {
           ],
         ),
 
-        ///////
+       
         floatingActionButton: FloatingActionButton(
           backgroundColor: const Color.fromARGB(184, 255, 184, 3),
           onPressed: () {
@@ -137,10 +137,10 @@ class ProfileScreen extends StatelessWidget {
           ),
         ),
 
-        ///
+       
         body: SafeArea(
           child: ListView(
-            //   physics: const NeverScrollableScrollPhysics(),
+           
             shrinkWrap: true,
             children: [
               BlocBuilder<ProfileBloc, ProfileState>(
@@ -182,7 +182,7 @@ class ProfileScreen extends StatelessWidget {
                             ],
                           ),
 
-////
+
                           Padding(
                             padding: const EdgeInsets.only(left: 130.0),
                             child: Row(

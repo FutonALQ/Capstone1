@@ -17,13 +17,11 @@ class FollowingButton extends StatelessWidget {
       height: 50,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          // backgroundColor: const Color.fromARGB(255, 195, 226, 241),
+          
           backgroundColor: Colors.white,
           padding: const EdgeInsets.all(5),
           elevation: 1,
-          // shape: RoundedRectangleBorder(
-          //   borderRadius: BorderRadius.circular(10),
-          // ),
+          
         ),
         onPressed: onPressed,
         child: Column(

@@ -38,19 +38,16 @@ class UsersProfileScreen extends StatelessWidget {
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
               if (direction == 'following') {
-                print('*****************FOLLOWING********************');
                 context
                     .read<ProfileBloc>()
                     .add(GetFollowingEvent(user: identity));
                 Navigator.pop(context);
               } else if (direction == 'followers') {
-                print('*****************FOLLOWERS********************');
                 context
                     .read<ProfileBloc>()
                     .add(GetFollowersEvent(user: identity));
                 Navigator.pop(context);
               } else {
-                print('*****************NULL********************');
                 Navigator.pop(context);
               }
             },

@@ -15,7 +15,6 @@ class ProfileTaps extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          // height: 80,
           child: TabBar(
             indicatorColor: const Color(0xff8ECAE6),
             labelStyle: const TextStyle(

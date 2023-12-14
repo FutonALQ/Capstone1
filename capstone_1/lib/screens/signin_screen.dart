@@ -20,17 +20,7 @@ class SigninScreen extends StatelessWidget {
     TextEditingController passwordController = TextEditingController();
 
     return Scaffold(
-      // appBar: AppBar(
-      //   automaticallyImplyLeading: false,
-      //   title: const Text(
-      //     "Sign in",
-      //     style: TextStyle(
-      //       fontSize: 30,
-      //     ),
-      //   ),
-      //   backgroundColor: Colors.transparent,
-      //   elevation: 0,
-      // ),
+
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,

@@ -21,14 +21,13 @@ Widget buildTripContainer({
             Expanded(
               child: Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 12,
-                  //fontWeight: FontWeight.bold,
+                  
                 ),
               ),
             ),
-            // if (iconData != null) SizedBox(width: 10),
-            // if (iconData != null)
+           
             Icon(
               iconData,
               color: Colors.green[50],

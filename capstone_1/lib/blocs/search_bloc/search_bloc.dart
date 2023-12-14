@@ -34,39 +34,23 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           await isFollowed(currentUserId, event.user.user_uuid.toString());
       final List<UserModel> usersList = await getSearchUser(event.query);
 
-      // for (var element in usersList) {
-      //   var check =
-      //       await isFollowed(currentUserId, element.user_uuid.toString());
-      //   if (check == false) {
-      //     await follow(currentUserId, event.user.user_uuid.toString());
-      //     element.followState = false;
-      //     print(
-      //         '===============FROM BLOC ${element.followState}===============');
-      //   } else if (check == true) {
-      //     await unfollow(event.user.user_uuid.toString());
-      //     element.followState = true;
-      //     print(
-      //         '===============FROM BLOC ${element.followState}===============');
-      //   }
-      // }
+
       if (check == false) {
-        // await follow(currentUserId, event.user.user_uuid.toString());
+        
         for (var element in usersList) {
           if (element.user_uuid == event.user.user_uuid) {
             await follow(currentUserId, event.user.user_uuid.toString());
             element.followState = false;
-            print(
-                '===============FROM BLOC ${element.followState}===============');
+          
           }
         }
       } else if (check == true) {
-        // await unfollow(event.user.user_uuid.toString());
+       
         for (var element in usersList) {
           if (element.user_uuid == event.user.user_uuid) {
             await unfollow(event.user.user_uuid.toString());
             element.followState = true;
-            print(
-                '===============FROM BLOC ${element.followState}===============');
+       
           }
         }
       }

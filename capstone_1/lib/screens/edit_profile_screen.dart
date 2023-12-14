@@ -92,7 +92,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           child: Container(
                             padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
-                              // color: Color.fromARGB(255, 255, 184, 3),
+                              
                               color: Colors.amber[300],
                               shape: BoxShape.circle,
                             ),

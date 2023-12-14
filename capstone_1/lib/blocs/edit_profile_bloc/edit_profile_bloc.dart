@@ -16,15 +16,14 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
             int.parse(event.age);
           } catch (e) {
             emit(ErrorState(message: 'The age must be integer only'));
-            print('=================AGE NOT INT=================');
+            
           }
           if (event.phone.length != 10) {
             emit(ErrorState(message: 'The phone number should be 10 numbers'));
-            print('=================PHONE NOT CURRECT=================');
+            
           } else {
             await updateUser(
-                // imageUrl:
-                //     'https://hips.hearstapps.com/hmg-prod/images/2022-ford-mustang-shelby-gt500-02-1636734552.jpg',
+               
                 name: event.name,
                 phone: event.phone,
                 age: int.parse(event.age),
@@ -35,11 +34,11 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
             currentUser!.phone = event.phone;
             currentUser!.age = int.parse(event.age);
             currentUser!.city = event.city;
-            print('=================SUCCESS=================');
+           
             emit(UpdateProfileState());
           }
         } else {
-          print('=================EMPTY=================');
+          
           emit(EmptyState(message: 'All fileds are required'));
         }
       } catch (e) {

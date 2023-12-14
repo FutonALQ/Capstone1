@@ -27,7 +27,7 @@ class ProfileLeftWidget extends StatelessWidget {
                       ? SizedBox(
                           width: MediaQuery.of(context).size.width,
                           child: GridView.builder(
-                              //    physics: const NeverScrollableScrollPhysics(),
+                             
                               padding: const EdgeInsets.only(bottom: 50),
                               shrinkWrap: true,
                               gridDelegate:
@@ -103,7 +103,7 @@ class ProfileLeftWidget extends StatelessWidget {
                     ? SizedBox(
                         width: MediaQuery.of(context).size.width,
                         child: GridView.builder(
-                            //    physics: const NeverScrollableScrollPhysics(),
+                           
                             padding: const EdgeInsets.only(bottom: 50),
                             shrinkWrap: true,
                             gridDelegate:

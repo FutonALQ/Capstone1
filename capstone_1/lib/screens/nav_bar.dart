@@ -14,12 +14,7 @@ class AppNavigationBar extends StatefulWidget {
 }
 
 class _AppNavigationBarState extends State<AppNavigationBar> {
-  // List screensList = [
-  //   UserProfile(),
-  //   SearchScreen(),
-  //   TripListScreen(),
-  //   const HomeScreen(),
-  // ];
+
 
   List screensList = [
     const HomeScreen(),

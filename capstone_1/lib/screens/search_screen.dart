@@ -156,8 +156,8 @@ class SearchScreen extends StatelessWidget {
                           itemCount: state.users.length,
                           itemBuilder: (context, i) {
                             if (state.users[i].user_uuid == currentUserId) {
-                              print(
-                                  '===============IM FALSE IN SEARCH===============');
+                             
+                             
                               return UsersCard(
                                 isVisible: false,
                                 onTap: () {
@@ -194,8 +194,7 @@ class SearchScreen extends StatelessWidget {
                                       buttonText: 'Unfollow',
                                       buttonTextColor: Colors.red,
                                       followOnPressed: () {
-                                        print(
-                                            '===============IM FALSE IN SEARCH===============');
+                                    
                                         context.read<SearchBloc>().add(
                                             FollowEvent(
                                                 user: state.users[i],
@@ -217,8 +216,7 @@ class SearchScreen extends StatelessWidget {
                                       buttonText: 'Follow',
                                       buttonTextColor: const Color(0xff023047),
                                       followOnPressed: () {
-                                        print(
-                                            '===============IM TRUE IN SEARCH===============');
+                                      
                                         context.read<SearchBloc>().add(
                                             FollowEvent(
                                                 user: state.users[i],

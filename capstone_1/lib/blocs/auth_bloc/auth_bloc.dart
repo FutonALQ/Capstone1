@@ -44,7 +44,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthStates> {
           print("AuthException: ${authException.message}");
           emit(ErrorSignUpState(authException.message));
         } else {
-          // Handle other exceptions
+        
           print("Unexpected error: $authException");
           emit(ErrorSignUpState("Unexpected error occurred"));
         }

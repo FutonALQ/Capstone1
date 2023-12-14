@@ -226,7 +226,7 @@ class _EditTripScreenState extends State<EditTripScreen> {
                       elevation: 16,
                       style: const TextStyle(color: Color(0xff023047)),
                       underline: Container(
-                        // height: 1,
+                       
                         color: const Color(0xff8ECAE6),
                       ),
                       dropdownColor: const Color(0xff8ECAE6)),
@@ -268,7 +268,7 @@ class _EditTripScreenState extends State<EditTripScreen> {
                     elevation: 16,
                     style: const TextStyle(color: Color(0xff023047)),
                     underline: Container(
-                      // height: 1,
+                      
                       color: const Color(0xff8ECAE6),
                     ),
                     dropdownColor: const Color(0xff8ECAE6),

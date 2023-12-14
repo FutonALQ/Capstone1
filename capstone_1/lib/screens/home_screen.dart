@@ -109,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
             width: MediaQuery.of(context).size.width,
             height: 50,
             child: ListView.builder(
-              // shrinkWrap: true,
+             
               scrollDirection: Axis.horizontal,
               itemCount: category.length * 2 - 1,
               itemBuilder: (context, index) {

@@ -127,8 +127,7 @@ Future<List<Trip>> getOwnerTrips(String userID) async {
     tripsObjectList.add(Trip.fromJson(element));
   }
 
-  // print(
-  //     '%%%%%%%%%%%%%%%%%%%%%%\n${tripsObjectList.first.title}\n%%%%%%%%%%%%%%%%%%%%%%');
+ 
   return tripsObjectList;
 }
 
@@ -147,7 +146,7 @@ Future updateUser({
   }).eq('user_uuid', supabase.auth.currentUser!.id);
 }
 
-/// ____________________________________________________________
+
 
 Future<UserModel> getUser() async {
   final supabase = Supabase.instance.client;
@@ -187,7 +186,6 @@ Future<List<Trip>> getTrips({String? Userid}) async {
           .from('trips')
           .select('*, a_trip!inner()')
           .eq('a_trip.joint_id', Userid);
-      print(data);
     } else {
       data = await supabase.from('trips').select('*');
     }
@@ -287,12 +285,7 @@ Future<Trip> getTripDetails(String tripId) async {
   return Trip.fromJson(response.data.first as Map<String, dynamic>);
 }
 
-// Function to update trip details
-// Future<void> updateTrip(String tripId, Map<String, dynamic> body) async {
-//   final supabase = Supabase.instance.client;
 
-//   await supabase.from("trips").update(body).eq('id', tripId);
-// }
 Future<void> updateTrip(String tripId, Map<String, dynamic> body, File? image) async {
   final supabase = Supabase.instance.client;
 
@@ -313,28 +306,6 @@ Future<void> updateTrip(String tripId, Map<String, dynamic> body, File? image) a
 
 
 
-// Future<void> addTrip(Map<String, dynamic> body, File image) async {
-//   final supabase = Supabase.instance.client;
 
 
-//   final timestamp = DateTime.now().millisecondsSinceEpoch;
-//   final imageName = '$timestamp.png';
 
- 
-//   await supabase.storage.from("image_project").upload(imageName, image);
-
-  
-//   final imageUrl = await supabase.storage.from("image_project").getPublicUrl(imageName);
-
- 
-//   body["image"] = imageUrl;
-
-  
-//   await supabase.from("trips").insert(body).select();
-// }
-
-
-// addTrip(Map<String, dynamic> body) async {
-//   final supabase = Supabase.instance.client;
-//   await supabase.from("trips").insert(body).select();
-// }
